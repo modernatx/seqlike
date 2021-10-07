@@ -1,0 +1,7 @@
+biopython
+numpy
+pandas
+scikit-learn
+pytest
+python_codon_tables
+weblogo
