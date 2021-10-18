@@ -33,9 +33,6 @@ jobs:
         run: |
           conda env create -f environment.yml
 
-      - name: Build environment
-        uses: ./.github/actions/setup-env
-
       - name: Install conda-pack
         if: steps.cache-environment.outputs.cache-hit != 'true'
         run: conda install -c conda-forge conda-pack
