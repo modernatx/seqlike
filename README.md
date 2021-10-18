@@ -19,17 +19,7 @@ SeqLikes abstracts over the semantics of molecular biology (DNA -> RNA -> AA)
 to allow manipulating a biological sequence
 at the level which is most computationally convenient.
 
-For example:
-
-- Perform multiple sequence alignment and visualize the result [without leaving your Jupyter Notebook](https://github.com/modernatx/seqlike/blob/main/notebooks/tutorial.ipynb).
-- Move back and forth between nucleotide and amino-acid sequences while preserving their biological semantics.
-
-To see more in action,
-please check out the [docs](https://modernatx.github.io/seqlike/)!
-
-<!-- ![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png) -->
-
-## Code samples
+## Code samples and examples
 
 ### Build data-type agnostic functions
 
@@ -84,6 +74,12 @@ df["aligned"].seq.plot()
 # Assume you have a dataframe with a column of SeqLikes
 df["seqs"].seq.to_onehot().shape # (10, 91, 23), padded if needed
 ```
+
+To see more in action,
+please check out the [docs](https://modernatx.github.io/seqlike/)!
+
+<!-- ![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png) -->
+
 
 ## Getting Started
 
