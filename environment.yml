@@ -21,6 +21,7 @@ dependencies:
   - interrogate
   - matplotlib
   - bokeh
+  - python-codon-tables
   # Code quality
   - pre-commit
   - darglint
