@@ -12,8 +12,8 @@ description: Setup development environment
 runs:
   using: "composite"
   steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    # - name: Checkout repository
+    #   uses: actions/checkout@v2
 
     # See: https://github.com/marketplace/actions/setup-conda
     - name: Setup anaconda
