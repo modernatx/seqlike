@@ -3,5 +3,5 @@ numpy
 pandas
 scikit-learn
 pytest
-python_codon_tables
+python-codon-tables
 weblogo
