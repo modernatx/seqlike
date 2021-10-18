@@ -3,7 +3,7 @@
 [![Apache v2 License](https://img.shields.io/badge/license-Apache%202-blue)](https://github.com/modernatx/seqlike/blob/main/LICENSE)
 
 A single object API that makes working with biological sequences in Python
-just a bit more ergonomic.
+just a bit more ergonomic. It'll handle anything _like a sequence_.
 
 We introduce the concept of a "Sequence" as a consistent abstract entity that is maintained accross biological (nucleotide -> protein) and computational (string -> encoding) transforms.
 
@@ -16,20 +16,10 @@ etc.
 
 Built around the [Biopython SeqRecord class](https://biopython.org/wiki/SeqRecord),
 SeqLikes abstracts over the semantics of molecular biology (DNA -> RNA -> AA)
-to allow manipulating an abstract sequence
+to allow manipulating a biological sequence
 at the level which is most computationally convenient.
 
-For example:
-
-- Perform multiple sequence alignment and visualize the result [without leaving your Jupyter Notebook](https://github.com/modernatx/seqlike/blob/main/notebooks/tutorial.ipynb).
-- Move back and forth between nucleotide and amino-acid sequences while preserving their biological semantics.
-
-To see more in action,
-please check out the [docs](https://modernatx.github.io/seqlike/)!
-
-<!-- ![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png) -->
-
-## Code samples
+## Code samples and examples
 
 ### Build data-type agnostic functions
 
@@ -64,7 +54,7 @@ s_aa.nt() # now works, backtranslated to e.g. ATGTCTAAAGGTGAA
 s_aa[:1].nt() # ATG, codon_map is maintained
 ```
 
-### Plot the multiple sequence alignment
+### Easily plot multiple sequence alignments
 
 ```python
 seqs = [s for s in SeqIO.parse("file.fasta", "fasta")]
@@ -78,12 +68,18 @@ df["aligned"] = df["seqs"].seq.align()
 df["aligned"].seq.plot()
 ```
 
-### Easily build numerical representations
+### Flexibly build and parse numerical sequence representations
 
 ```python
 # Assume you have a dataframe with a column of SeqLikes
 df["seqs"].seq.to_onehot().shape # (10, 91, 23), padded if needed
 ```
+
+To see more in action,
+please check out the [docs](https://modernatx.github.io/seqlike/)!
+
+<!-- ![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png) -->
+
 
 ## Getting Started
 
