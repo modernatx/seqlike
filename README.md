@@ -3,20 +3,12 @@
 [![Apache v2 License](https://img.shields.io/badge/license-Apache%202-blue)](https://github.com/modernatx/seqlike/blob/main/LICENSE)
 
 A single object API that makes working with biological sequences in Python
-just a bit more ergonomic. It'll handle anything _like a sequence_.
-
-We introduce the concept of a "Sequence" as a consistent abstract entity that is maintained accross biological (nucleotide -> protein) and computational (string -> encoding) transforms.
-
-The SeqLike class includes many convenience methods
-for converting between representations:
-One-Hot vs Index Encodings,
-strings,
-Biopython Seqs,
-etc.
+ more ergonomic. It'll handle anything _like a sequence_.
 
 Built around the [Biopython SeqRecord class](https://biopython.org/wiki/SeqRecord),
-SeqLikes abstracts over the semantics of molecular biology (DNA -> RNA -> AA)
-to allow manipulating a biological sequence
+SeqLikes abstracts over the semantics of molecular biology (DNA -> RNA -> AA) 
+and data structures (strings, Seqs, SeqRecords, numerical encodings)
+to allow manipulation of a biological sequence
 at the level which is most computationally convenient.
 
 ## Code samples and examples
@@ -71,8 +63,8 @@ df["aligned"].seq.plot()
 ### Flexibly build and parse numerical sequence representations
 
 ```python
-# Assume you have a dataframe with a column of SeqLikes
-df["seqs"].seq.to_onehot().shape # (10, 91, 23), padded if needed
+# Assume you have a dataframe with a column of 10 SeqLikes of length 90
+df["seqs"].seq.to_onehot().shape # (10, 90, 23), padded if needed
 ```
 
 To see more in action,
