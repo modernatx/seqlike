@@ -85,12 +85,15 @@ def warning_install():
 
 def download_mafft(kind="deb") -> Path:
     """Download MAFFT from the original website."""
+    acceptable_kinds = ["deb", "rpm"]
+    if kind not in acceptable_kinds:
+        raise NameError("`kind` should be one of 'deb' or 'rpm'.")
+
     if kind == "deb":
         mafft_file = "mafft_7.487-1_amd64.deb"
-    elif kind == "rpm":
+    if kind == "rpm":
         mafft_file = "mafft-7.487-gcc_fc6.x86_64.rpm"
-    else:
-        raise NameError("`kind` should be one of 'deb' or 'rpm'.")
+
     deb_filepath = Path("/tmp/") / mafft_file
     if not os.path.isfile(deb_filepath):
         url = "https://mafft.cbrc.jp/alignment/software/" + mafft_file
