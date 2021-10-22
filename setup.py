@@ -49,7 +49,9 @@ def no_install():
 
 def brew_install():
     """Attempt installation by brew."""
-    result = subprocess.run(["brew", "update"])
+    result = subprocess.run(["which", "brew"])
+    if result.returncode == SUCCESS_RETURN_CODE:
+        result = subprocess.run(["brew", "update"])
     if result.returncode == SUCCESS_RETURN_CODE:
         result = subprocess.run(["brew", "install", "mafft"])
     return result
@@ -57,7 +59,9 @@ def brew_install():
 
 def debian_install():
     """Install MAFFT on debian."""
-    result = subprocess.run(["apt-get", "update"])
+    result = subprocess.run(["which", "apt-get"])
+    if result.returncode == SUCCESS_RETURN_CODE:
+        result = subprocess.run(["apt-get", "update"])
     if result.returncode == SUCCESS_RETURN_CODE:
         result = subprocess.run(["apt-get", "install", "-y", "ghostscript"])
     if result.returncode == SUCCESS_RETURN_CODE:
