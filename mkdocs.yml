@@ -24,15 +24,15 @@ plugins:
           selection:
             docstring_style: restructured-text
 
-  # - mknotebooks:
-  #     execute: true
-  #     write_markdown: true
-  #     allow_errors: false
-  #     timeout: 1200
-  #     binder: true
-  #     binder_service_name: "gh"
-  #     binder_branch: "master"
-  #     binder_ui: "lab"
+  - mknotebooks:
+      execute: true
+      write_markdown: true
+      allow_errors: true
+      timeout: 1200
+      binder: true
+      binder_service_name: "gh"
+      binder_branch: "main"
+      binder_ui: "lab"
 
 # Taken from here: https://squidfunk.github.io/mkdocs-material/extensions/codehilite/
 markdown_extensions:
@@ -52,5 +52,5 @@ extra_css:
   - css/apidocs.css
 
 # TODO: Uncomment and set values to correct ones as appropriate.
-# repo_name: "modernatx/seqlike"
-# repo_url: "https://github.com/modernatx/seqlike"
+repo_name: "modernatx/seqlike"
+repo_url: "https://github.com/modernatx/seqlike"

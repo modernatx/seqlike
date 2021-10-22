@@ -30,3 +30,4 @@ dependencies:
   - mkdocs-material
   - pip:
       - mkdocstrings # for docstrings
+      - mknotebooks  # for notebooks in docs

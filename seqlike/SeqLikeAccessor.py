@@ -110,7 +110,7 @@ class SeqLikeAccessor:
         We use .as_alignment() for convenience.
 
         :param use_bokeh: bool; if True (default), use Bokeh backend if available, otherwise use draw_alignment
-        :param colorschme: ColorScheme, WebLogo based mapping of symbol to color
+        :param colorscheme: ColorScheme, WebLogo based mapping of symbol to color
         :param x_scale: float, x scaling factor used with draw_alignment backend
         :param y_scale: float, y scaling factor used with draw_alignment backend
         :param *args: Passed into `seqlike.alignment_utils.view_alignment`.
@@ -121,7 +121,7 @@ class SeqLikeAccessor:
             colorscheme = nt_simple
         elif colorscheme is None and self._type == "AA":
             colorscheme = aa_chemistry_simple
-        
+
         if use_bokeh:
             try:
                 return view_alignment(self.as_alignment(), colorscheme=colorscheme, *args, **kwargs)
