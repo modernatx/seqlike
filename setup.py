@@ -50,7 +50,7 @@ def no_install():
 def brew_install():
     """Attempt installation by brew."""
     result = subprocess.run(["brew", "update"])
-    if result.returncode == 0:
+    if result.returncode == SUCCESS_RETURN_CODE:
         result = subprocess.run(["brew", "install", "mafft"])
     return result
 
