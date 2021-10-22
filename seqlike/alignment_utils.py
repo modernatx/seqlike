@@ -10,9 +10,7 @@ from .alignment_commands import mafft_alignment
 from .SeqLike import SeqLikeType, SeqLike
 
 
-def copy_annotations_from_unaligned(
-    aligned_seqrec: SeqRecord, unaligned_seqrec: SeqRecord
-):
+def copy_annotations_from_unaligned(aligned_seqrec: SeqRecord, unaligned_seqrec: SeqRecord):
     """Copy letter annotations (and annotations) from unaligned to (aligned) seqrec.
     Assumes that seqrec is a gapped version of unaligned_seqrec
 
@@ -22,9 +20,7 @@ def copy_annotations_from_unaligned(
     :returns: a SeqRecord with letter_annotations that have been aligned
     """
     # NCBI Blast id includes description, whereas alignment does not
-    assert (
-        aligned_seqrec.id in unaligned_seqrec.id
-    ), f"{aligned_seqrec.id} <> {unaligned_seqrec.id}"
+    assert aligned_seqrec.id in unaligned_seqrec.id, f"{aligned_seqrec.id} <> {unaligned_seqrec.id}"
     # copy annotations from previous
     newrec = deepcopy(aligned_seqrec)
     newrec.annotations = unaligned_seqrec.annotations
@@ -46,17 +42,13 @@ def copy_annotations_from_unaligned(
                     letter_annotation = gap_letter
                 else:
                     letter_annotation = None
-                newrec.letter_annotations.setdefault(key, list()).append(
-                    letter_annotation
-                )
+                newrec.letter_annotations.setdefault(key, list()).append(letter_annotation)
         else:
             while seq[i] in [gap_letter, stop_letter]:
                 i += 1
             assert letter == seq[i], f"letter {letter} at {j} <> seq {seq[i]} at {i}"
             for key in letter_annotations.keys():
-                newrec.letter_annotations.setdefault(key, list()).append(
-                    letter_annotations[key][i]
-                )
+                newrec.letter_annotations.setdefault(key, list()).append(letter_annotations[key][i])
             i += 1
     # convert list of chars into string
     for key, values in letter_annotations.items():
@@ -79,15 +71,10 @@ def align_letter_annotations(unaligned, aligned, seq_type, original_ids=None):
     unaligned_dict = SeqIO.to_dict(unaligned)
     realigned = list()
     for seqrec in aligned:
-        realigned.append(
-            copy_annotations_from_unaligned(seqrec, unaligned_dict[seqrec.id])
-        )
+        realigned.append(copy_annotations_from_unaligned(seqrec, unaligned_dict[seqrec.id]))
     if original_ids:
         # restore ID, name, and description; these will have changed upon readback from alignment output
-        realigned = [
-            SeqLike(s, seq_type=seq_type).to_seqrecord(**original_ids[s.id])
-            for s in realigned
-        ]
+        realigned = [SeqLike(s, seq_type=seq_type).to_seqrecord(**original_ids[s.id]) for s in realigned]
     return MultipleSeqAlignment(realigned)
 
 

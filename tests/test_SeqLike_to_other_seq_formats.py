@@ -20,7 +20,11 @@ sequence_list_nt = [
         marks=pytest.mark.xfail(reason=".nt() call expects to back translate AA sequence."),
     ),
     pytest.param(
-        "#^@*)!&$&$)_#_", "#^@*)!&$&$)_#_", True, None, marks=pytest.mark.xfail(reason="Not a biological sequence."),
+        "#^@*)!&$&$)_#_",
+        "#^@*)!&$&$)_#_",
+        True,
+        None,
+        marks=pytest.mark.xfail(reason="Not a biological sequence."),
     ),
 ]
 
@@ -31,7 +35,11 @@ sequence_list_aa = [
     ("AUGGUGCUGUUU", "MVLF", True, "rna"),
     ("LAIGHATY", "LAIGHATY", True, "aa"),
     pytest.param(
-        "#^@*)!&$&$)_#_", "#^@*)!&$&$)_#_", True, None, marks=pytest.mark.xfail(reason="Not a biological sequence."),
+        "#^@*)!&$&$)_#_",
+        "#^@*)!&$&$)_#_",
+        True,
+        None,
+        marks=pytest.mark.xfail(reason="Not a biological sequence."),
     ),
 ]
 
@@ -124,7 +132,14 @@ sequence_list_aa = [
     (Seq("ATGCGCGCG"), "MRA", True, "dna"),
     (Seq("AUGGUGCUGUUU"), "MVLF", True, "rna"),
     (Seq("LAIGHATY"), "LAIGHATY", True, "aa"),
-    (Seq("LAIGHATY",), "LAIGHATY", True, "aa"),
+    (
+        Seq(
+            "LAIGHATY",
+        ),
+        "LAIGHATY",
+        True,
+        "aa",
+    ),
     pytest.param(
         Seq("#^@*)!&$&$)_#_"),
         "#^@*)!&$&$)_#_",

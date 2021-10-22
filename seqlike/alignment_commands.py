@@ -96,9 +96,7 @@ def mafft_alignment(seqrecs, preserve_order=True, **kwargs):
     # MAFFT does not reorder alignment by default (reorder=False), but don't overwrite 'reorder' if set
     if "reorder" not in kwargs:
         kwargs["reorder"] = not preserve_order
-    return _generic_alignment(
-        commandline, seqrecs, preserve_order=preserve_order, **kwargs
-    )
+    return _generic_alignment(commandline, seqrecs, preserve_order=preserve_order, **kwargs)
 
 
 def clustal_omega_alignment(seqrecs, preserve_order=True, **kwargs):
@@ -115,9 +113,7 @@ def clustal_omega_alignment(seqrecs, preserve_order=True, **kwargs):
         outputorder = "tree-order"
 
     def commandline(file_obj, **kwargs):
-        cline = ClustalOmegaCommandline(
-            "clustalo", infile=file_obj.name, outputorder=outputorder, **kwargs
-        )
+        cline = ClustalOmegaCommandline("clustalo", infile=file_obj.name, outputorder=outputorder, **kwargs)
         return _generic_aligner_commandline_stdout(cline)
 
     return _generic_alignment(commandline, seqrecs, **kwargs)
@@ -142,9 +138,7 @@ def clustal_omega_distance_matrix(seqrecs, **kwargs):
                 distmat_full_iter=True,
             )
         stdout, stderr = cline()
-        df = pd.read_csv(
-            ft_out.name, delim_whitespace=True, skiprows=1, header=None, index_col=0
-        )
+        df = pd.read_csv(ft_out.name, delim_whitespace=True, skiprows=1, header=None, index_col=0)
         df.index.name = "seqid"
         return df
 
@@ -201,9 +195,7 @@ def clustalw_alignment_tree(seqrecs, **kwargs):
 
     def commandline(ft, **kwargs):
         with tempfile.NamedTemporaryFile(delete=False, mode="w") as ft_out:
-            cline = ClustalwCommandline(
-                infile=ft.name, output="fasta", newtree=ft_out.name
-            )
+            cline = ClustalwCommandline(infile=ft.name, output="fasta", newtree=ft_out.name)
             stdout, stderr = cline()
             return Phylo.read(ft_out.name, "newick")
 

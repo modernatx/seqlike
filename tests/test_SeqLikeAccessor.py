@@ -22,9 +22,7 @@ from . import test_path
 
 # TODO: Turn this into a pytest fixture using Hypothesis.
 # We might need to refactor out the fixtures a bit.
-nt_seqs = [
-    SeqLike(s, "nt") for s in SeqIO.parse(test_path / f"abs_nt_4.fasta", "fasta")
-]
+nt_seqs = [SeqLike(s, "nt") for s in SeqIO.parse(test_path / f"abs_nt_4.fasta", "fasta")]
 s = SeqLike(SeqIO.read(test_path / f"test.fa", "fasta"), seq_type="dna")
 s_aa = SeqLike(SeqIO.read(test_path / f"test.fa", "fasta"), seq_type="dna").aa()
 s_aa_with_codon_map = SeqLike(
@@ -220,9 +218,7 @@ def test_backtranslate(seqs, _type):
         with pytest.raises(AttributeError):
             df.seqs.seq.back_translate()
 
-    elif (
-        _type == "aa" and df.seqs.iloc[0].codon_map is None
-    ):  # CAN backtrans if codon_map specified
+    elif _type == "aa" and df.seqs.iloc[0].codon_map is None:  # CAN backtrans if codon_map specified
         assert isinstance(
             df.seqs.seq.back_translate(codon_map=codon_table_to_codon_map(human_codon_table)),
             pd.Series,

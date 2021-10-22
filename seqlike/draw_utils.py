@@ -61,13 +61,14 @@ aa_dssp_color = colorscheme.ColorScheme(
 )
 
 nt_simple = colorscheme.ColorScheme(
-        [
-            colorscheme.SymbolColor("G", "orange"),
-            colorscheme.SymbolColor("TU", "red"),
-            colorscheme.SymbolColor("C", "blue"),
-            colorscheme.SymbolColor("A", "green")
-        ],
+    [
+        colorscheme.SymbolColor("G", "orange"),
+        colorscheme.SymbolColor("TU", "red"),
+        colorscheme.SymbolColor("C", "blue"),
+        colorscheme.SymbolColor("A", "green"),
+    ],
 )
+
 
 def convert_weblogo_color(color: Color, color_format: str) -> Union[tuple, str]:
     """Convert weblogo Color to Bokeh color object
@@ -92,9 +93,7 @@ def convert_weblogo_color(color: Color, color_format: str) -> Union[tuple, str]:
         return hex_str
 
 
-def convert_colorscheme_to_color_map(
-    color_scheme: colorscheme.ColorScheme, color_format: str
-) -> dict:
+def convert_colorscheme_to_color_map(color_scheme: colorscheme.ColorScheme, color_format: str) -> dict:
     """Convert weblogo ColorScheme into bokeh color map
     :param color_scheme: a weblogo ColorScheme object
     :param color_format: 'hex' or 'rgb' for hex string or RGB tuple, respectively
@@ -156,9 +155,7 @@ def find_font(size, fontpath=None):
         sys.stdout.write("Found font in {}\n".format(str(font_searchpath)))
     except IOError as e:
         sys.stderr.write(str(e))
-        sys.stderr.write(
-            "could not find font in {}\nUsing default\n".format(str(font_searchpath))
-        )
+        sys.stderr.write("could not find font in {}\nUsing default\n".format(str(font_searchpath)))
         font = ImageFont.load_default()
     return font
 
@@ -196,24 +193,11 @@ def draw_alignment(
         font = find_font(boxheight)
         offset = -1
         if show_names:
-            offset += (
-                font.getsize(max([m.name[None:label_width] for m in aligned], key=len))[
-                    0
-                ]
-                + 1
-            )
+            offset += font.getsize(max([m.name[None:label_width] for m in aligned], key=len))[0] + 1
         if show_ids:
-            offset += (
-                font.getsize(max([m.id[None:label_width] for m in aligned], key=len))[0]
-                + 1
-            )
+            offset += font.getsize(max([m.id[None:label_width] for m in aligned], key=len))[0] + 1
         if show_descriptions:
-            offset += (
-                font.getsize(
-                    max([m.description[None:label_width] for m in aligned], key=len)
-                )[0]
-                + 1
-            )
+            offset += font.getsize(max([m.description[None:label_width] for m in aligned], key=len))[0] + 1
     else:
         font, offset = None, 0
 
@@ -310,9 +294,7 @@ def view_alignment(
     # make sequence and id lists from the aligned object
     seqs = [rec.seq for rec in (aligned)]
     if show_descriptions:
-        labels = [
-            f"{row} - {rec.description} ({rec.id})" for (row, rec) in enumerate(aligned)
-        ]
+        labels = [f"{row} - {rec.description} ({rec.id})" for (row, rec) in enumerate(aligned)]
     else:
         labels = [f"{row} - {rec.id}" for (row, rec) in enumerate(aligned)]
 
@@ -340,9 +322,7 @@ def view_alignment(
     # use recty for rect coords with an offset
     recty = gy + 0.5
     # now we can create the ColumnDataSource with all the arrays
-    source = bk.models.ColumnDataSource(
-        dict(x=gx, y=gy, recty=recty, text=text, colors=colors)
-    )
+    source = bk.models.ColumnDataSource(dict(x=gx, y=gy, recty=recty, text=text, colors=colors))
     plot_height = len(seqs) * boxheight + 50
     x_range = bk.models.Range1d(0, N + 1, bounds="auto")
     viewlen = min(show_N, N)
@@ -396,7 +376,7 @@ def view_alignment(
         text_align="center",
         text_color="black",
         text_font=value("monospace"),
-        text_font_size=fontsize,   
+        text_font_size=fontsize,
     )
     rects = bk.models.glyphs.Rect(
         x="x",

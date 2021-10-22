@@ -58,15 +58,11 @@ class SeqLikeAccessor:
         """
 
         # We assume that the 'seqs' column is all SeqLikes
-        assert all(
-            [isinstance(x, SeqLike) for x in obj]
-        ), "Seq column must contain all SeqLike objects."
+        assert all([isinstance(x, SeqLike) for x in obj]), "Seq column must contain all SeqLike objects."
 
         # All SeqLikes must be of the same type
         if len(set(obj.apply(lambda s: s._type.upper()))) != 1:
-            raise ValueError(
-                "All SeqLikes must be of the same _type (i.e. 'aa', or 'nt')."
-            )
+            raise ValueError("All SeqLikes must be of the same _type (i.e. 'aa', or 'nt').")
 
     @staticmethod
     def _match_alphabets(obj):
@@ -165,9 +161,7 @@ class SeqLikeAccessor:
         # make sequence labels
         consensus = self.consensus()
         if seqnum_labels:
-            assert (
-                len(seqnum_labels) == self.max_length()
-            ), "Number of labels does not match sequence length"
+            assert len(seqnum_labels) == self.max_length(), "Number of labels does not match sequence length"
         elif ref_id:
             refseq = self.get_seq_by_id(ref_id)
             if "seqnums" in refseq.letter_annotations:
@@ -211,9 +205,7 @@ class SeqLikeAccessor:
         :returns: A pandas Series of aligned sequences.
         """
         col_seq_type = self._obj.iloc[0]._type
-        alignment = align(
-            self._obj, seq_type=col_seq_type, preserve_order=preserve_order, **kwargs
-        )
+        alignment = align(self._obj, seq_type=col_seq_type, preserve_order=preserve_order, **kwargs)
         return pd.Series([SeqLike(x, col_seq_type) for x in alignment], self._obj.index)
 
     def as_alignment(self, alphabet: Optional[str] = None) -> MultipleSeqAlignment:
@@ -279,9 +271,7 @@ class SeqLikeAccessor:
         :param encoder: The one-hot encoder to use.
         :returns: A generator of (alphabet letter, count) tuples
         """
-        return zip(
-            self.alphabet, self.as_counts(pad=pad, dtype=dtype, encoder=encoder).T
-        )
+        return zip(self.alphabet, self.as_counts(pad=pad, dtype=dtype, encoder=encoder).T)
 
     @property
     def alphabet(self) -> str:
@@ -395,9 +385,7 @@ class SeqLikeAccessor:
         :returns: The letter of a given sequence.
         """
         assert isinstance(index, tuple) and len(index), "Index is row and column"
-        assert isinstance(index[0], (slice, int)) and isinstance(
-            index[1], (slice, int, list)
-        )
+        assert isinstance(index[0], (slice, int)) and isinstance(index[1], (slice, int, list))
         return self._obj.iloc[index[0]].apply(lambda seq: seq[index[1]])
 
     def max_length(self):
@@ -429,9 +417,7 @@ class SeqLikeAccessor:
         # find the column indices corresponding to the seqnums
         if list_of_seqnums is None:
             list_of_seqnums = [
-                seqnum
-                for seqnum in refseq._seqrecord.letter_annotations["seqnums"]
-                if seqnum is not None
+                seqnum for seqnum in refseq._seqrecord.letter_annotations["seqnums"] if seqnum is not None
             ]
         indices = refseq.seq_num_to_idx(list_of_seqnums)
         # slice the alignment at column indices
@@ -469,15 +455,11 @@ class SeqLikeAccessor:
         if pad:
             max_len = self.max_length()
             return np.stack(
-                self._obj.apply(
-                    lambda x: x.pad_to(max_len).to_onehot(dtype, encoder)
-                ).values,
+                self._obj.apply(lambda x: x.pad_to(max_len).to_onehot(dtype, encoder)).values,
                 axis=0,
             )
         else:
-            return np.stack(
-                self._obj.apply(lambda x: x.to_onehot(dtype, encoder)).values, axis=0
-            )
+            return np.stack(self._obj.apply(lambda x: x.to_onehot(dtype, encoder)).values, axis=0)
 
     def to_index(self, pad: bool = True, dtype: type = int, encoder=None) -> np.ndarray:
         """Return a 2d Numpy array of the specified column in index encoding.
@@ -496,15 +478,11 @@ class SeqLikeAccessor:
         if pad:
             max_len = self.max_length()
             return np.stack(
-                self._obj.apply(
-                    lambda x: x.pad_to(max_len).to_index(dtype, encoder)
-                ).values,
+                self._obj.apply(lambda x: x.pad_to(max_len).to_index(dtype, encoder)).values,
                 axis=0,
             )
         else:
-            return np.stack(
-                self._obj.apply(lambda x: x.to_index(dtype, encoder)).values, axis=0
-            )
+            return np.stack(self._obj.apply(lambda x: x.to_index(dtype, encoder)).values, axis=0)
 
     def back_translate(self, codon_map=None):
         """Back-translate the collection of SeqLikes.

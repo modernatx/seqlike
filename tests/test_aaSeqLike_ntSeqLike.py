@@ -37,6 +37,7 @@ def string_sequences(draw, alphabet: str = None, min_size: int = 1) -> tuple:
         seq_type = draw(sampled_from(AA_TYPES))
     return sequence, seq_type, alphabet
 
+
 @given(string_sequences())
 def test_NTSeqLike(sequence_type_and_alphabet):
     """Test initialization of SeqLike objects from strings."""
@@ -45,19 +46,20 @@ def test_NTSeqLike(sequence_type_and_alphabet):
 
     # NTSeqLike will coerce, so this AAs that are all A/T/C/G/U will work here
     # Test that NTSeqLike construction passes when we have guarantees over
-    # the type 
+    # the type
     if seq_type == "NT":
         s_temp = ntSeqLike(sequence)
         assert str(s_temp) == str(seq)
         assert s_temp._type == seq_type
 
     # Test that construction of NTSeqLike fails when trying to make an NTSeqLike
-    # from a sequence that contains non-NT characters, e.g. AA seqs    
-    else: 
-        if not(is_NT(sequence)):
+    # from a sequence that contains non-NT characters, e.g. AA seqs
+    else:
+        if not (is_NT(sequence)):
             with pytest.raises(TypeError):
                 str(ntSeqLike(sequence)) == str(seq)
-             
+
+
 @given(string_sequences())
 def test_AASeqLike(sequence_type_and_alphabet):
     """Test initialization of SeqLike objects from strings."""
