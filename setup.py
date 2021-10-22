@@ -32,7 +32,7 @@ class InstallWrapper(install):
         # install.do_egg_install(self)
         orig_install.run(self)
         result = no_install()
-        if result.return_code != SUCCESS_RETURN_CODE:
+        if result.returncode != SUCCESS_RETURN_CODE:
             result = debian_install()
         if result.returncode != SUCCESS_RETURN_CODE:
             print("Debian-based installation failed. Trying with brew instead...")
