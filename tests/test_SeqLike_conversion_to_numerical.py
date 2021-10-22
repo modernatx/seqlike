@@ -9,7 +9,10 @@ sequence_list = [
     ("AUAAUAUAU-", ([1.0, 5.0, 1.0, 1.0, 5.0, 1.0, 5.0, 1.0, 5.0, 0.0]), "rna"),
     ("LAIGHATY*-", ([11.0, 2.0, 9.0, 7.0, 8.0, 2.0, 18.0, 21.0, 0.0, 1.0]), "aa"),
     pytest.param(
-        "#^@*)!&$&$)_#_", "#^@*)!&$&$)_#_", None, marks=pytest.mark.xfail(reason="Not a biological sequence."),
+        "#^@*)!&$&$)_#_",
+        "#^@*)!&$&$)_#_",
+        None,
+        marks=pytest.mark.xfail(reason="Not a biological sequence."),
     ),
 ]
 
@@ -311,7 +314,10 @@ sequence_list = [
     ("AUGGUGCUG-", RNA_AUGGUGCUGdash_onehot, "rna"),
     ("LAIGHATY*-", AA_LAIGHATYstardash_onehot, "aa"),
     pytest.param(
-        "#^@*)!&$&$)_#_", "#^@*)!&$&$)_#_", None, marks=pytest.mark.xfail(reason="Not a biological sequence."),
+        "#^@*)!&$&$)_#_",
+        "#^@*)!&$&$)_#_",
+        None,
+        marks=pytest.mark.xfail(reason="Not a biological sequence."),
     ),
 ]
 

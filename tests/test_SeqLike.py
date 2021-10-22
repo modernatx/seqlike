@@ -84,9 +84,7 @@ def test_init_from_seqrecord(sequence_type_and_alphabet):
     """Test that initialization from SeqRecord works."""
     sequence, seq_type, alphabet = sequence_type_and_alphabet
     details = {"id": "i1", "name": "n1", "description": "desc1"}
-    seqrec = SeqLike(sequence, seq_type=seq_type, alphabet=alphabet).to_seqrecord(
-        **details
-    )
+    seqrec = SeqLike(sequence, seq_type=seq_type, alphabet=alphabet).to_seqrecord(**details)
     seq = SeqLike(seqrec, seq_type=seq_type)
     assert seq.id == "i1"
     assert seq.name == "n1"
@@ -97,9 +95,7 @@ def test_init_from_seqrecord(sequence_type_and_alphabet):
 def test_init_from_seqrecord_copied(sequence_type_and_alphabet):
     """Test that initialization from SeqRecords return deep copies."""
     sequence, seq_type, alphabet = sequence_type_and_alphabet
-    seqrec = SeqLike(
-        sequence, alphabet=alphabet, seq_type=seq_type, id="id0"
-    ).to_seqrecord()
+    seqrec = SeqLike(sequence, alphabet=alphabet, seq_type=seq_type, id="id0").to_seqrecord()
 
     seq0 = SeqLike(seqrec, seq_type=seq_type, id=f"1:{seqrec.id}")
     assert seqrec.id == "id0"
@@ -152,6 +148,7 @@ def test_SeqLike_interconversion():
 
 
 CODON_TABLES = {"ecoli_k12": yeast_codon_table, "Kazusa_yeast": yeast_codon_table}
+
 
 @composite
 def pick_codon_map(draw):
@@ -337,9 +334,7 @@ def test_seq_num_to_idx():
     assert s.seq_num_to_idx(["2", "3", "4", "5", "1", "3"]) == [slice(1, 5), 0, 2]
 
 
-@pytest.mark.parametrize(
-    "seqstr, seq_type", [("TCGCACACTGCA", "nt"), ("GEGDATYGKLTLKFICTT", "aa")]
-)
+@pytest.mark.parametrize("seqstr, seq_type", [("TCGCACACTGCA", "nt"), ("GEGDATYGKLTLKFICTT", "aa")])
 def test_slice(seqstr, seq_type):
     s = SeqLike(seqstr, seq_type=seq_type)
     for seqnums in ["2", "3", "4", "5"], ["1", "10", "12"], ["10", "11", "12", "1"]:
@@ -413,11 +408,7 @@ def test__setattr__():
         assert seq.name == seq._seqrecord.name == name
         assert seq.description == seq._seqrecord.description == description
         assert seq.annotations == seq._seqrecord.annotations == annotations
-        assert (
-            seq.letter_annotations
-            == seq._seqrecord.letter_annotations
-            == letter_annotations
-        )
+        assert seq.letter_annotations == seq._seqrecord.letter_annotations == letter_annotations
 
         # set values after init
         seqid = "new test1"
@@ -437,11 +428,7 @@ def test__setattr__():
         assert seq.name == seq._seqrecord.name == name
         assert seq.description == seq._seqrecord.description == description
         assert seq.annotations == seq._seqrecord.annotations == annotations
-        assert (
-            seq.letter_annotations
-            == seq._seqrecord.letter_annotations
-            == letter_annotations
-        )
+        assert seq.letter_annotations == seq._seqrecord.letter_annotations == letter_annotations
         # should be different from original values
         assert seq.id != seqrec.id
         assert seq.name != seqrec.name
@@ -465,9 +452,7 @@ def test__dir__():
         assert isinstance(dir(seq), list)
         assert len(dir(seq)) == 68
         assert set(dir(SeqLike)).issubset(dir(seq))
-        assert set(
-            ["annotations", "description", "name", "id", "letter_annotations"]
-        ).issubset(dir(seq))
+        assert set(["annotations", "description", "name", "id", "letter_annotations"]).issubset(dir(seq))
 
 
 def test__getitem__():
@@ -500,9 +485,7 @@ def test__add__():
     """Test for __add__ method."""
     for seqstr, seq_type in [("TCGCACACTGCA", "nt"), ("GEGDATYGKLTLKFICTT", "aa")]:
         annotations = {"a1": "test1"}
-        s1 = SeqLike(
-            seqstr[:5], seq_type=seq_type, description="test", annotations=annotations
-        )
+        s1 = SeqLike(seqstr[:5], seq_type=seq_type, description="test", annotations=annotations)
         s2 = SeqLike(seqstr[5:], seq_type=seq_type, annotations=annotations)
         s3 = SeqLike(seqstr[5:], seq_type=seq_type)
         assert (s1 + s2).to_str() == seqstr

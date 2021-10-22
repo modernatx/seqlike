@@ -6,7 +6,7 @@ A single object API that makes working with biological sequences in Python
  more ergonomic. It'll handle anything _like a sequence_.
 
 Built around the [Biopython SeqRecord class](https://biopython.org/wiki/SeqRecord),
-SeqLikes abstract over the semantics of molecular biology (DNA -> RNA -> AA) 
+SeqLikes abstract over the semantics of molecular biology (DNA -> RNA -> AA)
 and data structures (strings, Seqs, SeqRecords, numerical encodings)
 to allow manipulation of a biological sequence
 at the level which is most computationally convenient.

@@ -54,8 +54,9 @@ seqrecord_attrs = (
 )
 
 SEQTYPE_TO_TYPE_MAPPING = {"DNA": "NT", "RNA": "NT", "NT": "NT", "AA": "AA"}
-NT_TYPE = ['NT', "DNA", "RNA"]
-AA_TYPE = ['AA']
+NT_TYPE = ["NT", "DNA", "RNA"]
+AA_TYPE = ["AA"]
+
 
 class SeqLike:
     """
@@ -801,9 +802,6 @@ class SeqLike:
         return seq_copy
 
 
-
-
-
 def ntSeqLike(
     sequence: SeqLikeType, alphabet: Optional[str] = None, codon_map: Optional[Callable] = None, **kwargs
 ) -> SeqLike:
@@ -873,6 +871,7 @@ def _construct_seqlike(sequence, seq_type, alphabet, codon_map, **kwargs) -> tup
         _index_encoder,
         _onehot_encoder,
     )
+
 
 @dispatch(
     (list, np.ndarray, str, Seq, SeqRecord),  # TODO: Figure out a way to include torch tensors w/o requiring torch

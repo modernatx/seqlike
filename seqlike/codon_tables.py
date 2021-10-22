@@ -79,13 +79,13 @@ CODON_TABLE = {
 }
 
 # https://github.com/Edinburgh-Genome-Foundry/codon-usage-tables/blob/master/codon_usage_data/tables/h_sapiens_9606.csv
-human_codon_table = get_codons_table('h_sapiens_9606')
+human_codon_table = get_codons_table("h_sapiens_9606")
 
 # https://github.com/Edinburgh-Genome-Foundry/codon-usage-tables/blob/master/codon_usage_data/tables/s_cerevisiae_4932.csv
-yeast_codon_table = get_codons_table('s_cerevisiae_4932')
+yeast_codon_table = get_codons_table("s_cerevisiae_4932")
 
 # https://github.com/Edinburgh-Genome-Foundry/codon-usage-tables/blob/master/codon_usage_data/tables/e_coli_316407.csv
-ecoli_codon_table = get_codons_table('e_coli_316407')
+ecoli_codon_table = get_codons_table("e_coli_316407")
 
 random_codon_table = {
     "*": {"TAA": 0.33, "TAG": 0.33, "TGA": 0.33},
@@ -110,6 +110,7 @@ random_codon_table = {
     "W": {"TGG": 1.0},
     "Y": {"TAC": 0.50, "TAT": 0.50},
 }
+
 
 def codon_table_to_codon_map(codon_table: dict, deterministic: bool = True) -> Callable[[SeqLike], SeqLike]:
     """This is a convenience function takes a codon map as defined by the
@@ -139,8 +140,8 @@ def codon_table_to_codon_map(codon_table: dict, deterministic: bool = True) -> C
             # we normalize the probabilities
             # most tables are near 1.0, but issues with precision exist
             sum_prob = sum(probs)
-            probs = [p/sum_prob for p in probs]
-    
+            probs = [p / sum_prob for p in probs]
+
             if deterministic:
                 nt += codons[0]
             else:
@@ -160,6 +161,7 @@ def codon_table_to_codon_map(codon_table: dict, deterministic: bool = True) -> C
         return new_seqlike
 
     return backtranslator
+
 
 # add in support for pseudo-translation
 for table in [human_codon_table, yeast_codon_table, ecoli_codon_table, random_codon_table]:

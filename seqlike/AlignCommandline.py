@@ -44,9 +44,7 @@ class BowtieCommandline(AbstractCommandline):
             _Switch(["--local", "local"], "perform local read alignment"),
             _Switch(["-r", "raw"], "query input files are raw one-sequence-per-line"),
             ## performance
-            _Option(
-                ["-p", "threads"], "number of alignment threads to launch", equate=False
-            ),
+            _Option(["-p", "threads"], "number of alignment threads to launch", equate=False),
             ## effort
             _Option(
                 ["-D", "extends"],
@@ -78,12 +76,8 @@ class BowtieCommandline(AbstractCommandline):
             ),
             ## main arguments
             _Option(["-x", "index"], "index filename prefix", equate=False),
-            _Option(
-                ["-1", "read1"], "files with #1 mates", filename=True, equate=False
-            ),
-            _Option(
-                ["-2", "read2"], "files with #2 mates", filename=True, equate=False
-            ),
+            _Option(["-1", "read1"], "files with #1 mates", filename=True, equate=False),
+            _Option(["-2", "read2"], "files with #2 mates", filename=True, equate=False),
             _Option(["-S", "sam"], "file for SAM output", filename=True, equate=False),
         ]
         super(BowtieCommandline, self).__init__(cmd, **kwargs)
@@ -153,13 +147,9 @@ class MuscleCommandline(AbstractCommandline):
         ]
         self.parameters = [
             # Can't use "in" as the final alias as this is a reserved word in python:
-            _Option(
-                ["-in", "in", "input"], "Input filename", filename=True, equate=False
-            ),
+            _Option(["-in", "in", "input"], "Input filename", filename=True, equate=False),
             _Option(["-out", "out"], "Output filename", filename=True, equate=False),
-            _Switch(
-                ["-diags", "diags"], "Find diagonals (faster for similar sequences)"
-            ),
+            _Switch(["-diags", "diags"], "Find diagonals (faster for similar sequences)"),
             _Switch(["-profile", "profile"], "Perform a profile alignment"),
             _Option(
                 ["-in1", "in1"],
@@ -289,8 +279,7 @@ class MuscleCommandline(AbstractCommandline):
             #                                                        diagonal.
             _Option(
                 ["-maxdiagbreak", "maxdiagbreak"],
-                "Maximum distance between two diagonals that allows "
-                "them to merge into one diagonal",
+                "Maximum distance between two diagonals that allows " "them to merge into one diagonal",
                 checker_function=lambda x: isinstance(x, int),
                 equate=False,
             ),
@@ -419,16 +408,12 @@ class MuscleCommandline(AbstractCommandline):
                 equate=False,
             ),
             # tree1           File name            None               Save tree produced in
-            _Option(
-                ["-tree1", "tree1"], "Save Newick tree from iteration 1", equate=False
-            ),
+            _Option(["-tree1", "tree1"], "Save Newick tree from iteration 1", equate=False),
             # tree2                                                   first or second
             #                                                        iteration to given file
             #                                                        in Newick (Phylip-
             #                                                        compatible) format.
-            _Option(
-                ["-tree2", "tree2"], "Save Newick tree from iteration 2", equate=False
-            ),
+            _Option(["-tree2", "tree2"], "Save Newick tree from iteration 2", equate=False),
             # weight1         none                 clustalw           Sequence weighting
             _Option(
                 ["-weight1", "weight1"],
@@ -526,8 +511,7 @@ class MuscleCommandline(AbstractCommandline):
             ),
             _Option(
                 ["-clwstrictout", "clwstrictout"],
-                "Write CLUSTALW output (with version 1.81 header) to "
-                "specified filename",
+                "Write CLUSTALW output (with version 1.81 header) to " "specified filename",
                 filename=True,
                 equate=False,
             ),
@@ -554,8 +538,7 @@ class MuscleCommandline(AbstractCommandline):
             #                                   anchors.
             _Switch(
                 ["-noanchors", "noanchors"],
-                "Do not use anchor optimisation in tree dependent "
-                "refinement iterations",
+                "Do not use anchor optimisation in tree dependent " "refinement iterations",
             ),
             # group              yes             Group similar sequences together in the
             #                                   output. This is the default. See also
@@ -590,14 +573,10 @@ class MuscleCommandline(AbstractCommandline):
             #                                   (BLASTZ parameters). This is the only option
             #                                   for nucleotides, and is therefore the
             #                                   default.
-            _Switch(
-                ["-spn", "spn"], "Use sum-of-pairs protein nucleotide profile score"
-            ),
+            _Switch(["-spn", "spn"], "Use sum-of-pairs protein nucleotide profile score"),
             # ############# END log-expectation profile score ######################
             # quiet              no              Do not display progress messages.
-            _Switch(
-                ["-quiet", "quiet"], "Use sum-of-pairs protein nucleotide profile score"
-            ),
+            _Switch(["-quiet", "quiet"], "Use sum-of-pairs protein nucleotide profile score"),
             # refine             no              Input file is already aligned, skip first
             #                                   two iterations and begin tree dependent
             #                                   refinement.

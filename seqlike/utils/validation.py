@@ -9,8 +9,8 @@ to avoid circular imports.
 
 def validate_seq_type(seq_type: str):
     """Validate the user provided seq_type argument.
-    :param seq_type: User provided seq_type. 
-    :raises ValueError: Raises value error if the user provided seq_type is not one of "DNA", "RNA", "NT", "AA" 
+    :param seq_type: User provided seq_type.
+    :raises ValueError: Raises value error if the user provided seq_type is not one of "DNA", "RNA", "NT", "AA"
     """
     valid_seq_types = ("DNA", "RNA", "NT", "AA")
     err_msg = (
@@ -19,4 +19,3 @@ def validate_seq_type(seq_type: str):
     )
     if not seq_type in valid_seq_types:
         raise ValueError(err_msg)
-
