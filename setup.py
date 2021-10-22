@@ -87,7 +87,7 @@ def download_mafft(kind="deb") -> Path:
     """Download MAFFT from the original website."""
     acceptable_kinds = ["deb", "rpm"]
     if kind not in acceptable_kinds:
-        raise NameError("`kind` should be one of 'deb' or 'rpm'.")
+        raise NameError(f"`kind` should be one of {acceptable_kinds}.")
 
     if kind == "deb":
         mafft_file = "mafft_7.487-1_amd64.deb"
