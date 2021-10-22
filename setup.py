@@ -8,7 +8,12 @@ import subprocess
 
 class InstallWrapper(install):
     """Install MAFFT binary executables and other requirements.
-    Assumes Debian linux; has not been tested with other linux flavors or MacOS.
+
+    The order of priority in which we try:
+
+    - Try to install via dpkg.
+    - Try to install via brew.
+    - Raise warning to install on their own.
 
     :sa: https://www.anomaly.net.au/blog/running-pre-and-post-install-jobs-for-your-python-packages/
     :sa: https://stackoverflow.com/questions/21915469/python-setuptools-install-requires-is-ignored-when-overriding-cmdclass
@@ -21,30 +26,73 @@ class InstallWrapper(install):
         # install.do_egg_install(self)
         orig_install.run(self)
         # install the non-python binaries by Debian
-        self.apt_get_update()
-        self.apt_get_install_ghostscript()
-        self.download_and_install_mafft()
+        result = dpkg_install()
+        if result.returncode != 0:
+            result = brew_install()
+        if result.returncode != 0:
+            warning_install()
 
-    def apt_get_update(self):
-        """Update apt-get package lists"""
-        return subprocess.run(["apt-get", "update"])
 
-    def apt_get_install_ghostscript(self):
-        """Install ghostscript using apt-get"""
-        return subprocess.run(["apt-get", "install", "-y", "ghostscript"])
+def warning_install():
+    """Raise a warning that none of the previous installation methods worked."""
+    import warnings
 
-    def download_and_install_mafft(self, mafft_file="mafft_7.427-1_amd64.deb"):
-        """MAFFT exists as a Debian package"""
-        deb_filepath = "/tmp/" + mafft_file
-        # download the package from mafft.cbrc.jp
-        if not os.path.isfile(deb_filepath):
-            url = "https://mafft.cbrc.jp/alignment/software/" + mafft_file
-            print("Downloading %s..." % url)
-            r = requests.get(url, allow_redirects=True)
-            open(deb_filepath, "wb").write(r.content)
-        # install the MAFFT package by dpkg
-        print("Installing %s..." % deb_filepath)
-        return subprocess.run(["dpkg", "--install", deb_filepath])
+    warnings.warn(
+        "Installation by dpkg and brew failed. "
+        "Please manually install MAFFT to enjoy SeqLike's Series Accessor's "
+        "method-chained alignment capabilities. \n\n"
+        "MAFFT installation instructions can be found on "
+        "https://mafft.cbrc.jp/alignment/software/."
+    )
+
+
+def brew_install():
+    """Attempt installation by brew."""
+    result = subprocess.run(["brew", "update"])
+    if result.returncode == 0:
+        result = subprocess.run(["brew", "install", "mafft"])
+    return result
+
+
+def dpkg_install():
+    """Install via dpkg."""
+    result = subprocess.run(["apt-get", "update"])
+    if result.returncode == 0:
+        result = subprocess.run(["apt-get", "install", "-y", "ghostscript"])
+    if result.returncode == 0:
+        result = download_and_install_mafft(kind="deb")
+    return result
+
+
+def yum_install():
+    """Placeholder for installation via yum.
+
+    NOTE: Though I've used RedHat and CentOS, I'm not familiar enough with the commands.
+    (@ericmjl)
+    """
+    pass
+
+
+def download_and_install_mafft(kind="deb"):
+    """Install MAFFT as a Debian package.
+
+    Default to Debian install.
+    """
+    mafft_filenames = dict(rpm="mafft-7.487-gcc_fc6.x86_64.rpm", deb="mafft_7.487-1_amd64.deb")
+    mafft_file = mafft_filenames[kind]
+    deb_filepath = "/tmp/" + mafft_file
+
+    # download the package from mafft.cbrc.jp
+    if not os.path.isfile(deb_filepath):
+        url = "https://mafft.cbrc.jp/alignment/software/" + mafft_file
+        print("Downloading %s..." % url)
+        r = requests.get(url, allow_redirects=True)
+        with open(deb_filepath, "wb") as f:
+            f.write(r.content)
+
+    # install the MAFFT package by dpkg
+    print("Installing %s..." % deb_filepath)
+    return subprocess.run(["dpkg", "--install", deb_filepath])
 
 
 setup(
