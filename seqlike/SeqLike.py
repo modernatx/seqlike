@@ -154,7 +154,7 @@ class SeqLike:
         self._seqrecord = self._aa_record if _type == "AA" else self._nt_record
         self.codon_map = codon_map
 
-    def nt(self, auto_backtranslate=True, codon_map=None, **kwargs) -> "SeqLike":
+    def nt(self, auto_backtranslate=True, **kwargs) -> "SeqLike":
         """
         This method returns the NT view of the SeqLike object.
 
@@ -164,8 +164,8 @@ class SeqLike:
         :param auto_backtranslate: Whether or not
             to automagically back-translate an AA sequence into an NT sequence.
             Defaults to True.
-        :param codon_map: The codon map to use.
         :param kwargs: Passed through to `.back_translate()`.
+            Can include `codon_map` to specify which codon map to use.
         :returns: The NT view of the object.
         """
         # Start with auto-back-translation
