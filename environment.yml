@@ -28,6 +28,8 @@ dependencies:
   # Docs dependencies
   - mkdocs
   - mkdocs-material
+  # Infrastructural
+  - bump2version
   - pip:
       - mkdocstrings # for docstrings
       - mknotebooks  # for notebooks in docs
