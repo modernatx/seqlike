@@ -170,7 +170,7 @@ class SeqLike:
         """
         # Start with auto-back-translation
         if self._aa_record and self._nt_record is None and auto_backtranslate:
-            return self.back_translate(codon_map, **kwargs)
+            return self.back_translate(**kwargs)
 
         if self._type == "NT":
             return deepcopy(self)
