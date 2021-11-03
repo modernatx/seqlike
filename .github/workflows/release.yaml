@@ -65,6 +65,9 @@ jobs:
         with:
           version: v${{ env.version_number }}
 
+      - name: Preview Changelog
+        run: cat CHANGELOG.md
+
       - name: Commit CHANGELOG updates
         run: |
           git config --global user.email "git@github.com"
