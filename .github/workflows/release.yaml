@@ -25,7 +25,7 @@ jobs:
 
       - name: Pull latest commits of dev branch
         run: |
-          git checkout dev
+          git checkout main
           git pull
 
       # See https://github.com/marketplace/actions/wait-on-check
