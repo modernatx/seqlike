@@ -87,8 +87,8 @@ jobs:
       - name: Build package
         run: |
           rm -f dist/*
+          python -m pip install build
           python -m build --sdist --wheel
-
 
       - name: Check that build worked
         run: |
