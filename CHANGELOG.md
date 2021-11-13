@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Ensure that `.translate()` generates a SeqLike with "seqnum" letter annotations (@ndousis)
+
 ## [v1.1.3] - 2021-11-03
 
 -   First public release of SeqLike h/t @andrewgiessel @maxasauruswall @MihirMetkar @ndousis @ericmjl @dtjohnson @JDFontenot
