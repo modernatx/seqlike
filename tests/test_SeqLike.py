@@ -139,12 +139,13 @@ def test_SeqLike_interconversion():
     e2 = SeqLike(d2, "aa", alphabet=seq2.alphabet).to_str()
     assert e1 == a1
     assert e2 == a2
-    # when interconverting, should the letter_annotations be empty?
-    assert seq2.letter_annotations == {}
+    # when interconverting, regenerate the letter_annotations as if starting from scratch
+    seqnums2 = [str(i + 1) for i in range(len(seq2))]
+    assert seq2.letter_annotations == SeqLike(seq2, "aa").letter_annotations == {"seqnums": seqnums2}
     seq3 = SeqLike(seq2, "dna")
-    seqnums = [str(i + 1) for i in range(len(seq3))]
-    assert seq3.letter_annotations["seqnums"] == seqnums
-    assert seq3[:2].letter_annotations["seqnums"] == seqnums[:2]
+    seqnums3 = [str(i + 1) for i in range(len(seq3))]
+    assert seq3.letter_annotations == SeqLike(seq3, "nt").letter_annotations == {"seqnums": seqnums3}
+    assert seq3[:2].letter_annotations["seqnums"] == seqnums3[:2]
 
 
 CODON_TABLES = {"ecoli_k12": yeast_codon_table, "Kazusa_yeast": yeast_codon_table}

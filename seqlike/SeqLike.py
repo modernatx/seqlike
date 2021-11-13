@@ -318,7 +318,7 @@ class SeqLike:
                 "As a safeguard, SeqLike objects do not allow this to happen. "
             )
         sc._nt_record.annotations["molecule_type"] = "DNA"
-        sc._aa_record = sc._nt_record.translate(gap=gap_letter, **kwargs)
+        sc._aa_record = record_from(sc._nt_record.translate(gap=gap_letter, **kwargs))
         return sc.aa()
 
     def back_translate(self, codon_map: Callable = None, **kwargs) -> "SeqLike":
