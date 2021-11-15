@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+-   Ensure that `python-codon-tables` is listed as an explicit dependency in `setup.py` (@ericmjl)
+
 ## [v1.1.4] - 2021-11-13
 
 -   Ensure that `.translate()` generates a SeqLike with "seqnum" letter annotations (@ndousis)
