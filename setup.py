@@ -124,6 +124,7 @@ setup(
         "pytest-regtest",
         "pytest",
         "multipledispatch",
+        "python-codon-tables",
     ],
     # tests_require=[
     #    'pytest-regtest',
