@@ -177,7 +177,7 @@ class SeqLike:
         else:
             return swap_representation(self)
 
-    def aa(self, auto_translate=True, **kwargs) -> "SeqLike":
+    def aa(self, auto_translate=True) -> "SeqLike":
         """
         Return the amino acid view of the SeqLike object.
 
@@ -187,14 +187,12 @@ class SeqLike:
         :param auto_translate: Whether to automagically translate
             an NT sequence into an AA sequence.
             Defaults to True.
-        :param kwargs: These kwargs are passed into
-            BioPython SeqRecord's `.translate()` method.
-            They can be used to set SeqRecord properties.
         :returns: copy of self with sequence object as amino acid sequence.
         """
         # Start with auto-translation
         if self._nt_record and self._aa_record is None and auto_translate:
-            return self.translate(**kwargs)
+            return self.translate(id=True, name=True, description=True,
+                                  annotations=True, dbxrefs=True)
 
         # Return based on _type.
         if self._type == "AA":

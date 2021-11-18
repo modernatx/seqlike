@@ -111,25 +111,34 @@ def test_SeqLike_interconversion():
     Suggested TODO: Split out SeqLike interconversion into a parametrized interconversion
     based on target types.
     """
-    seq = "TCGCACACTGCA"
+    seqstr = "TCGCACACTGCA"
+    seq0 = SeqLike(seqstr, "nt", id="id", name="name", description="description",
+                   annotations={"molecule_type": "DNA"}, dbxrefs=["/accessions=['Z78439']"])
 
-    a1 = SeqLike(seq, "dna").nt().to_str()
-    a2 = SeqLike(seq, "dna").aa().to_str()
+    seq1 = SeqLike(seq0, "dna").nt()
+    seq2 = SeqLike(seq0, "dna").aa()
+    seq3 = SeqLike(seq0, "dna").aa().nt()
+    assert_matched_properties(seq1, seq0)
+    assert_matched_properties(seq2, seq0)
+    assert_matched_properties(seq3, seq0)
+
+    a1 = SeqLike(seqstr, "dna").nt().to_str()
+    a2 = SeqLike(seqstr, "dna").aa().to_str()
     assert isinstance(a1, str)
     assert isinstance(a2, str)
 
-    b1 = SeqLike(seq, "dna").nt().to_seq()
-    b2 = SeqLike(seq, "dna").aa().to_seq()
+    b1 = SeqLike(seqstr, "dna").nt().to_seq()
+    b2 = SeqLike(seqstr, "dna").aa().to_seq()
     assert isinstance(b1, Seq)
     assert isinstance(b2, Seq)
 
-    c1 = SeqLike(seq, "dna").nt().to_seqrecord()
-    c2 = SeqLike(seq, "dna").aa().to_seqrecord()
+    c1 = SeqLike(seq0, "dna").nt().to_seqrecord()
+    c2 = SeqLike(seq0, "dna").aa().to_seqrecord()
     assert isinstance(c1, SeqRecord)
     assert isinstance(c2, SeqRecord)
+    assert_matched_properties(c1, seq0)
+    assert_matched_properties(c2, seq0)
 
-    seq1 = SeqLike(seq, "dna").nt()
-    seq2 = SeqLike(seq, "dna").aa()
     d1 = seq1.to_onehot()
     d2 = seq2.to_onehot()
     assert isinstance(d1, np.ndarray)
@@ -189,6 +198,17 @@ def test_backtranslation_overriding_codon_map(codon_table, sequence_type_and_alp
     assert_back_translate_properties(s)
 
 
+def assert_matched_properties(s1, s2):
+    """Test that SeqRecord-like sequence-independent attributes match."""
+    # retains SeqRecord-like metadata, e.g., `id` and `description`
+    assert s1.id == s2.id
+    assert s1.name == s2.name
+    assert s1.description == s2.description
+    # SeqRecord automatically sets the molecule_type annotation, so just check keys
+    assert s1.annotations.keys() == s2.annotations.keys()
+    assert s1.dbxrefs == s2.dbxrefs
+
+
 def assert_back_translate_properties(s):
     """Test for back_translate properties.
 
@@ -196,11 +216,7 @@ def assert_back_translate_properties(s):
     so we have refactored them out into a separate function.
     """
     assert isinstance(s.back_translate(), SeqLike)
-    # retains SeqLike metadata like `id` and `description`
-    assert s.back_translate().id == s.id
-    assert s.back_translate().description == s.description
-    assert s.back_translate().annotations == s.annotations
-    assert s.back_translate().dbxrefs == s.dbxrefs
+    assert_matched_properties(s.back_translate(), s)
     # but letter-specific metadata is changed
     assert s.back_translate().letter_annotations != s.letter_annotations
 
