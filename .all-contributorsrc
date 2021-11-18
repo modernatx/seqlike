@@ -52,6 +52,15 @@
         "ideas",
         "code"
       ]
+    },
+    {
+      "login": "mccaron707",
+      "name": "Marcus Caron",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26267127?v=4",
+      "profile": "https://github.com/mccaron707",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
