@@ -10,6 +10,7 @@ dependencies:
   - numpy
   - pandas
   - pytest
+  - pytest-regtest
   - weblogo
   - requests
   - pillow
@@ -28,8 +29,8 @@ dependencies:
   # Docs dependencies
   - mkdocs
   - mkdocs-material
+  - mkdocstrings
   # Infrastructural
   - bump2version
   - pip:
-      - mkdocstrings # for docstrings
       - mknotebooks  # for notebooks in docs
