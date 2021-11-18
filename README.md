@@ -1,4 +1,7 @@
 # SeqLike
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Apache v2 License](https://img.shields.io/badge/license-Apache%202-blue)](https://github.com/modernatx/seqlike/blob/main/LICENSE)
 
@@ -94,3 +97,28 @@ pip install seqlike
 
 [SO]: https://stackoverflow.com/questions/tagged/seqlike
 [gh_issues]: https://github.com/modernatx/seqlike/issues
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/ndousis"><img src="https://avatars.githubusercontent.com/u/15198691?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nasos Dousis</b></sub></a><br /><a href="https://github.com/modernatx/seqlike/commits?author=ndousis" title="Code">💻</a></td>
+    <td align="center"><a href="http://giessel.com"><img src="https://avatars.githubusercontent.com/u/1160997?v=4?s=100" width="100px;" alt=""/><br /><sub><b>andrew giessel</b></sub></a><br /><a href="https://github.com/modernatx/seqlike/commits?author=andrewgiessel" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/maxasauruswall"><img src="https://avatars.githubusercontent.com/u/14082213?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Max Wall</b></sub></a><br /><a href="https://github.com/modernatx/seqlike/commits?author=maxasauruswall" title="Code">💻</a> <a href="https://github.com/modernatx/seqlike/commits?author=maxasauruswall" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://ericmjl.github.io/"><img src="https://avatars.githubusercontent.com/u/2631566?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Eric Ma</b></sub></a><br /><a href="https://github.com/modernatx/seqlike/commits?author=ericmjl" title="Code">💻</a> <a href="https://github.com/modernatx/seqlike/commits?author=ericmjl" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/MihirMetkar"><img src="https://avatars.githubusercontent.com/u/9938754?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mihir Metkar</b></sub></a><br /><a href="#ideas-MihirMetkar" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/modernatx/seqlike/commits?author=MihirMetkar" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/mccaron707"><img src="https://avatars.githubusercontent.com/u/26267127?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcus Caron</b></sub></a><br /><a href="https://github.com/modernatx/seqlike/commits?author=mccaron707" title="Documentation">📖</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

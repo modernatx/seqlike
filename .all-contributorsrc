@@ -1,0 +1,72 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "ndousis",
+      "name": "Nasos Dousis",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15198691?v=4",
+      "profile": "https://github.com/ndousis",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "andrewgiessel",
+      "name": "andrew giessel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1160997?v=4",
+      "profile": "http://giessel.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "maxasauruswall",
+      "name": "Max Wall",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14082213?v=4",
+      "profile": "https://github.com/maxasauruswall",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "ericmjl",
+      "name": "Eric Ma",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2631566?v=4",
+      "profile": "https://ericmjl.github.io/",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "MihirMetkar",
+      "name": "Mihir Metkar",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9938754?v=4",
+      "profile": "https://github.com/MihirMetkar",
+      "contributions": [
+        "ideas",
+        "code"
+      ]
+    },
+    {
+      "login": "mccaron707",
+      "name": "Marcus Caron",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26267127?v=4",
+      "profile": "https://github.com/mccaron707",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "seqlike",
+  "projectOwner": "modernatx",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
