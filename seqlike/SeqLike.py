@@ -184,17 +184,31 @@ class SeqLike:
         The method will automagically translate the `._nt_record`
         of its SeqLike object if the `._aa_record` does not exist.
 
+        We preserve all NT record attributes for convenience in sequence manipulation
+        tasks where the starter sequence is an NT and we merely want the AA form.
+        The default behaviour, thus, has `id=True`, `name=True`, `description=True`,
+        `annotations=True`, and `dbxrefs=True`.
+
+        To change the behaviour,
+        you can set any of those to False in `.aa()`, for example:
+
+        ```python
+        seq.aa(id=False)
+        ```
+
         :param auto_translate: Whether to automagically translate
             an NT sequence into an AA sequence.
             Defaults to True.
-        :param kwargs: These kwargs are passed into
-            BioPython SeqRecord's `.translate()` method.
-            They can be used to set SeqRecord properties.
+        :param kwargs: These kwargs are passed into BioPython SeqRecord's
+            `.translate()` method.  The default behaviour is set to `id=True`,
+            `name=True`, `description=True`, `annotations=True`, and `dbxrefs=True`.
         :returns: copy of self with sequence object as amino acid sequence.
         """
         # Start with auto-translation
         if self._nt_record and self._aa_record is None and auto_translate:
-            return self.translate(**kwargs)
+            translate_kwargs = dict(id=True, name=True, description=True, annotations=True, dbxrefs=True)
+            translate_kwargs.update(kwargs)
+            return self.translate(**translate_kwargs)
 
         # Return based on _type.
         if self._type == "AA":

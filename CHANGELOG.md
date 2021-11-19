@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+-   Simplify `.aa()` interface, return original SeqRecord attributes (@ndousis)
+
 ## [v1.1.5] - 2021-11-15
 
 -   Ensure that `python-codon-tables` is listed as an explicit dependency in `setup.py` (@ericmjl)
