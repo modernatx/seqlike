@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [v1.1.6] - 2021-11-19
+
 -   Simplify `.aa()` interface, return original SeqRecord attributes (@ndousis)
 
 ## [v1.1.5] - 2021-11-15
@@ -16,7 +18,9 @@
 
 -   First public release of SeqLike h/t @andrewgiessel @maxasauruswall @MihirMetkar @ndousis @ericmjl @dtjohnson @JDFontenot
 
-[Unreleased]: https://github.com/modernatx/seqlike/compare/v1.1.5...HEAD
+[Unreleased]: https://github.com/modernatx/seqlike/compare/v1.1.6...HEAD
+
+[v1.1.6]: https://github.com/modernatx/seqlike/compare/v1.1.5...v1.1.6
 
 [v1.1.5]: https://github.com/modernatx/seqlike/compare/v1.1.4...v1.1.5
 
