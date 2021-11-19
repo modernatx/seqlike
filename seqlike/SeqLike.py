@@ -188,10 +188,12 @@ class SeqLike:
         tasks where the starter sequence is an NT and we merely want the AA form.
         The default behaviour, thus, has `id=True`, `name=True`, `description=True`,
         `annotations=True`, and `dbxrefs=True`.
-        
-        To change the behaviour, you can set any of those to False in `.aa()`, for example:
-        ```
-            seq.aa(id=False)
+
+        To change the behaviour,
+        you can set any of those to False in `.aa()`, for example:
+
+        ```python
+        seq.aa(id=False)
         ```
 
         :param auto_translate: Whether to automagically translate
@@ -204,12 +206,7 @@ class SeqLike:
         """
         # Start with auto-translation
         if self._nt_record and self._aa_record is None and auto_translate:
-            translate_kwargs = dict(
-                id=True, name=True, 
-                description=True,
-                annotations=True,
-                dbxrefs=True
-            )
+            translate_kwargs = dict(id=True, name=True, description=True, annotations=True, dbxrefs=True)
             translate_kwargs.update(kwargs)
             return self.translate(**translate_kwargs)
 
