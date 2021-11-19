@@ -3,7 +3,8 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - python>=3.9
+  - python<=3.9 # 18 Nov 2021: A super esoteric issue leads to us pinning env at 3.9.
+  # For more information, see: https://github.com/conda/conda-pack/issues/196#issuecomment-971790933
   - pip
   - scikit-learn
   - biopython
@@ -33,5 +34,10 @@ dependencies:
   - mkdocstrings
   # Infrastructural
   - bump2version
+  # Dependencies of mknotebooks
+  - gitpython
+  - jupyter
+  - markdown
+  - nbconvert
   - pip:
       - mknotebooks # for notebooks in docs
