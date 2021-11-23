@@ -1,5 +1,7 @@
 # SeqLike: Flexible Biological Sequence Objects in Python
 
+![](./images/logo-color.svg)
+
 SeqLike is a Python package that lets you conveniently manipulate biological sequences.
 It solves some of the following problems:
 
