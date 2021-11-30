@@ -1,10 +1,14 @@
-# SeqLike
+<p align="center">
+ <img src="docs/images/logo-color.svg?raw=true", width="200", alt="SeqLike">
+</p>
+
+<h1 align="center"> SeqLike - flexible biological sequence objects in Python </h1>
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-) [![Apache v2 License](https://img.shields.io/badge/license-Apache%202-blue)](https://github.com/modernatx/seqlike/blob/main/LICENSE)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-[![Apache v2 License](https://img.shields.io/badge/license-Apache%202-blue)](https://github.com/modernatx/seqlike/blob/main/LICENSE)
-
+## Introduction
 A single object API that makes working with biological sequences in Python
  more ergonomic. It'll handle anything _like a sequence_.
 
