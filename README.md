@@ -1,5 +1,5 @@
 <p align="center">
- <img src="docs/images/logo-symbol-color.svg?raw=true", width="400", alt="SeqLike">
+ <img src="docs/images/logo-symbol-color.svg?raw=true", width="300", alt="SeqLike">
 </p>
 
 <h1 align="center"> SeqLike - flexible biological sequence objects in Python </h1>
