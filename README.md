@@ -5,12 +5,19 @@
 <h1 align="center"> SeqLike - flexible biological sequence objects in Python </h1>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-) [![Apache v2 License](https://img.shields.io/badge/license-Apache%202-blue)](https://github.com/modernatx/seqlike/blob/main/LICENSE)
+<p align="center">
+  <a href="#contributors-">    
+    <img src="https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square">
+  </a>
+  <a href="https://github.com/modernatx/seqlike/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-Apache%202-blue">
+  </a>
+</p>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Introduction
 A single object API that makes working with biological sequences in Python
- more ergonomic. It'll handle anything _like a sequence_.
+ more ergonomic. It'll handle anything _like a sequence_.  
 
 Built around the [Biopython SeqRecord class](https://biopython.org/wiki/SeqRecord),
 SeqLikes abstract over the semantics of molecular biology (DNA -> RNA -> AA)
