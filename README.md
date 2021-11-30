@@ -5,7 +5,14 @@
 <h1 align="center"> SeqLike - flexible biological sequence objects in Python </h1>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-) [![Apache v2 License](https://img.shields.io/badge/license-Apache%202-blue)](https://github.com/modernatx/seqlike/blob/main/LICENSE)
+<p>
+<a href="#contributors-">
+<img src="https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square">
+</a>
+<a href="https://github.com/modernatx/seqlike/blob/main/LICENSE">
+<img src="https://img.shields.io/badge/license-Apache%202-blue">
+</a>
+</p>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## Introduction
@@ -117,6 +124,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://ericmjl.github.io/"><img src="https://avatars.githubusercontent.com/u/2631566?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Eric Ma</b></sub></a><br /><a href="https://github.com/modernatx/seqlike/commits?author=ericmjl" title="Code">💻</a> <a href="https://github.com/modernatx/seqlike/commits?author=ericmjl" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/MihirMetkar"><img src="https://avatars.githubusercontent.com/u/9938754?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mihir Metkar</b></sub></a><br /><a href="#ideas-MihirMetkar" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/modernatx/seqlike/commits?author=MihirMetkar" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/mccaron707"><img src="https://avatars.githubusercontent.com/u/26267127?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcus Caron</b></sub></a><br /><a href="https://github.com/modernatx/seqlike/commits?author=mccaron707" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/giessel"><img src="https://avatars.githubusercontent.com/u/895641?v=4?s=100" width="100px;" alt=""/><br /><sub><b>giessel</b></sub></a><br /><a href="https://github.com/modernatx/seqlike/commits?author=giessel" title="Documentation">📖</a></td>
   </tr>
 </table>
 
