@@ -69,5 +69,5 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true,
-  "badgeTemplate": "<p>\n<a href=\"#contributors-\">\n<img src=\"https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square\">\n</a>\n<a href=\"https://github.com/modernatx/seqlike/blob/main/LICENSE\">\n<img src=\"https://img.shields.io/badge/license-Apache%202-blue\">\n</a>\n</p>"
+  "badgeTemplate": "<p align=\"center\">\n  <a href=\"#contributors-\">\n    <img src=\"https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square\">\n  </a>\n  <a href=\"https://github.com/modernatx/seqlike/blob/main/LICENSE\">\n    <img src=\"https://img.shields.io/badge/license-Apache%202-blue\">\n  </a>\n</p>"
 }
