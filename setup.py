@@ -126,6 +126,7 @@ setup(
         "multipledispatch",
         "python-codon-tables",
     ],
+    package_data={"": ["*.ttf"]},
     # tests_require=[
     #    'pytest-regtest',
     #    'pytest',
