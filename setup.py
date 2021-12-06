@@ -126,7 +126,7 @@ setup(
         "multipledispatch",
         "python-codon-tables",
     ],
-    package_data={"": ["*.ttf"]},
+    package_data={"seqlike": ["*.ttf"]},
     # tests_require=[
     #    'pytest-regtest',
     #    'pytest',
