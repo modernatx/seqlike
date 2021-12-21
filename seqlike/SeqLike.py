@@ -528,7 +528,7 @@ class SeqLike:
     def upper(self):
         """Return uppercase sequences and alphabet.
 
-        #noqa: DAR201
+        <!-- #noqa: DAR201 -->
         """
         seq_copy = deepcopy(self)
         seq_copy._seqrecord = seq_copy._seqrecord.upper()
@@ -576,7 +576,7 @@ class SeqLike:
     def __str__(self) -> str:
         """Cast to a string
 
-        #noqa: DAR201
+        <!-- #noqa: DAR201 -->
         """
         return self.to_str()
 
@@ -586,7 +586,7 @@ class SeqLike:
         If both nucleotide and an associated amino acid sequence are present,
         we show both.
 
-        #noqa: DAR201
+        <!-- #noqa: DAR201 -->
         """
         if self._type == "NT":
             return f"*** NT: {self._nt_record.__repr__()} \n\nAA: {self._aa_record.__repr__()}"
@@ -622,8 +622,8 @@ class SeqLike:
 
         We prioritize setting attribute in _seqrecord before the SeqLike object.
 
-        #noqa: DAR101
-        #noqa: DAR201
+        <!-- #noqa: DAR101 -->
+        <!-- #noqa: DAR201 -->
         """
 
         if name in seqrecord_attrs:
@@ -642,7 +642,7 @@ class SeqLike:
         :raises AttributeError: if the attribute is not a SeqLike
             or SeqRecord attribute.
 
-        #noqa: DAR201
+        <!-- #noqa: DAR201 -->
         """
         if name == "__setstate__":  # pertains to pickling
             raise AttributeError
@@ -795,8 +795,8 @@ class SeqLike:
     def __radd__(self, other: "SeqLike"):
         """Support for sum()
 
-        #noqa: DAR101
-        #noqa: DAR201
+        <!-- #noqa: DAR101 -->
+        <!-- #noqa: DAR201 -->
         """
         if other == 0:
             return self
@@ -806,8 +806,8 @@ class SeqLike:
     def __deepcopy__(self, memo):
         """Deepcopy implementation.
 
-        #noqa: DAR101
-        #noqa: DAR201
+        <!-- #noqa: DAR101 -->
+        <!-- #noqa: DAR201 -->
         """
         seq_copy = SeqLike(
             self.to_seqrecord(),
@@ -863,8 +863,8 @@ def _construct_seqlike(sequence, seq_type, alphabet, codon_map, **kwargs) -> tup
     When we pass in a SeqLike object,
     all relevant attributes are deep-copied over.
 
-    #noqa: DAR101
-    #noqa: DAR201
+    <!-- #noqa: DAR101 -->
+    <!-- #noqa: DAR201 -->
     """
     _type = deepcopy(sequence._type)
     _aa_record = record_from(deepcopy(sequence._aa_record), **kwargs)
@@ -900,8 +900,8 @@ def _construct_seqlike(sequence, seq_type, alphabet, codon_map, **kwargs) -> tup
 def _construct_seqlike(sequence, seq_type, alphabet, codon_map, **kwargs) -> tuple:
     """Return attributes to set a SeqLike object from str, Seq, and SeqRecord objects.
 
-    #noqa: DAR101
-    #noqa: DAR201
+    <!-- #noqa: DAR101 -->
+    <!-- #noqa: DAR201 -->
     """
     validate_codon_map(codon_map)
 
@@ -961,7 +961,7 @@ def validate_sequence(sequence, _type) -> None:
 
     :raises TypeError: when the sequence is an invalid for its sequence type.
 
-    #noqa: DAR101
+    <!-- #noqa: DAR101 -->
     """
     validation_func = {
         "NT": is_NT,
@@ -982,7 +982,7 @@ def validate_sequence(sequence, _type) -> None:
 
     :raises ValueError: when the shape of the sequence is not correct.
 
-    #noqa: DAR101
+    <!-- #noqa: DAR101 -->
     """
     sequence = np.asarray(sequence, dtype=float)
     if sequence.ndim not in (1, 2):
@@ -996,7 +996,7 @@ def validate_sequence(sequence, _type) -> None:
 def validate_sequence(sequence, _type):
     """We do not need to validate SeqLike sequences. (I think.)
 
-    #noqa: DAR101
+    <!-- #noqa: DAR101 -->
     """
     pass
 
@@ -1073,8 +1073,8 @@ def swap_representation(s: SeqLike) -> SeqLike:
 def determine__type_and_alphabet(seq_type, alphabet, sequence):
     """Determine _type and alphabet when _type is set and alphabet is None.
 
-    #noqa: DAR101
-    #noqa: DAR201
+    <!-- #noqa: DAR101 -->
+    <!-- #noqa: DAR201 -->
     """
     _type = SEQTYPE_TO_TYPE_MAPPING.get(seq_type)
     alphabet = determine_alphabet(_type, sequence)
@@ -1085,8 +1085,8 @@ def determine__type_and_alphabet(seq_type, alphabet, sequence):
 def determine__type_and_alphabet(seq_type, alphabet, sequence):
     """Determine _type and alphabet when _type is set and alphabet is set.
 
-    #noqa: DAR101
-    #noqa: DAR201
+    <!-- #noqa: DAR101 -->
+    <!-- #noqa: DAR201 -->
     """
     _type = SEQTYPE_TO_TYPE_MAPPING.get(seq_type)
     return _type, alphabet
@@ -1099,8 +1099,8 @@ def determine__type(alphabet, sequence) -> str:
     This function uses _only_ the sequence to determine the alphabet.
     We prioritize the amino acid representation where possible.
 
-    #noqa: DAR101
-    #noqa: DAR201
+    <!-- #noqa: DAR101 -->
+    <!-- #noqa: DAR201 -->
     """
     if alphabet == AA or alphabet == STANDARD_AA:
         return "AA"
@@ -1114,8 +1114,8 @@ def determine_alphabet(_type, sequence) -> str:
 
     Enables us to use _type _and_ sequence to control the alphabet.
 
-    #noqa: DAR101
-    #noqa: DAR201
+    <!-- #noqa: DAR101 -->
+    <!-- #noqa: DAR201 -->
     """
     # _type = determine_seq_type(seq_type, sequence)
     alphabet = {"NT": NT, "AA": AA, "DNA": NT, "RNA": NT}.get(_type)
@@ -1134,8 +1134,8 @@ def array_to_string(sequence: Union[list, np.ndarray], _index_encoder, _onehot_e
     :raises IndexError: if the alphabet of the sequence is a superset
         of the index encoder and one-hot encoder object.
 
-    #noqa: DAR101
-    #noqa: DAR201
+    <!-- #noqa: DAR101 -->
+    <!-- #noqa: DAR201 -->
     """
     sequence = np.asarray(sequence, dtype=float)
     if sequence.ndim == 1:
