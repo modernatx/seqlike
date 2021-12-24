@@ -6,8 +6,8 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 <p align="center">
-  <a href="#contributors-">    
-    <img src="https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square">
+  <a href="#contributors-">
+    <img src="https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square">
   </a>
   <a href="https://github.com/modernatx/seqlike/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-Apache%202-blue">
@@ -124,6 +124,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://ericmjl.github.io/"><img src="https://avatars.githubusercontent.com/u/2631566?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Eric Ma</b></sub></a><br /><a href="https://github.com/modernatx/seqlike/commits?author=ericmjl" title="Code">💻</a> <a href="https://github.com/modernatx/seqlike/commits?author=ericmjl" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/MihirMetkar"><img src="https://avatars.githubusercontent.com/u/9938754?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mihir Metkar</b></sub></a><br /><a href="#ideas-MihirMetkar" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/modernatx/seqlike/commits?author=MihirMetkar" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/mccaron707"><img src="https://avatars.githubusercontent.com/u/26267127?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marcus Caron</b></sub></a><br /><a href="https://github.com/modernatx/seqlike/commits?author=mccaron707" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/pagpires"><img src="https://avatars.githubusercontent.com/u/7856031?v=4?s=100" width="100px;" alt=""/><br /><sub><b>pagpires</b></sub></a><br /><a href="https://github.com/modernatx/seqlike/commits?author=pagpires" title="Documentation">📖</a></td>
   </tr>
 </table>
 
