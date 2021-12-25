@@ -30,7 +30,7 @@ dependencies:
   - darglint
   # Docs dependencies
   - mkdocs
-  - mkdocs-material
+  - mkdocs-material=7.3.6
   - mkdocstrings
   # Infrastructural
   - bump2version
