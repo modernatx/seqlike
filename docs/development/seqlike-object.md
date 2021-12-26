@@ -3,7 +3,8 @@
 ## Purpose of this document
 
 The purpose of this document is to accurately document the SeqLike object's intended behaviour.
-It is not a replacement for docstrings, which serve as a reference for the arguments of the SeqLike methods.
+It is not a replacement for docstrings,
+which serve as a reference for the arguments of the SeqLike methods.
 
 You should read this document if:
 
@@ -13,7 +14,6 @@ You should read this document if:
 What is explicitly out-of-scope for this document are:
 
 1. Places that we need help (please consult code for TODOs)
-2.
 
 ## SeqLike Object Overview
 
@@ -74,14 +74,23 @@ that accepts and returns an AA SeqLike object.
 
 ## How the constructor works
 
-Inside the constructor,
+The `seqlike` package provides the `SeqLike` class,
+which is used for constructing SeqLike objects.
+In the constructor, the `seq_type` argument is required
+in order to avoid incorrectly inferring whether a sequence
+is a nucleotide or amino acid sequence.
+For convenience, there are also `aaSeqLike` and `ntSeqLike` factory functions
+that return a SeqLike constructed with the appropriate `seq_type` specified.
+Inside the SeqLike object's constructor,
 we use a dispatching pattern that returns a tuple of attributes
 based on the Python object types that are passed in.
 This design choice is highly inspired by the dispatching pattern
 prevalent in the Julia language,
 which makes reasoning about the behaviour of the constructor much easier.
-It also makes the code flatter and easier to read. (Zen of Python, friends!)
-The main function that determines SeqLike attribute values is called `_construct_seqlike`.
+It also makes the code flatter and easier to read.
+(Zen of Python, friends!)
+The main function that determines SeqLike attribute values
+is called `_construct_seqlike`.
 At a high level, this is what happens inside `_construct_seqlike`:
 
 1. We determine the `_type` and `alphabet` of the sequence based on the passed-in `seq_type`, `alphabet`, and `sequence` arguments.
@@ -191,8 +200,8 @@ And so on and so-forth.
 All of this is handled by dispatching on a single function `record_from`.
 (If you're not familiar with what dispatching is,
 this is inspired from the Julia language.
-We use the `plum` library to handle dispatching,
-check out its repository [here](https://github.com/wesselb/plum)
+We use the `multipledispatch` library to handle dispatching,
+check out its repository [here](https://github.com/mrocklin/multipledispatch)
 to read more about it.)
 
 By using dispatching, we ensure that whatever data type is passed in for `sequence`
