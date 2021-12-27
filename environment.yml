@@ -41,3 +41,4 @@ dependencies:
   - nbconvert
   - pip:
       - mknotebooks # for notebooks in docs
+      - build
