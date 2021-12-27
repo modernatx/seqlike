@@ -81,7 +81,7 @@ class SeqLikeAccessor:
             # Doing so could avoid a bunch of deepcopying.
             warnings.warn(
                 "It appears that the sequences here have multiple alphabets. "
-                "We be replacing alphabets with the full version (AA/NT) "
+                "We are replacing alphabets with the full version (AA/NT) "
                 "for the full collection. "
             )
             if obj.iloc[0]._type == "AA":

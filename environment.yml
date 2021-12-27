@@ -25,6 +25,7 @@ dependencies:
   - bokeh
   - python-codon-tables
   - mkdocstrings
+  - pyprojroot
   # Code quality
   - pre-commit
   - darglint
@@ -41,3 +42,4 @@ dependencies:
   - nbconvert
   - pip:
       - mknotebooks # for notebooks in docs
+      - build
