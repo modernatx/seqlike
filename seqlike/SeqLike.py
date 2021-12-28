@@ -38,9 +38,9 @@ from .utils import (
 )
 
 # TODO: Do we want to do some arithmetic on types here?
-ArrayType = Union[List, "np.ndarray", "torch.tensor"]
-SeqLikeType = Union[str, Seq, SeqRecord, list, "SeqLike", "np.ndarray", "torch.tensor"]
+ArrayType = Union[list, np.ndarray,]
 StringLikeType = Union[str, Seq, SeqRecord]
+SeqLikeType = Union[ArrayType, StringLikeType, "SeqLike"]
 
 seqrecord_attrs = (
     "id",
@@ -892,7 +892,7 @@ def _construct_seqlike(sequence, seq_type, alphabet, codon_map, **kwargs) -> tup
 
 
 @dispatch(
-    (list, np.ndarray, str, Seq, SeqRecord),  # TODO: Figure out a way to include torch tensors w/o requiring torch
+    ArrayType.__args__ + StringLikeType.__args__, # TODO: Figure out a way to include torch tensors w/o requiring torch
     (str),
     (str, type(None)),
     (object, type(None)),
@@ -955,7 +955,7 @@ def validate_codon_map(codon_map) -> None:
             raise TypeError(err_msg)
 
 
-@dispatch((str, Seq, SeqRecord), str)
+@dispatch(StringLikeType.__args__, str)
 def validate_sequence(sequence, _type) -> None:
     """Validate str, Seq, or SeqRecord sequence objects.
 
@@ -976,7 +976,7 @@ def validate_sequence(sequence, _type) -> None:
         raise TypeError(err_msg[_type])
 
 
-@dispatch((list, np.ndarray), str)
+@dispatch(ArrayType.__args__, str)
 def validate_sequence(sequence, _type) -> None:
     """Validate array-like sequence representations.
 
@@ -1069,7 +1069,7 @@ def swap_representation(s: SeqLike) -> SeqLike:
     return sc
 
 
-@dispatch(str, type(None), (str, Seq, SeqRecord, SeqLike))
+@dispatch(str, type(None), StringLikeType.__args__+ArrayType.__args__)
 def determine__type_and_alphabet(seq_type, alphabet, sequence):
     """Determine _type and alphabet when _type is set and alphabet is None.
 
@@ -1081,7 +1081,7 @@ def determine__type_and_alphabet(seq_type, alphabet, sequence):
     return _type, alphabet
 
 
-@dispatch(str, str, (list, np.ndarray, str, Seq, SeqRecord, SeqLike))
+@dispatch(str, str, StringLikeType.__args__+ArrayType.__args__)
 def determine__type_and_alphabet(seq_type, alphabet, sequence):
     """Determine _type and alphabet when _type is set and alphabet is set.
 
@@ -1092,7 +1092,7 @@ def determine__type_and_alphabet(seq_type, alphabet, sequence):
     return _type, alphabet
 
 
-@dispatch(str, (str, Seq, SeqRecord, SeqLike))
+@dispatch(str, StringLikeType.__args__)
 def determine__type(alphabet, sequence) -> str:
     """Determine _type when alphabet is set.
 
@@ -1108,7 +1108,7 @@ def determine__type(alphabet, sequence) -> str:
         return "NT"
 
 
-@dispatch(str, (str, Seq, SeqRecord, SeqLike))
+@dispatch(str, StringLikeType.__args__+(SeqLike,))
 def determine_alphabet(_type, sequence) -> str:
     """Determine alphabet from _type and sequence.
 
@@ -1167,7 +1167,7 @@ def record_from(sequence, **kwargs) -> SeqRecord:
     return sequence
 
 
-@dispatch((list, np.ndarray))
+@dispatch(ArrayType.__args__)
 def record_from(sequence, **kwargs) -> SeqRecord:
     """Construct SeqRecord from array-like sequences.
 
