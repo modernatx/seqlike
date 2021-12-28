@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+-   Update docs to remove `#noqa` in docstrings (@pagpires)
+-   Add FreeMono.ttf into source distribution (@andrewgiessel & @ericmjl)
+
 ## [v1.1.6] - 2021-11-19
 
 -   Simplify `.aa()` interface, return original SeqRecord attributes (@ndousis)
