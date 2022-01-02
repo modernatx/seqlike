@@ -72,16 +72,17 @@ class SeqLike:
     Here's a quick usage example:
 
     ```python
+    from seqlike import SeqLike
     example = 'ATCGATC'
 
-    seq_record = SeqLike(example).to_seqrecord()
-    seq = SeqLike(example).to_seq()
-    seq_str = SeqLike(example).to_str()
-    seq_index = SeqLike(example).to_index()
-    seq_onehot = SeqLike(example).to_onehot()
+    seq_record = SeqLike(example, seq_type="nt").to_seqrecord()
+    seq = SeqLike(example, seq_type="nt").to_seq()
+    seq_str = SeqLike(example, seq_type="nt").to_str()
+    seq_index = SeqLike(example, seq_type="nt").to_index()
+    seq_onehot = SeqLike(example, seq_type="nt").to_onehot()
     ```
 
-    Any of theose representations can be generated or passed in as an input.
+    Any of the aformentioned representations can be generated or passed in as an input.
     If using onehot or index encodings, they are of the shape:
     (N x NUM_BASES) and (N), respectively.
     We use symbols from our extended nucleotide and protein alphabets.
@@ -103,10 +104,6 @@ class SeqLike:
     The constructor also takes optional keyword arguments
     that are passed on to SeqRecord.
     For the id attribute, if unspecified we generate a random hexadecimal UUID.
-    The optional seq_type argument is one of 'DNA', 'RNA', 'NT', or 'AA'.
-    If seq_type is None, we try to infer this with the following simple rule:
-    if the sequence is entirely made of -ACGTUN, we assume it's an NT,
-    otherwise we use an AA.
 
     `codon_map` defines back-translation from an AA sequence to a NT sequence.
     This is formatted as a callable, see `codon_tables.py` for more info.
