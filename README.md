@@ -15,6 +15,18 @@
 </p>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+<!--- BADGES: START --->
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/seqlike?logo=pypi&style=flat&color=blue)][#pypi-package]
+[![PyPI - Package Version](https://img.shields.io/pypi/v/seqlike?logo=pypi&style=flat&color=orange)][#pypi-package]
+[![Conda - Platform](https://img.shields.io/conda/pn/conda-forge/seqlike?logo=anaconda&style=flat)][#conda-forge-package]
+[![Conda (channel only)](https://img.shields.io/conda/vn/conda-forge/seqlike?logo=anaconda&style=flat&color=orange)][#conda-forge-package]
+[![Docs - GitHub.io](https://img.shields.io/static/v1?logo=github&style=flat&color=pink&label=docs&message=seqlike)][#docs-package]
+
+[#pypi-package]: https://pypi.org/project/seqlike/
+[#conda-forge-package]: https://anaconda.org/conda-forge/seqlike
+[#docs-package]: https://modernatx.github.io/seqlike
+<!--- BADGES: END --->
+
 ## Introduction
 A single object API that makes working with biological sequences in Python
  more ergonomic. It'll handle anything _like a sequence_.  
@@ -89,8 +101,18 @@ please check out the [docs](https://modernatx.github.io/seqlike/)!
 
 ## Getting Started
 
+Install the library with `pip` or `conda`.
+
+**With pip**
+
 ```python
 pip install seqlike
+```
+
+**With conda**
+
+```sh
+conda install -c conda-forge seqlike
 ```
 
 ## Authors
