@@ -16,15 +16,25 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!--- BADGES: START --->
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/seqlike?logo=pypi&style=flat&color=blue)][#pypi-package]
-[![PyPI - Package Version](https://img.shields.io/pypi/v/seqlike?logo=pypi&style=flat&color=orange)][#pypi-package]
-[![Conda - Platform](https://img.shields.io/conda/pn/conda-forge/seqlike?logo=anaconda&style=flat)][#conda-forge-package]
-[![Conda (channel only)](https://img.shields.io/conda/vn/conda-forge/seqlike?logo=anaconda&style=flat&color=orange)][#conda-forge-package]
-[![Docs - GitHub.io](https://img.shields.io/static/v1?logo=github&style=flat&color=pink&label=docs&message=seqlike)][#docs-package]
-
-[#pypi-package]: https://pypi.org/project/seqlike/
-[#conda-forge-package]: https://anaconda.org/conda-forge/seqlike
-[#docs-package]: https://modernatx.github.io/seqlike
+<p align="center">
+<!--- Uncomment once supported python version information is available on PyPI
+  <a href="https://pypi.org/project/seqlike/">
+    <img src="https://img.shields.io/pypi/pyversions/seqlike?logo=pypi&style=flat&color=blue" alt="PyPI - Supported Python Version" />
+  </a>
+--->
+  <a href="https://pypi.org/project/seqlike/">
+    <img src="https://img.shields.io/pypi/v/seqlike?logo=pypi&style=flat&color=orange" alt="PyPI - Package Version" />
+  </a>
+  <a href="https://anaconda.org/conda-forge/seqlike">
+    <img src="https://img.shields.io/conda/pn/conda-forge/seqlike?logo=anaconda&style=flat" alt="Conda - Platform" />
+  </a>
+  <a href="https://anaconda.org/conda-forge/seqlike">
+    <img src="https://img.shields.io/conda/vn/conda-forge/seqlike?logo=anaconda&style=flat&color=orange" alt="Conda (channel only)" />
+  </a>
+  <a href="https://modernatx.github.io/seqlike">
+    <img src="https://img.shields.io/static/v1?logo=github&style=flat&color=pink&label=docs&message=seqlike" alt="Docs - GitHub.io" />
+  </a>
+</p>
 <!--- BADGES: END --->
 
 ## Introduction
