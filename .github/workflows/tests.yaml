@@ -27,6 +27,10 @@ jobs:
           environment-file: environment.yml
           use-mamba: true
 
+      # Necessary for Weblogo tests to pass.
+      - name: Setup GhostScript
+        run: sudo apt-get update && sudo apt-get install ghostscript
+
       - name: Run tests
         run: |
           conda activate seqlike-dev
