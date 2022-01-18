@@ -110,7 +110,7 @@ def download_mafft(kind="deb") -> Path:
 
 setup(
     name="seqlike",
-    version="1.1.6",
+    version="1.1.7.dev1",
     packages=find_packages(),  # https://stackoverflow.com/a/22442340
     cmdclass={"install": InstallWrapper},
     install_requires=[
