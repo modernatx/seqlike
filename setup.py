@@ -108,27 +108,49 @@ def download_mafft(kind="deb") -> Path:
     return deb_filepath
 
 
+README = Path("README.md").read_text()
+
+install_requires = [
+    "biopython",
+    "numpy",
+    "pandas",
+    "scikit-learn",
+    "weblogo",
+    "Pillow",
+    # :note: pytest should be under tests_require, but this doesn't seem to work
+    "pytest-regtest",
+    "pytest",
+    "multipledispatch",
+    "python-codon-tables",
+]
+
 setup(
     name="seqlike",
     version="1.1.6",
     packages=find_packages(),  # https://stackoverflow.com/a/22442340
     cmdclass={"install": InstallWrapper},
-    install_requires=[
-        "biopython",
-        "numpy",
-        "pandas",
-        "scikit-learn",
-        "weblogo",
-        "Pillow",
-        # :note: pytest should be under tests_require, but this doesn't seem to work
-        "pytest-regtest",
-        "pytest",
-        "multipledispatch",
-        "python-codon-tables",
-    ],
+    long_description=README,
+    long_description_content_type="text/markdown",
+    url="https://github.com/modernatx/seqlike",
+    project_urls={
+        "Documentation": "https://modernatx.github.io/seqlike",
+        "Source Code": "https://github.com/modernatx/seqlike",
+        "Issue Tracker": "https://github.com/modernatx/seqlike/issues",
+    },
+    install_requires=install_requires,
     package_data={"seqlike": ["*.ttf"]},
     # tests_require=[
     #    'pytest-regtest',
     #    'pytest',
     # ],
+    classifiers=[
+        "Intended Audience :: Science/Research",
+        'Operating System :: OS Independent',
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "License :: OSI Approved :: Apache 2.0 License",
+        "Topic :: Scientific/Engineering",
+    ],
 )

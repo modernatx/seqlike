@@ -15,7 +15,30 @@
 </p>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+<!--- BADGES: START --->
+<p align="center">
+  <!--- This badge will work once supported python version information is available on PyPI --->
+  <a href="https://pypi.org/project/seqlike/">
+    <img src="https://img.shields.io/pypi/pyversions/seqlike?logo=pypi&style=flat&color=blue" alt="PyPI - Supported Python Version" />
+  </a>
+  <!--- Supported Python Version Badge End --->
+  <a href="https://pypi.org/project/seqlike/">
+    <img src="https://img.shields.io/pypi/v/seqlike?logo=pypi&style=flat&color=orange" alt="PyPI - Package Version" />
+  </a>
+  <a href="https://anaconda.org/conda-forge/seqlike">
+    <img src="https://img.shields.io/conda/pn/conda-forge/seqlike?logo=anaconda&style=flat" alt="Conda - Platform" />
+  </a>
+  <a href="https://anaconda.org/conda-forge/seqlike">
+    <img src="https://img.shields.io/conda/vn/conda-forge/seqlike?logo=anaconda&style=flat&color=orange" alt="Conda (channel only)" />
+  </a>
+  <a href="https://modernatx.github.io/seqlike">
+    <img src="https://img.shields.io/static/v1?logo=github&style=flat&color=pink&label=docs&message=seqlike" alt="Docs - GitHub.io" />
+  </a>
+</p>
+<!--- BADGES: END --->
+
 ## Introduction
+
 A single object API that makes working with biological sequences in Python
  more ergonomic. It'll handle anything _like a sequence_.  
 
@@ -89,8 +112,18 @@ please check out the [docs](https://modernatx.github.io/seqlike/)!
 
 ## Getting Started
 
+Install the library with `pip` or `conda`.
+
+**With pip**
+
 ```python
 pip install seqlike
+```
+
+**With conda**
+
+```sh
+conda install -c conda-forge seqlike
 ```
 
 ## Authors
