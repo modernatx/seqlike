@@ -17,11 +17,11 @@
 
 <!--- BADGES: START --->
 <p align="center">
-<!--- Uncomment once supported python version information is available on PyPI
+  <!--- This badge will work once supported python version information is available on PyPI --->
   <a href="https://pypi.org/project/seqlike/">
     <img src="https://img.shields.io/pypi/pyversions/seqlike?logo=pypi&style=flat&color=blue" alt="PyPI - Supported Python Version" />
   </a>
---->
+  <!--- Supported Python Version Badge End --->
   <a href="https://pypi.org/project/seqlike/">
     <img src="https://img.shields.io/pypi/v/seqlike?logo=pypi&style=flat&color=orange" alt="PyPI - Package Version" />
   </a>
@@ -38,6 +38,7 @@
 <!--- BADGES: END --->
 
 ## Introduction
+
 A single object API that makes working with biological sequences in Python
  more ergonomic. It'll handle anything _like a sequence_.  
 
