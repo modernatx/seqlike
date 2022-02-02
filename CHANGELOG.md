@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [v1.1.7] - 2022-02-02
+
 -   Refactor dispatch types to reduce duplication (@pagpires)
 -   Update docs to remove `#noqa` in docstrings (@pagpires)
 -   Add FreeMono.ttf into source distribution (@andrewgiessel & @ericmjl)
@@ -22,7 +24,9 @@
 
 -   First public release of SeqLike h/t @andrewgiessel @maxasauruswall @MihirMetkar @ndousis @ericmjl @dtjohnson @JDFontenot
 
-[Unreleased]: https://github.com/modernatx/seqlike/compare/v1.1.6...HEAD
+[Unreleased]: https://github.com/modernatx/seqlike/compare/v1.1.7...HEAD
+
+[v1.1.7]: https://github.com/modernatx/seqlike/compare/v1.1.6...v1.1.7
 
 [v1.1.6]: https://github.com/modernatx/seqlike/compare/v1.1.5...v1.1.6
 
