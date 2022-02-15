@@ -1,15 +1,14 @@
-from inspect import Attribute
 import itertools
 
 from warnings import warn
-from .utils.validation import validate_seq_type
 
-# from seqlike.utils.constructor import get_encoders
+# from .utils.validation import validate_seq_type
+
 import uuid
 import warnings
 from copy import deepcopy
 from functools import reduce
-from typing import Any, Callable, List, Optional, Tuple, Union
+from typing import Callable, Optional, Union
 
 import numpy as np
 from Bio.Seq import Seq
@@ -27,18 +26,18 @@ from .alphabets import (
     is_STANDARD_AA,
     is_STANDARD_NT,
 )
-from .encoders import (
-    ENCODERS,
-    index_encoder_from_alphabet,
-    onehot_encoder_from_alphabet,
-)
+from .encoders import index_encoder_from_alphabet, onehot_encoder_from_alphabet, array_to_string
+from .SequenceLike import SequenceLike
 from .utils import (
     add_seqnums_to_letter_annotations,
     ungap,
 )
 
 # TODO: Do we want to do some arithmetic on types here?
-ArrayType = Union[list, np.ndarray,]
+ArrayType = Union[
+    list,
+    np.ndarray,
+]
 StringLikeType = Union[str, Seq, SeqRecord]
 SeqLikeType = Union[ArrayType, StringLikeType, "SeqLike"]
 
@@ -58,7 +57,7 @@ NT_TYPE = ["NT", "DNA", "RNA"]
 AA_TYPE = ["AA"]
 
 
-class SeqLike:
+class SeqLike(SequenceLike):
     """
     An omnibus object for various representations of biological sequences.
 
@@ -151,6 +150,10 @@ class SeqLike:
         self._seqrecord = self._aa_record if _type == "AA" else self._nt_record
         self.codon_map = codon_map
 
+    @property
+    def sequence(self):
+        return self._seqrecord.seq
+
     def nt(self, auto_backtranslate=True, **kwargs) -> "SeqLike":
         """
         This method returns the NT view of the SeqLike object.
@@ -213,18 +216,6 @@ class SeqLike:
         return swap_representation(self)
 
     # ------------------------- Methods to inter-convert Sequence to various Biopython formats -------------------------
-    # Function to convert input sequence to a string
-    def to_str(self) -> str:
-        """
-        Convert the SeqLike object (string, Seq, SeqRecord) to a string.
-
-        :returns: A string.
-        """
-        # Inherit a copy of main object, such that this will be executed only for a given instance.
-        if self._seqrecord is None:
-            return self._seqrecord
-        return str(self._seqrecord.seq)
-
     # Function to convert the input sequence object to Seq object
     def to_seq(self) -> Seq:
         """
@@ -258,44 +249,6 @@ class SeqLike:
         for key, val in kwargs.items():
             setattr(newrec, key, val)
         return newrec
-
-    # ------------------------- Functions to convert a sequence to numerical formats -------------------------
-    def to_index(self, dtype=float, encoder=None) -> np.ndarray:
-        """
-        Convert the SeqLike object into a index-encoded array.
-
-        Underneath the hood we use the `._index_encoder` to handle transformations,
-        unless the `encoder` argument is specified.
-
-        :param dtype: Array data type. Defaults to float.
-            Can be changed to any dtype that NumPy arrays allow.
-        :param encoder: A sklearn encoder
-            that transforms the sequence into an integer-encoded array.
-        :returns: index encoded numpy array for the given sequence
-        """
-        seq_as_array = [[x] for x in self]
-
-        if encoder is not None:
-            return encoder.transform(seq_as_array).squeeze().astype(dtype)
-        return self._index_encoder.transform(seq_as_array).squeeze().astype(dtype)
-
-    def to_onehot(self, dtype=float, encoder=None) -> np.ndarray:
-        """
-        Convert the SeqLike object into a one-hot encoded array.
-
-        Underneath the hood we use the `._onehot_encoder` to handle transformations.
-
-        :param dtype: Array data type. Defaults to float.
-            Can be changed to any dtype that NumPy arrays allow.
-        :param encoder: A sklearn encoder
-            that transforms the sequence into an onehot-encoded array.
-        :returns: onehot encoded numpy array for the given sequence.
-        """
-        seq_as_array = [[x] for x in self]
-
-        if encoder is not None:
-            return encoder.transform(seq_as_array).squeeze().astype(dtype)
-        return self._onehot_encoder.transform(seq_as_array).squeeze().astype(dtype)
 
     # ------------------------- Functions to apply callables -------------------------
     def translate(self, **kwargs) -> "SeqLike":
@@ -418,25 +371,6 @@ class SeqLike:
         )
         return s
 
-    def apply(self, func, **kwargs):
-        """This method applies func to the object and returns a copy, using
-        keyword arguments.  Note that we *only* support kwargs, not
-        positional arguments.  The callable function must take a
-        SeqLike as the parameter `seq`, and will often (but not
-        always) return a new SeqLike object.
-
-        While one could simply call `func(seq)`, This enables a fluent
-        interface pattern, which lets you chain methods together.
-        Subclasses of SeqLike can/should use this method and other
-        pre-built functions to rapidly add functionality by defining a
-        method that simply calls `self.apply(self, func)`.
-
-        :param func: The function to apply to the SeqLike object.
-        :param **kwargs: Passed through to `func()`.
-        :returns: The result of calling `func()`.
-        """
-        return func(seq=deepcopy(self), **kwargs)
-
     # ------------------------- Functions to format sequences -------------------------
     def ungap(self) -> "SeqLike":
         """Remove gap characters and return a new SeqLike.
@@ -547,36 +481,7 @@ class SeqLike:
         """
         return self.__getitem__(self.seq_num_to_idx(list_of_seqnums))
 
-    def find(self, sub: SeqLikeType, start=None, end=None) -> int:
-        """Pass-through function to use Bio.Seq.find() function.
-
-        We coerce sub to be a string so that we can allow Seq.find() to handle SeqLikes.
-
-        :param sub: A SeqLike, str, Seq, or SeqRecord object.
-        :param start: Argument passed on to the underlying `_seqrecord.Seq` object.
-        :param end: Argument passed on to the underlying `_seqrecord.Seq` object.
-        :returns: Integer location of the substring.
-        """
-        sub = str(sub)
-        return self._seqrecord.seq.find(sub, start=start, end=end)
-
-    def count(self, *args, **kwargs) -> int:
-        """Use string.count() function.
-
-        :param args: Passed through to `str.count()`.
-        :param kwargs: Passed through to `str.count()`.
-        :returns: Integer count of substring.
-        """
-        return self.to_str().count(*args, **kwargs)
-
     # ------------------------- Special methods ---------------------------------------
-    def __str__(self) -> str:
-        """Cast to a string
-
-        <!-- #noqa: DAR201 -->
-        """
-        return self.to_str()
-
     def __repr__(self) -> str:
         """Return a representation of the sequence.
 
@@ -588,31 +493,6 @@ class SeqLike:
         if self._type == "NT":
             return f"*** NT: {self._nt_record.__repr__()} \n\nAA: {self._aa_record.__repr__()}"
         return f"NT: {self._nt_record.__repr__()} \n\n*** AA: {self._aa_record.__repr__()}"
-
-    def __len__(self) -> int:
-        """
-        Function to return the length of the given sequence, in the current mode.
-
-        :returns: length of the given sequence object.
-        """
-        return len(self._seqrecord)
-
-    def __contains__(self, char) -> bool:
-        """
-        This function makes the use of Python keyword 'in' possible.
-
-        :param char: character string to search for in the sequence.
-        :returns: A boolean for char in sequence.
-        """
-        return char in self._seqrecord
-
-    def __iter__(self):
-        """
-        Calling iterator on SeqLike iterates over the sequence.
-
-        :returns: iteration over the sequence.
-        """
-        return iter(self._seqrecord.seq)
 
     def __setattr__(self, name, value):
         """Set attribute value
@@ -679,22 +559,6 @@ class SeqLike:
         :returns: A new SeqLike of the same type sliced to the index.
         """
         index = [index] if isinstance(index, (int, slice)) else index
-
-        # def slice_nt_and_aa(s: SeqLike, idx) -> SeqRecord:
-        #     """Handle the case when NT and AA are both present."""
-        #     # Slice both AA and NT.
-        #     if s._type == "AA":
-        #         pass
-        #     elif s._type == "NT":
-        #         pass
-
-        # def slice_nt(s: SeqLike, idx) -> SeqRecord:
-        #     """Handle case when only _nt_record is present."""
-        #     sequence = s._nt_record[idx]
-
-        # def slice_aa(s: SeqLike, idx) -> SeqRecord:
-        #     """Handle case when only _aa_record is present."""
-        #     sequence = s._aa_record[idx]
 
         # slicing is a type-preserving
         seqlike_kwargs = dict(
@@ -889,7 +753,7 @@ def _construct_seqlike(sequence, seq_type, alphabet, codon_map, **kwargs) -> tup
 
 
 @dispatch(
-    ArrayType.__args__ + StringLikeType.__args__, # TODO: Figure out a way to include torch tensors w/o requiring torch
+    ArrayType.__args__ + StringLikeType.__args__,  # TODO: Figure out a way to include torch tensors w/o requiring torch
     (str),
     (str, type(None)),
     (object, type(None)),
@@ -909,7 +773,8 @@ def _construct_seqlike(sequence, seq_type, alphabet, codon_map, **kwargs) -> tup
     _type, alphabet = determine__type_and_alphabet(seq_type, alphabet, sequence)
 
     # Get the encoders - both one-hot and index.
-    _index_encoder, _onehot_encoder = get_encoders(alphabet)
+    _index_encoder = index_encoder_from_alphabet(alphabet)
+    _onehot_encoder = onehot_encoder_from_alphabet(alphabet)
 
     # Build the _aa_record or _nt_record attribute.
     validate_sequence(sequence, _type)
@@ -1052,7 +917,8 @@ def swap_representation(s: SeqLike) -> SeqLike:
         )
 
     # Obtain new encoders
-    _index_encoder, _onehot_encoder = get_encoders(alphabet)
+    _index_encoder = index_encoder_from_alphabet(alphabet)
+    _onehot_encoder = onehot_encoder_from_alphabet(alphabet)
 
     # Now set the attributes correctly.
     sc._type = _type
@@ -1066,7 +932,7 @@ def swap_representation(s: SeqLike) -> SeqLike:
     return sc
 
 
-@dispatch(str, type(None), StringLikeType.__args__+ArrayType.__args__)
+@dispatch(str, type(None), StringLikeType.__args__ + ArrayType.__args__)
 def determine__type_and_alphabet(seq_type, alphabet, sequence):
     """Determine _type and alphabet when _type is set and alphabet is None.
 
@@ -1078,7 +944,7 @@ def determine__type_and_alphabet(seq_type, alphabet, sequence):
     return _type, alphabet
 
 
-@dispatch(str, str, StringLikeType.__args__+ArrayType.__args__)
+@dispatch(str, str, StringLikeType.__args__ + ArrayType.__args__)
 def determine__type_and_alphabet(seq_type, alphabet, sequence):
     """Determine _type and alphabet when _type is set and alphabet is set.
 
@@ -1105,7 +971,7 @@ def determine__type(alphabet, sequence) -> str:
         return "NT"
 
 
-@dispatch(str, StringLikeType.__args__+(SeqLike,))
+@dispatch(str, StringLikeType.__args__ + (SeqLike,))
 def determine_alphabet(_type, sequence) -> str:
     """Determine alphabet from _type and sequence.
 
@@ -1123,34 +989,6 @@ def determine_alphabet(_type, sequence) -> str:
     elif _type == "AA" and is_STANDARD_AA(sequence):
         alphabet = STANDARD_AA
     return alphabet
-
-
-def array_to_string(sequence: Union[list, np.ndarray], _index_encoder, _onehot_encoder) -> str:
-    """Convert array-like sequence representations to a string.
-
-    :raises IndexError: if the alphabet of the sequence is a superset
-        of the index encoder and one-hot encoder object.
-
-    <!-- #noqa: DAR101 -->
-    <!-- #noqa: DAR201 -->
-    """
-    sequence = np.asarray(sequence, dtype=float)
-    if sequence.ndim == 1:
-        try:
-            sequence = "".join(_index_encoder.inverse_transform(sequence.reshape(-1, 1)).flatten())
-        except IndexError:
-            raise IndexError(
-                "The encoder encountered a bad encoding value. "
-                "Try using the 'NT' or 'AA' alphabets, "
-                "which contain the broadest set of characters "
-                "for their respective categories."
-            )
-    elif sequence.ndim == 2:
-        sequence = "".join(_onehot_encoder.inverse_transform(sequence).flatten())
-
-    # NOTE: We do not need to check for other dim sizes
-    # because we assume that validate_sequence will take care of it.
-    return sequence
 
 
 @dispatch(type(None))
@@ -1229,17 +1067,3 @@ def record_from(sequence, **kwargs) -> SeqRecord:
     :returns: A SeqRecord object.
     """
     return record_from(deepcopy(sequence._seqrecord), **kwargs)
-
-
-def get_encoders(alphabet: str):
-    """A convenience function to get the one-hot and index encoders for an alphabet.
-
-    This function can be expanded in the future if new encoders show up,
-    though we believe this is a low probability event.
-
-    :param alphabet: The collection of letters that form the alphabet.
-    :returns: An tuple of (index encoder, one-hot encoder).
-    """
-    ix_encoder = index_encoder_from_alphabet(alphabet)
-    oh_encoder = onehot_encoder_from_alphabet(alphabet)
-    return ix_encoder, oh_encoder
