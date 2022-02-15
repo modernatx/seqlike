@@ -112,8 +112,15 @@ def test_SeqLike_interconversion():
     based on target types.
     """
     seqstr = "TCGCACACTGCA"
-    seq0 = SeqLike(seqstr, "nt", id="id", name="name", description="description",
-                   annotations={"molecule_type": "DNA"}, dbxrefs=["/accessions=['Z78439']"])
+    seq0 = SeqLike(
+        seqstr,
+        "nt",
+        id="id",
+        name="name",
+        description="description",
+        annotations={"molecule_type": "DNA"},
+        dbxrefs=["/accessions=['Z78439']"],
+    )
 
     seq1 = SeqLike(seq0, "dna").nt()
     seq2 = SeqLike(seq0, "dna").aa()
@@ -467,7 +474,7 @@ def test__dir__():
             annotations=annotations,
         )
         assert isinstance(dir(seq), list)
-        assert len(dir(seq)) == 68
+        assert len(dir(seq)) == 75
         assert set(dir(SeqLike)).issubset(dir(seq))
         assert set(["annotations", "description", "name", "id", "letter_annotations"]).issubset(dir(seq))
 
