@@ -1,5 +1,7 @@
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder
 from .alphabets import NT, AA, STANDARD_AA, STANDARD_NT
+import numpy as np
+from typing import Union
 
 
 def index_encoder_from_alphabet(alphabet):
@@ -22,6 +24,45 @@ def onehot_encoder_from_alphabet(alphabet):
     categories = [[letter for letter in alphabet]]
     fit_list = [[letter] for letter in alphabet]
     return OneHotEncoder(dtype=float, sparse=False, categories=categories).fit(fit_list)
+
+
+def array_to_symbols(sequence: Union[list, np.ndarray], _index_encoder, _onehot_encoder) -> str:
+    """Convert array-like sequence representations to a string.
+
+    :raises IndexError: if the alphabet of the sequence is a superset
+        of the index encoder and one-hot encoder object.
+
+    <!-- #noqa: DAR101 -->
+    <!-- #noqa: DAR201 -->
+    """
+    sequence = np.asarray(sequence, dtype=float)
+    if sequence.ndim == 1:
+        try:
+            sequence = _index_encoder.inverse_transform(sequence.reshape(-1, 1)).flatten()
+        except IndexError:
+            raise IndexError(
+                "The encoder encountered a bad encoding value. "
+                "Ensure that you're using an alphabet "
+                "which contains all needed symbols."
+            )
+    elif sequence.ndim == 2:
+        sequence = _onehot_encoder.inverse_transform(sequence).flatten()
+
+    # NOTE: We do not need to check for other dim sizes
+    # because we assume that validate_sequence will take care of it.
+    return sequence
+
+
+def array_to_string(sequence: Union[list, np.ndarray], _index_encoder, _onehot_encoder) -> str:
+    """Convert array-like sequence representations to a string.
+
+    :raises IndexError: if the alphabet of the sequence is a superset
+        of the index encoder and one-hot encoder object.
+
+    <!-- #noqa: DAR101 -->
+    <!-- #noqa: DAR201 -->
+    """
+    return "".join(array_to_symbols(sequence, _index_encoder, _onehot_encoder))
 
 
 ENCODERS = {
