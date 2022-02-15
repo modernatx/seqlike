@@ -11,9 +11,8 @@ from .encoders import index_encoder_from_alphabet, onehot_encoder_from_alphabet,
 class SequenceLike(Sequence):
     def __init__(self, sequence, alphabet=None, encoding=None):
         if alphabet is None:
-            self.alphabet = list(set(sorted([x for x in sequence])))
-        else:
-            self.alphabet = alphabet
+            alphabet = list(set([x for x in sequence]))
+        self.alphabet = sorted(alphabet)
 
         # Get the encoders - both one-hot and index.
         self._index_encoder = index_encoder_from_alphabet(self.alphabet)
