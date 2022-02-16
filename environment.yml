@@ -23,6 +23,7 @@ dependencies:
   - interrogate
   - matplotlib
   - bokeh
+  - ghostscript
   - python-codon-tables
   - mkdocstrings
   - pyprojroot
