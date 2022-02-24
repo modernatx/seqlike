@@ -14,15 +14,20 @@ from .encoders import index_encoder_from_alphabet, onehot_encoder_from_alphabet,
 class SequenceLike(Sequence):
     def __init__(self, sequence, alphabet=None, encoding=None):
         if alphabet is None:
-            alphabet = list(set([x for x in sequence]))
-        self.alphabet = sorted(alphabet)
+            alphabet = set([x for x in sequence])
+        alphabet = sorted(alphabet)
 
         # Get the encoders - both one-hot and index.
-        self._index_encoder = index_encoder_from_alphabet(self.alphabet)
-        self._onehot_encoder = onehot_encoder_from_alphabet(self.alphabet)
+        _index_encoder = index_encoder_from_alphabet(alphabet)
+        _onehot_encoder = onehot_encoder_from_alphabet(alphabet)
 
         if encoding in ["onehot", "index"]:
-            sequence = array_to_symbols(sequence, self._index_encoder, self._onehot_encoder)
+            sequence = array_to_symbols(sequence, _index_encoder, _onehot_encoder)
+
+        # Set properties all in one block for readability.
+        self.alphabet = alphabet
+        self._index_encoder = _index_encoder
+        self._onehot_encoder = _onehot_encoder
         self.sequence = sequence
 
     def to_str(self) -> str:
