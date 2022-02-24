@@ -12,7 +12,10 @@ def test_inferred_alphabet():
 
 
 def test_SequenceLike():
-    """Example-based test for SequenceLike object."""
+    """Example-based test for SequenceLike object.
+
+    We test the most important class methods in this test.
+    """
     sequence = ["AD", "AD", "AD", "BC", "ASD", "BCD"]
     s = SequenceLike(sequence)
     assert s.to_str() == "".join(s for s in sequence)
