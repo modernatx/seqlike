@@ -1,6 +1,9 @@
-"""SequenceLike is a more general class that relaxes the assumption that
-the symbols in the sequence are amino or nucleic acids, but preserves the ability to 
-convert to/from index and onehot encodings, given a sequence and an alphabet."""
+"""
+SequenceLike: a more general class that relaxes the assumption
+that the symbols in the sequence are amino or nucleic acids,
+but preserves the ability to convert to/from index and onehot encodings,
+given a sequence and an alphabet.
+"""
 from collections.abc import Sequence
 import numpy as np
 from copy import deepcopy
