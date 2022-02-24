@@ -38,8 +38,7 @@ class SequenceLike(Sequence):
         """
         return "".join(self.sequence)
 
-        # ------------------------- Functions to convert a sequence to numerical formats -------------------------
-
+    # ------------------------- Functions to convert a sequence to numerical formats -------------------------
     def to_index(self, dtype=float, encoder=None) -> np.ndarray:
         """
         Convert the SequenceLike object into a index-encoded array.
@@ -126,7 +125,8 @@ class SequenceLike(Sequence):
         :param end: Argument passed on to the underlying `_seqrecord.Seq` object.
         :returns: Integer location of the substring.
         """
-        assert set(sub).issubset(self.alphabet)
+        if not set(sub).issubset(self.alphabet):
+            raise ValueError(f"Subsequence set {set(sub)} is not part of the alphabet {self.alphabet}")
 
         if start is None:
             start = 0
@@ -135,7 +135,6 @@ class SequenceLike(Sequence):
 
         count = 0
         for i in range(start, end + 1):
-            print(i, "".join(self[i : i + len(sub)]), "".join(sub))
             if "".join(self[i : i + len(sub)]) == "".join(sub):
                 count += 1
         return count
