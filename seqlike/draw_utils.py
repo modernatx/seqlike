@@ -105,9 +105,9 @@ def convert_weblogo_color(color: "wl.color.Color", color_format: str) -> Union[t
         return hex_str
 
 
-def convert_colorscheme_to_color_map(color_scheme: "wl.colorscheme.ColorScheme", color_format: str) -> dict:
+def convert_colorscheme_to_color_map(color_scheme: Callable, color_format: str) -> dict:
     """Convert weblogo ColorScheme into bokeh color map
-    :param color_scheme: a weblogo ColorScheme object
+    :param color_scheme: a Callable that returns a weblogo ColorScheme object
     :param color_format: 'hex' or 'rgb' for hex string or RGB tuple, respectively
     :returns: a dict of bokeh colors indexed by letter
     """
@@ -115,7 +115,7 @@ def convert_colorscheme_to_color_map(color_scheme: "wl.colorscheme.ColorScheme",
 
     # convert SymbolColor to bokeh color object
     color_dict = dict()
-    for rule in color_scheme.rules:
+    for rule in color_scheme().rules:
         color_dict[rule.symbols] = convert_weblogo_color(rule.color, color_format)
     # default for spaces (white)
     color_dict["-*"] = convert_weblogo_color(wl.color.Color.from_string("white"), color_format)

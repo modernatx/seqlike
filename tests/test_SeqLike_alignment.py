@@ -1,6 +1,4 @@
 from types import *
-import os
-import pytest
 import pandas as pd
 from seqlike import SeqLike
 from seqlike.alignment_utils import align
