@@ -3,7 +3,9 @@ from typing import Optional
 import warnings
 
 import numpy as np
-import pandas as pd
+
+# import pandas as pd
+import lazy_loader as lazy
 from Bio import SeqIO
 from Bio.Align import MultipleSeqAlignment
 from Bio.Data.IUPACData import extended_protein_values
@@ -25,6 +27,8 @@ from .alphabets import (
 from .draw_utils import draw_alignment, view_alignment, aa_chemistry_simple, nt_simple
 from .encoders import onehot_encoder_from_alphabet
 from .SeqLike import SeqLike
+
+pd = lazy.load("pandas")
 
 
 @pd.api.extensions.register_series_accessor("seq")
