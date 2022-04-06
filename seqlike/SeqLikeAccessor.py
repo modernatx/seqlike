@@ -131,7 +131,7 @@ class SeqLikeAccessor:
         seqnum_labels=None,
         ref_id=None,
         cols=50,
-        color_scheme=aa_chemistry_simple(),
+        color_scheme=aa_chemistry_simple,
         logo_font="ArialMT",
         logo_format="png",
         resolution=200,
