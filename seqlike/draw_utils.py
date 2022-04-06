@@ -16,10 +16,11 @@ bk = lazy.load("bokeh")
 # from bokeh.core.properties import value
 
 # for visualization in jupyter notebook
-# from bokeh.io import output_notebook
 try:
     get_ipython
-    bk.io.output_notebook()
+    from bokeh.io import output_notebook
+
+    output_notebook()
 except NameError:
     pass
 # except ImportError:

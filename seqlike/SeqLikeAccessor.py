@@ -117,9 +117,9 @@ class SeqLikeAccessor:
         :returns: a PIL Image object or Bokeh object.
         """
         if colorscheme is None and self._type == "NT":
-            colorscheme = nt_simple()
+            colorscheme = nt_simple
         elif colorscheme is None and self._type == "AA":
-            colorscheme = aa_chemistry_simple()
+            colorscheme = aa_chemistry_simple
 
         if use_bokeh:
             try:
