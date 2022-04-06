@@ -58,13 +58,14 @@ def get_nt_seqrecs():
     return seqrecs
 
 
+@pytest.mark.xfail("May fail if MAFFT is not installed.")
 def test_alignment_commands():
     seqrecs = get_aa_seqrecs()
     ## test mafft
     aligned = mafft_alignment(seqrecs)
-    print("\nmafft_alignment:", aligned)
+    # print("\nmafft_alignment:", aligned)
     aligned = mafft_alignment(seqrecs, dash=True)
-    print("\nmafft_alignment (MAFFT-DASH):", aligned)
+    # print("\nmafft_alignment (MAFFT-DASH):", aligned)
 
 
 def test_pad_seq_records_for_alignment():

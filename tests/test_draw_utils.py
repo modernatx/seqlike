@@ -29,7 +29,7 @@ def test_convert_weblogo_color():
 
 def test_convert_colorscheme_to_color_map():
     # RGB
-    color_dict = convert_colorscheme_to_color_map(aa_chemistry_simple(), color_format="rgb")
+    color_dict = convert_colorscheme_to_color_map(aa_chemistry_simple, color_format="rgb")
     for letter in "GSTYCNQ":
         assert color_dict[letter] == (0, 128, 0)
     for letter in "KRH":
@@ -42,7 +42,7 @@ def test_convert_colorscheme_to_color_map():
         for letter in rule.symbols:
             color_dict[letter] == convert_weblogo_color(rule.color, "rgb")
     # hex
-    color_dict = convert_colorscheme_to_color_map(aa_chemistry_simple(), color_format="hex")
+    color_dict = convert_colorscheme_to_color_map(aa_chemistry_simple, color_format="hex")
     for rule in aa_chemistry_simple().rules:
         for letter in rule.symbols:
             color_dict[letter] == convert_weblogo_color(rule.color, color_format="hex")
@@ -81,6 +81,7 @@ def test_view_alignment():
     fig = view_alignment(MultipleSeqAlignment(aligned))
 
 
+@pytest.mark.xfail(reason="Will fail is Ghostscript is not on path.")
 def test_draw_weblogo():
     aligned = get_aligned_aa_seqrecs_duplicate_ids()
     df = pd.DataFrame({"seqs": [SeqLike(seq, seq_type="aa") for seq in aligned]})

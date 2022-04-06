@@ -115,7 +115,7 @@ def convert_colorscheme_to_color_map(color_scheme: Callable, color_format: str) 
 
     # convert SymbolColor to bokeh color object
     color_dict = dict()
-    for rule in color_scheme().rules:
+    for rule in color_scheme.rules:
         color_dict[rule.symbols] = convert_weblogo_color(rule.color, color_format)
     # default for spaces (white)
     color_dict["-*"] = convert_weblogo_color(wl.color.Color.from_string("white"), color_format)
@@ -276,6 +276,9 @@ def view_alignment(
         instead of using the residue colorscheme
     :returns: A Bokeh plot of the Multiple Sequence Alignment.
     """
+    from bokeh.models import ColumnDataSource, Range1d
+    from bokeh.plotting import figure
+    from bokeh.models.glyphs import Rect
 
     def get_colors(seqs, color_scheme):
         """make colors for letters in sequence
@@ -319,7 +322,7 @@ def view_alignment(
     if show_grouping:
         colors = get_colors_for_matching(seqs)
     else:
-        colors = get_colors(seqs, colorscheme())
+        colors = get_colors(seqs, colorscheme)
     N = len(seqs[0])
     S = len(seqs)
 
@@ -334,9 +337,9 @@ def view_alignment(
     # use recty for rect coords with an offset
     recty = gy + 0.5
     # now we can create the ColumnDataSource with all the arrays
-    source = bk.models.ColumnDataSource(dict(x=gx, y=gy, recty=recty, text=text, colors=colors))
+    source = ColumnDataSource(dict(x=gx, y=gy, recty=recty, text=text, colors=colors))
     plot_height = len(seqs) * boxheight + 50
-    x_range = bk.models.Range1d(0, N + 1, bounds="auto")
+    x_range = Range1d(0, N + 1, bounds="auto")
     viewlen = min(show_N, N)
     # view_range is for the close up view
     view_range = (0, viewlen)
@@ -347,7 +350,8 @@ def view_alignment(
     plot_width = int(5 * label_width) + boxwidth * viewlen + 40
 
     # entire sequence view (no text, with zoom)
-    p = bk.plotting.figure(
+
+    p = figure(
         title=None,
         plot_width=plot_width,
         plot_height=50,
@@ -357,7 +361,7 @@ def view_alignment(
         min_border=0,
         toolbar_location="below",
     )
-    rects = bk.models.glyphs.Rect(
+    rects = Rect(
         x="x",
         y="recty",
         width=1,
@@ -371,7 +375,7 @@ def view_alignment(
     p.grid.visible = False
 
     # sequence text view with ability to scroll along x axis
-    p1 = bk.plotting.figure(
+    p1 = figure(
         title=None,
         plot_width=plot_width,
         plot_height=plot_height,
@@ -390,7 +394,7 @@ def view_alignment(
         text_font=bk.core.properties.value("monospace"),
         text_font_size=fontsize,
     )
-    rects = bk.models.glyphs.Rect(
+    rects = Rect(
         x="x",
         y="recty",
         width=1,

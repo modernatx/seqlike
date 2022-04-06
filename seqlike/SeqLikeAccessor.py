@@ -179,7 +179,7 @@ class SeqLikeAccessor:
         opts = wl.LogoOptions(
             formatter=wl.formatters[logo_format],
             stacks_per_line=cols,
-            color_scheme=color_scheme,
+            color_scheme=color_scheme(),
             logo_font=logo_font,
             resolution=resolution,
             **kwargs,
