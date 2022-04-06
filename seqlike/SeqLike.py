@@ -2,15 +2,15 @@ from inspect import Attribute
 import itertools
 
 from warnings import warn
-from .utils.validation import validate_seq_type
 
 import uuid
 import warnings
 from copy import deepcopy
 from functools import reduce
-from typing import Any, Callable, List, Optional, Tuple, Union
+from typing import Callable, Optional, Union
 
-import numpy as np
+import lazy_loader as lazy
+
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from multipledispatch import dispatch
@@ -34,6 +34,9 @@ from .utils import (
     add_seqnums_to_letter_annotations,
     ungap,
 )
+
+np = lazy.load("numpy")
+
 
 # TODO: Do we want to do some arithmetic on types here?
 ArrayType = Union[
