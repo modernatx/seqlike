@@ -41,7 +41,7 @@ np = lazy.load("numpy")
 # TODO: Do we want to do some arithmetic on types here?
 ArrayType = Union[
     list,
-    "np.ndarray",
+    np.ndarray,
 ]
 StringLikeType = Union[str, Seq, SeqRecord]
 SeqLikeType = Union[ArrayType, StringLikeType, "SeqLike"]
