@@ -115,7 +115,7 @@ def convert_colorscheme_to_color_map(color_scheme: Callable, color_format: str) 
 
     # convert SymbolColor to bokeh color object
     color_dict = dict()
-    for rule in color_scheme.rules:
+    for rule in color_scheme().rules:
         color_dict[rule.symbols] = convert_weblogo_color(rule.color, color_format)
     # default for spaces (white)
     color_dict["-*"] = convert_weblogo_color(wl.color.Color.from_string("white"), color_format)
