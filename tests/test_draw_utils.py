@@ -5,7 +5,7 @@ from Bio.Align import MultipleSeqAlignment
 from weblogo.color import Color
 from seqlike.draw_utils import draw_alignment, view_alignment
 from seqlike.draw_utils import convert_weblogo_color, apply_matching_colorscheme
-from seqlike.draw_utils import aa_chemistry_simple, aa_dssp_color, convert_colorscheme_to_color_map
+from seqlike.draw_utils import aa_chemistry_simple, convert_colorscheme_to_color_map
 from seqlike.SeqLike import SeqLike
 from .test_SeqLike_alignment import get_aligned_aa_seqrecs_duplicate_ids
 
@@ -29,7 +29,7 @@ def test_convert_weblogo_color():
 
 def test_convert_colorscheme_to_color_map():
     # RGB
-    color_dict = convert_colorscheme_to_color_map(aa_chemistry_simple, color_format="rgb")
+    color_dict = convert_colorscheme_to_color_map(aa_chemistry_simple(), color_format="rgb")
     for letter in "GSTYCNQ":
         assert color_dict[letter] == (0, 128, 0)
     for letter in "KRH":
@@ -38,12 +38,12 @@ def test_convert_colorscheme_to_color_map():
         assert color_dict[letter] == (255, 0, 0)
     for letter in "PAWFLIMV":
         assert color_dict[letter] == (0, 0, 0)
-    for rule in aa_chemistry_simple.rules:
+    for rule in aa_chemistry_simple().rules:
         for letter in rule.symbols:
             color_dict[letter] == convert_weblogo_color(rule.color, "rgb")
     # hex
-    color_dict = convert_colorscheme_to_color_map(aa_chemistry_simple, color_format="hex")
-    for rule in aa_chemistry_simple.rules:
+    color_dict = convert_colorscheme_to_color_map(aa_chemistry_simple(), color_format="hex")
+    for rule in aa_chemistry_simple().rules:
         for letter in rule.symbols:
             color_dict[letter] == convert_weblogo_color(rule.color, color_format="hex")
 

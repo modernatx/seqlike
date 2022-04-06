@@ -8,8 +8,7 @@ from Bio import SeqIO
 from Bio.Align import MultipleSeqAlignment
 from Bio.Data.IUPACData import extended_protein_values
 from PIL import Image
-from weblogo import LogoData, LogoFormat, LogoOptions, formatters
-from weblogo.seq import Alphabet
+
 
 from .alignment_utils import align
 from .alphabets import (
@@ -114,9 +113,9 @@ class SeqLikeAccessor:
         :returns: a PIL Image object or Bokeh object.
         """
         if colorscheme is None and self._type == "NT":
-            colorscheme = nt_simple
+            colorscheme = nt_simple()
         elif colorscheme is None and self._type == "AA":
-            colorscheme = aa_chemistry_simple
+            colorscheme = aa_chemistry_simple()
 
         if use_bokeh:
             try:
@@ -132,7 +131,7 @@ class SeqLikeAccessor:
         seqnum_labels=None,
         ref_id=None,
         cols=50,
-        color_scheme=aa_chemistry_simple,
+        color_scheme=aa_chemistry_simple(),
         logo_font="ArialMT",
         logo_format="png",
         resolution=200,
@@ -149,6 +148,7 @@ class SeqLikeAccessor:
         :param **kwargs: additional weblogo arguments
         :returns: PIL Image object
         """
+        import weblogo as wl
 
         def highlight_consensus(labels, consensus, ref):
             new_labels = list()
@@ -172,8 +172,8 @@ class SeqLikeAccessor:
             seqnum_labels = range(1, len(consensus) + 1)
 
         # set weblogo options
-        opts = LogoOptions(
-            formatter=formatters[logo_format],
+        opts = wl.LogoOptions(
+            formatter=wl.formatters[logo_format],
             stacks_per_line=cols,
             color_scheme=color_scheme,
             logo_font=logo_font,
@@ -185,14 +185,14 @@ class SeqLikeAccessor:
 
         # remove gap and stop characters so that they are not included in weblogo
         ignore = [gap_letter, stop_letter]
-        alphabet = Alphabet([s for s in self.alphabet if s not in ignore])
+        alphabet = wl.seq.Alphabet([s for s in self.alphabet if s not in ignore])
         counts = [count for s, count in self.as_counts_by_alphabet() if s not in ignore]
 
         # count position-specific frequencies
-        data = LogoData.from_counts(alphabet, np.array(counts).T)
+        data = wl.LogoData.from_counts(alphabet, np.array(counts).T)
 
         # return logo as png image
-        logo = opts.formatter(data, LogoFormat(data, opts))
+        logo = opts.formatter(data, wl.LogoFormat(data, opts))
         return Image.open(io.BytesIO(logo))
 
     def align(self, preserve_order: bool = True, *args, **kwargs):
