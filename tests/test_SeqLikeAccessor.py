@@ -1,21 +1,16 @@
 from copy import deepcopy
-import os
-import sys
 import tempfile
 
-# sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import numpy as np
 import pandas as pd
 import pytest
-import pathlib
 from PIL import Image
 
 from Bio import SeqIO
 from Bio.Align import MultipleSeqAlignment
 from seqlike import SeqLike
 from seqlike.codon_tables import human_codon_table, human_codon_map, codon_table_to_codon_map
-from seqlike.alphabets import gap_letter
 
 from . import test_path
 
