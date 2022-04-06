@@ -1,29 +1,32 @@
 import sys
 import os
 import numpy as np
-from typing import Union
+from typing import Callable, Union
 
 from PIL import Image, ImageDraw, ImageFont
 
-# import weblogo as wl
 import lazy_loader as lazy
 
 wl = lazy.load("weblogo")
 
+# try:
+# import bokeh as bk
+bk = lazy.load("bokeh")
+# from bokeh.plotting import figure, show
+# from bokeh.core.properties import value
+
+# for visualization in jupyter notebook
+# from bokeh.io import output_notebook
 try:
-    import bokeh as bk
-    from bokeh.plotting import figure, show
-    from bokeh.core.properties import value
-
-    # for visualization in jupyter notebook
-    from bokeh.io import output_notebook
-
-    output_notebook()
-except ImportError:
-    print(
-        "Warning: cannot import Bokeh, so the interactive alignment viewer is disabled.",
-        file=sys.stderr,
-    )
+    get_ipython
+    bk.io.output_notebook()
+except NameError:
+    pass
+# except ImportError:
+#     print(
+#         "Warning: cannot import Bokeh, so the interactive alignment viewer is disabled.",
+#         file=sys.stderr,
+#     )
 
 from .alphabets import gap_letter
 
@@ -79,7 +82,7 @@ def nt_simple():
     )
 
 
-def convert_weblogo_color(color: wl.color.Color, color_format: str) -> Union[tuple, str]:
+def convert_weblogo_color(color: "wl.color.Color", color_format: str) -> Union[tuple, str]:
     """Convert weblogo Color to Bokeh color object
 
     Note: Weblogo colors are RGB but fractional [0, 1],
@@ -102,7 +105,7 @@ def convert_weblogo_color(color: wl.color.Color, color_format: str) -> Union[tup
         return hex_str
 
 
-def convert_colorscheme_to_color_map(color_scheme: wl.colorscheme.ColorScheme, color_format: str) -> dict:
+def convert_colorscheme_to_color_map(color_scheme: "wl.colorscheme.ColorScheme", color_format: str) -> dict:
     """Convert weblogo ColorScheme into bokeh color map
     :param color_scheme: a weblogo ColorScheme object
     :param color_format: 'hex' or 'rgb' for hex string or RGB tuple, respectively
@@ -171,7 +174,7 @@ def find_font(size, fontpath=None):
 
 def draw_alignment(
     aligned,
-    colorscheme=aa_chemistry_simple(),
+    colorscheme: Callable = aa_chemistry_simple,
     boxwidth=2,
     boxheight=12,
     label_width=100,
@@ -182,7 +185,7 @@ def draw_alignment(
 ):
     """Generate a colored figure from an alignment
     :param aligned: MultipleSeqAlignment object
-    :param colorscheme: a weblogo ColorScheme object
+    :param colorscheme: a Callable that returns a weblogo ColorScheme object
     :param boxwidth: column width of alignment
     :param boxheight: row height of alignment
     :param label_width: maximum length of row label; if None, extend to maximum label length
@@ -249,7 +252,7 @@ def view_alignment(
     aligned,
     fontsize="9pt",
     show_N=100,
-    colorscheme=aa_chemistry_simple(),
+    colorscheme: Callable = aa_chemistry_simple,
     boxwidth=9,
     boxheight=15,
     label_width=None,
@@ -264,7 +267,7 @@ def view_alignment(
     :param aligned: MultipleSeqAlignment object
     :param fontsize: font size for text labels
     :param show_N: size of sequence window (in number of sequence letters)
-    :param colorscheme: a weblogo ColorScheme object
+    :param colorscheme: a Callable that returns a weblogo ColorScheme object
     :param boxwidth: column width of alignment
     :param boxheight: row height of alignment
     :param label_width: maximum length of row label; if None, extend to maximum label length
@@ -316,7 +319,7 @@ def view_alignment(
     if show_grouping:
         colors = get_colors_for_matching(seqs)
     else:
-        colors = get_colors(seqs, colorscheme)
+        colors = get_colors(seqs, colorscheme())
     N = len(seqs[0])
     S = len(seqs)
 
@@ -344,7 +347,7 @@ def view_alignment(
     plot_width = int(5 * label_width) + boxwidth * viewlen + 40
 
     # entire sequence view (no text, with zoom)
-    p = figure(
+    p = bk.plotting.figure(
         title=None,
         plot_width=plot_width,
         plot_height=50,
@@ -368,7 +371,7 @@ def view_alignment(
     p.grid.visible = False
 
     # sequence text view with ability to scroll along x axis
-    p1 = figure(
+    p1 = bk.plotting.figure(
         title=None,
         plot_width=plot_width,
         plot_height=plot_height,
@@ -384,7 +387,7 @@ def view_alignment(
         text="text",
         text_align="center",
         text_color="black",
-        text_font=value("monospace"),
+        text_font=bk.core.properties.value("monospace"),
         text_font_size=fontsize,
     )
     rects = bk.models.glyphs.Rect(
@@ -405,5 +408,5 @@ def view_alignment(
     p1.yaxis.major_tick_line_width = 0
 
     p = bk.layouts.gridplot([[p], [p1]], toolbar_location="below")
-    show(p)
+    bk.plotting.show(p)
     return p
