@@ -2,16 +2,15 @@ from inspect import Attribute
 import itertools
 
 from warnings import warn
-from .utils.validation import validate_seq_type
 
-# from seqlike.utils.constructor import get_encoders
 import uuid
 import warnings
 from copy import deepcopy
 from functools import reduce
-from typing import Any, Callable, List, Optional, Tuple, Union
+from typing import Callable, Optional, Union
 
-import numpy as np
+import lazy_loader as lazy
+
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from multipledispatch import dispatch
@@ -28,7 +27,6 @@ from .alphabets import (
     is_STANDARD_NT,
 )
 from .encoders import (
-    ENCODERS,
     index_encoder_from_alphabet,
     onehot_encoder_from_alphabet,
 )
@@ -37,8 +35,14 @@ from .utils import (
     ungap,
 )
 
+np = lazy.load("numpy")
+
+
 # TODO: Do we want to do some arithmetic on types here?
-ArrayType = Union[list, np.ndarray,]
+ArrayType = Union[
+    list,
+    np.ndarray,
+]
 StringLikeType = Union[str, Seq, SeqRecord]
 SeqLikeType = Union[ArrayType, StringLikeType, "SeqLike"]
 
@@ -889,7 +893,7 @@ def _construct_seqlike(sequence, seq_type, alphabet, codon_map, **kwargs) -> tup
 
 
 @dispatch(
-    ArrayType.__args__ + StringLikeType.__args__, # TODO: Figure out a way to include torch tensors w/o requiring torch
+    ArrayType.__args__ + StringLikeType.__args__,  # TODO: Figure out a way to include torch tensors w/o requiring torch
     (str),
     (str, type(None)),
     (object, type(None)),
@@ -1066,7 +1070,7 @@ def swap_representation(s: SeqLike) -> SeqLike:
     return sc
 
 
-@dispatch(str, type(None), StringLikeType.__args__+ArrayType.__args__)
+@dispatch(str, type(None), StringLikeType.__args__ + ArrayType.__args__)
 def determine__type_and_alphabet(seq_type, alphabet, sequence):
     """Determine _type and alphabet when _type is set and alphabet is None.
 
@@ -1078,7 +1082,7 @@ def determine__type_and_alphabet(seq_type, alphabet, sequence):
     return _type, alphabet
 
 
-@dispatch(str, str, StringLikeType.__args__+ArrayType.__args__)
+@dispatch(str, str, StringLikeType.__args__ + ArrayType.__args__)
 def determine__type_and_alphabet(seq_type, alphabet, sequence):
     """Determine _type and alphabet when _type is set and alphabet is set.
 
@@ -1105,7 +1109,7 @@ def determine__type(alphabet, sequence) -> str:
         return "NT"
 
 
-@dispatch(str, StringLikeType.__args__+(SeqLike,))
+@dispatch(str, StringLikeType.__args__ + (SeqLike,))
 def determine_alphabet(_type, sequence) -> str:
     """Determine alphabet from _type and sequence.
 

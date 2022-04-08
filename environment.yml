@@ -43,3 +43,4 @@ dependencies:
   - pip:
       - mknotebooks # for notebooks in docs
       - build
+      - lazy-loader

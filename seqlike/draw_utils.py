@@ -1,76 +1,89 @@
 import sys
 import os
 import numpy as np
-from typing import Union
+from typing import Callable, Union
 
 from PIL import Image, ImageDraw, ImageFont
-from weblogo import colorscheme
-from weblogo.color import Color
-from weblogo.seq import protein_alphabet
 
+import lazy_loader as lazy
+
+wl = lazy.load("weblogo")
+
+# try:
+# import bokeh as bk
+bk = lazy.load("bokeh")
+# from bokeh.plotting import figure, show
+# from bokeh.core.properties import value
+
+# for visualization in jupyter notebook
 try:
-    import bokeh as bk
-    from bokeh.plotting import figure, show
-    from bokeh.core.properties import value
-
-    # for visualization in jupyter notebook
+    get_ipython
     from bokeh.io import output_notebook
 
     output_notebook()
-except ImportError:
-    print(
-        "Warning: cannot import Bokeh, so the interactive alignment viewer is disabled.",
-        file=sys.stderr,
-    )
+except NameError:
+    pass
+# except ImportError:
+#     print(
+#         "Warning: cannot import Bokeh, so the interactive alignment viewer is disabled.",
+#         file=sys.stderr,
+#     )
 
 from .alphabets import gap_letter
 
 
 # revised from chemistry_extended: removed neutral and moved N and Q to polar
-aa_chemistry_simple = colorscheme.ColorScheme(
-    [
-        colorscheme.SymbolColor("GSTYCNQ", "green", "polar"),
-        colorscheme.SymbolColor("KRH", "blue", "basic"),
-        colorscheme.SymbolColor("DE", "red", "acidic"),
-        colorscheme.SymbolColor("PAWFLIMV", "black", "hydrophobic"),
-        colorscheme.SymbolColor("X", "gray", "unknown"),
-    ],
-    alphabet=protein_alphabet,
-)
+def aa_chemistry_simple():
+    return wl.colorscheme.ColorScheme(
+        [
+            wl.colorscheme.SymbolColor("GSTYCNQ", "green", "polar"),
+            wl.colorscheme.SymbolColor("KRH", "blue", "basic"),
+            wl.colorscheme.SymbolColor("DE", "red", "acidic"),
+            wl.colorscheme.SymbolColor("PAWFLIMV", "black", "hydrophobic"),
+            wl.colorscheme.SymbolColor("X", "gray", "unknown"),
+        ],
+        alphabet=wl.seq.protein_alphabet,
+    )
+
 
 # from makelogo
-aa_chemistry_extended = colorscheme.ColorScheme(
-    [
-        colorscheme.SymbolColor("GSTYC", "green", "polar"),
-        colorscheme.SymbolColor("NQ", "purple", "neutral"),
-        colorscheme.SymbolColor("KRH", "blue", "basic"),
-        colorscheme.SymbolColor("DE", "red", "acidic"),
-        colorscheme.SymbolColor("PAWFLIMV", "black", "hydrophobic"),
-        colorscheme.SymbolColor("X", "gray", "unknown"),
-    ],
-    alphabet=protein_alphabet,
-)
-
-aa_dssp_color = colorscheme.ColorScheme(
-    [
-        colorscheme.SymbolColor("EB", "red", "strand"),
-        colorscheme.SymbolColor("HGI", "blue", "helix"),
-        colorscheme.SymbolColor("TSC-", "light gray", "coil"),
-    ],
-    alphabet=protein_alphabet,
-)
-
-nt_simple = colorscheme.ColorScheme(
-    [
-        colorscheme.SymbolColor("G", "orange"),
-        colorscheme.SymbolColor("TU", "red"),
-        colorscheme.SymbolColor("C", "blue"),
-        colorscheme.SymbolColor("A", "green"),
-    ],
-)
+def aa_chemistry_extended():
+    return wl.colorscheme.ColorScheme(
+        [
+            wl.colorscheme.SymbolColor("GSTYC", "green", "polar"),
+            wl.colorscheme.SymbolColor("NQ", "purple", "neutral"),
+            wl.colorscheme.SymbolColor("KRH", "blue", "basic"),
+            wl.colorscheme.SymbolColor("DE", "red", "acidic"),
+            wl.colorscheme.SymbolColor("PAWFLIMV", "black", "hydrophobic"),
+            wl.colorscheme.SymbolColor("X", "gray", "unknown"),
+        ],
+        alphabet=wl.seq.protein_alphabet,
+    )
 
 
-def convert_weblogo_color(color: Color, color_format: str) -> Union[tuple, str]:
+def aa_dssp_color():
+    return wl.colorscheme.ColorScheme(
+        [
+            wl.colorscheme.SymbolColor("EB", "red", "strand"),
+            wl.colorscheme.SymbolColor("HGI", "blue", "helix"),
+            wl.colorscheme.SymbolColor("TSC-", "light gray", "coil"),
+        ],
+        alphabet=wl.seq.protein_alphabet,
+    )
+
+
+def nt_simple():
+    return wl.colorscheme.ColorScheme(
+        [
+            wl.colorscheme.SymbolColor("G", "orange"),
+            wl.colorscheme.SymbolColor("TU", "red"),
+            wl.colorscheme.SymbolColor("C", "blue"),
+            wl.colorscheme.SymbolColor("A", "green"),
+        ],
+    )
+
+
+def convert_weblogo_color(color: "wl.color.Color", color_format: str) -> Union[tuple, str]:
     """Convert weblogo Color to Bokeh color object
 
     Note: Weblogo colors are RGB but fractional [0, 1],
@@ -93,9 +106,9 @@ def convert_weblogo_color(color: Color, color_format: str) -> Union[tuple, str]:
         return hex_str
 
 
-def convert_colorscheme_to_color_map(color_scheme: colorscheme.ColorScheme, color_format: str) -> dict:
+def convert_colorscheme_to_color_map(color_scheme: Callable, color_format: str) -> dict:
     """Convert weblogo ColorScheme into bokeh color map
-    :param color_scheme: a weblogo ColorScheme object
+    :param color_scheme: a Callable that returns a weblogo ColorScheme object
     :param color_format: 'hex' or 'rgb' for hex string or RGB tuple, respectively
     :returns: a dict of bokeh colors indexed by letter
     """
@@ -103,10 +116,10 @@ def convert_colorscheme_to_color_map(color_scheme: colorscheme.ColorScheme, colo
 
     # convert SymbolColor to bokeh color object
     color_dict = dict()
-    for rule in color_scheme.rules:
+    for rule in color_scheme().rules:
         color_dict[rule.symbols] = convert_weblogo_color(rule.color, color_format)
     # default for spaces (white)
-    color_dict["-*"] = convert_weblogo_color(Color.from_string("white"), color_format)
+    color_dict["-*"] = convert_weblogo_color(wl.color.Color.from_string("white"), color_format)
     # expand letter strings so that dict maps to single letters
     expanded_color_dict = dict()
     for letters, color in color_dict.items():
@@ -123,16 +136,16 @@ def apply_matching_colorscheme(letter, ref_letter, color_format: str):
     """
     # gap match
     if letter == gap_letter and letter == ref_letter:
-        return convert_weblogo_color(Color.from_string("lightblue"), color_format)
+        return convert_weblogo_color(wl.color.Color.from_string("lightblue"), color_format)
     # gap
     elif letter == gap_letter:
-        return convert_weblogo_color(Color.from_string("white"), color_format)
+        return convert_weblogo_color(wl.color.Color.from_string("white"), color_format)
     # match
     elif letter == ref_letter:
-        return convert_weblogo_color(Color.from_string("limegreen"), color_format)
+        return convert_weblogo_color(wl.color.Color.from_string("limegreen"), color_format)
     # mismatch
     else:
-        return convert_weblogo_color(Color.from_string("darkred"), color_format)
+        return convert_weblogo_color(wl.color.Color.from_string("darkred"), color_format)
 
 
 def find_font(size, fontpath=None):
@@ -162,7 +175,7 @@ def find_font(size, fontpath=None):
 
 def draw_alignment(
     aligned,
-    colorscheme=aa_chemistry_simple,
+    colorscheme: Callable = aa_chemistry_simple,
     boxwidth=2,
     boxheight=12,
     label_width=100,
@@ -173,7 +186,7 @@ def draw_alignment(
 ):
     """Generate a colored figure from an alignment
     :param aligned: MultipleSeqAlignment object
-    :param colorscheme: a weblogo ColorScheme object
+    :param colorscheme: a Callable that returns a weblogo ColorScheme object
     :param boxwidth: column width of alignment
     :param boxheight: row height of alignment
     :param label_width: maximum length of row label; if None, extend to maximum label length
@@ -240,7 +253,7 @@ def view_alignment(
     aligned,
     fontsize="9pt",
     show_N=100,
-    colorscheme=aa_chemistry_simple,
+    colorscheme: Callable = aa_chemistry_simple,
     boxwidth=9,
     boxheight=15,
     label_width=None,
@@ -255,7 +268,7 @@ def view_alignment(
     :param aligned: MultipleSeqAlignment object
     :param fontsize: font size for text labels
     :param show_N: size of sequence window (in number of sequence letters)
-    :param colorscheme: a weblogo ColorScheme object
+    :param colorscheme: a Callable that returns a weblogo ColorScheme object
     :param boxwidth: column width of alignment
     :param boxheight: row height of alignment
     :param label_width: maximum length of row label; if None, extend to maximum label length
@@ -264,6 +277,9 @@ def view_alignment(
         instead of using the residue colorscheme
     :returns: A Bokeh plot of the Multiple Sequence Alignment.
     """
+    from bokeh.models import ColumnDataSource, Range1d
+    from bokeh.plotting import figure
+    from bokeh.models.glyphs import Rect
 
     def get_colors(seqs, color_scheme):
         """make colors for letters in sequence
@@ -322,9 +338,9 @@ def view_alignment(
     # use recty for rect coords with an offset
     recty = gy + 0.5
     # now we can create the ColumnDataSource with all the arrays
-    source = bk.models.ColumnDataSource(dict(x=gx, y=gy, recty=recty, text=text, colors=colors))
+    source = ColumnDataSource(dict(x=gx, y=gy, recty=recty, text=text, colors=colors))
     plot_height = len(seqs) * boxheight + 50
-    x_range = bk.models.Range1d(0, N + 1, bounds="auto")
+    x_range = Range1d(0, N + 1, bounds="auto")
     viewlen = min(show_N, N)
     # view_range is for the close up view
     view_range = (0, viewlen)
@@ -335,6 +351,7 @@ def view_alignment(
     plot_width = int(5 * label_width) + boxwidth * viewlen + 40
 
     # entire sequence view (no text, with zoom)
+
     p = figure(
         title=None,
         plot_width=plot_width,
@@ -345,7 +362,7 @@ def view_alignment(
         min_border=0,
         toolbar_location="below",
     )
-    rects = bk.models.glyphs.Rect(
+    rects = Rect(
         x="x",
         y="recty",
         width=1,
@@ -375,10 +392,10 @@ def view_alignment(
         text="text",
         text_align="center",
         text_color="black",
-        text_font=value("monospace"),
+        text_font=bk.core.properties.value("monospace"),
         text_font_size=fontsize,
     )
-    rects = bk.models.glyphs.Rect(
+    rects = Rect(
         x="x",
         y="recty",
         width=1,
@@ -396,5 +413,5 @@ def view_alignment(
     p1.yaxis.major_tick_line_width = 0
 
     p = bk.layouts.gridplot([[p], [p1]], toolbar_location="below")
-    show(p)
+    bk.plotting.show(p)
     return p

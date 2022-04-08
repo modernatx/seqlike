@@ -1,10 +1,9 @@
 from types import *
-import os
-import pytest
 import pandas as pd
 from seqlike import SeqLike
 from seqlike.alignment_utils import align
 from seqlike.alignment_commands import mafft_alignment, pad_seq_records_for_alignment
+import pytest
 
 
 def get_aa_seqrecs():
@@ -60,13 +59,14 @@ def get_nt_seqrecs():
     return seqrecs
 
 
+@pytest.mark.xfail(reason="May fail if MAFFT is not installed.")
 def test_alignment_commands():
     seqrecs = get_aa_seqrecs()
     ## test mafft
     aligned = mafft_alignment(seqrecs)
-    print("\nmafft_alignment:", aligned)
+    # print("\nmafft_alignment:", aligned)
     aligned = mafft_alignment(seqrecs, dash=True)
-    print("\nmafft_alignment (MAFFT-DASH):", aligned)
+    # print("\nmafft_alignment (MAFFT-DASH):", aligned)
 
 
 def test_pad_seq_records_for_alignment():

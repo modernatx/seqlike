@@ -1,9 +1,10 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
+# from __future__ import absolute_import, division, print_function, unicode_literals
 from typing import List
 
 import tempfile
 from io import StringIO
-import pandas as pd
+import lazy_loader as lazy
+
 
 from Bio import AlignIO, SeqIO, Phylo
 from Bio.Align import MultipleSeqAlignment
@@ -11,6 +12,8 @@ from Bio.Align.Applications import ClustalOmegaCommandline
 
 from .AlignCommandline import MafftCommandline
 from .SeqLike import SeqLikeType, SeqLike
+
+pd = lazy.load("pandas")
 
 
 def pad_seq_records_for_alignment(seqs: List[SeqLikeType]):
