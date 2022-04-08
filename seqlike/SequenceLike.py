@@ -39,7 +39,7 @@ class SequenceLike(Sequence):
         return "".join(self.sequence)
 
     # ------------------------- Functions to convert a sequence to numerical formats -------------------------
-    def to_index(self, dtype=float, encoder=None) -> np.ndarray:
+    def to_index(self, dtype=int, encoder=None) -> np.ndarray:
         """
         Convert the SequenceLike object into a index-encoded array.
 
@@ -58,7 +58,7 @@ class SequenceLike(Sequence):
             return encoder.transform(seq_as_array).squeeze().astype(dtype)
         return self._index_encoder.transform(seq_as_array).squeeze().astype(dtype)
 
-    def to_onehot(self, dtype=float, encoder=None) -> np.ndarray:
+    def to_onehot(self, dtype=int, encoder=None) -> np.ndarray:
         """
         Convert the SequenceLike object into a one-hot encoded array.
 
