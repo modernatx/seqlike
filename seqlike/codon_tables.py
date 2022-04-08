@@ -5,7 +5,7 @@ python_codon_tables below for reference.
 
 from copy import deepcopy
 import numpy as np
-from seqlike import SeqLike
+from seqlike.SeqLike import SeqLike
 from typing import Callable
 from python_codon_tables import get_codons_table
 

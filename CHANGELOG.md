@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [v1.1.8] - 2022-04-08
+
 ## [v1.1.7] - 2022-02-02
 
 -   Refactor dispatch types to reduce duplication (@pagpires)
@@ -24,7 +26,9 @@
 
 -   First public release of SeqLike h/t @andrewgiessel @maxasauruswall @MihirMetkar @ndousis @ericmjl @dtjohnson @JDFontenot
 
-[Unreleased]: https://github.com/modernatx/seqlike/compare/v1.1.7...HEAD
+[Unreleased]: https://github.com/modernatx/seqlike/compare/v1.1.8...HEAD
+
+[v1.1.8]: https://github.com/modernatx/seqlike/compare/v1.1.7...v1.1.8
 
 [v1.1.7]: https://github.com/modernatx/seqlike/compare/v1.1.6...v1.1.7
 

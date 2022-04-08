@@ -1,26 +1,17 @@
-import os
-import sys
-from copy import deepcopy
 import tempfile
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from copy import deepcopy
 
 import numpy as np
 import pytest
-
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-from seqlike import SeqLike
-
-from seqlike.codon_tables import yeast_codon_table, ecoli_codon_table, codon_table_to_codon_map
-from seqlike.SeqLike import NT, AA, STANDARD_NT, STANDARD_AA
+from hypothesis import given
+from hypothesis.strategies import composite, integers, sampled_from, text
+from seqlike.codon_tables import codon_table_to_codon_map, ecoli_codon_table, yeast_codon_table
+from seqlike.SeqLike import AA, NT, STANDARD_AA, STANDARD_NT, SeqLike
 
 from . import test_path
-
-
-from hypothesis import given, assume
-from hypothesis.strategies import composite, text, integers, sampled_from
 
 
 ALPHABETS = [NT, AA, STANDARD_NT, STANDARD_AA]
