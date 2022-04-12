@@ -465,7 +465,7 @@ def test__dir__():
             annotations=annotations,
         )
         assert isinstance(dir(seq), list)
-        assert len(dir(seq)) == 68
+        assert len(dir(seq)) == 75
         assert set(dir(SeqLike)).issubset(dir(seq))
         assert set(["annotations", "description", "name", "id", "letter_annotations"]).issubset(dir(seq))
 

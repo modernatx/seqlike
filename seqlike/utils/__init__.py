@@ -13,10 +13,6 @@ from .validation import *
 
 # The functions exposed from submodules of `utils` available in `seqlike.utils`.
 __all__ = (
-    # determine_alphabet,
-    # determine_seq_type,
-    # record_from,
-    # get_encoders,
     add_seqnums_to_letter_annotations,
     ungap,
     slice_seqrec,
