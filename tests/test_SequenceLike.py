@@ -2,6 +2,7 @@ import os
 import sys
 from copy import deepcopy
 import tempfile
+from typing import Optional
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -32,13 +33,13 @@ ALPHABETS = [NT, AA, STANDARD_NT, STANDARD_AA, CODONS, NUMBERS]
 
 
 @composite
-def string_sequences(draw, alphabet: str = None, min_size: int = 2) -> tuple:
+def string_sequences(draw, alphabet: Optional[str] = None, min_size: int = 2) -> tuple:
     """Composite Hypothesis strategy to generate strings from one of the alphabets.
 
     This test handles the cases where seq_type, sequence, and alphabet are all set.
     """
     max_size = draw(integers(min_value=min_size, max_value=1000))
-    if not alphabet:
+    if alphabet is None:
         alphabet = draw(sampled_from(ALPHABETS))
     sequence = draw(lists(elements=sampled_from(alphabet), min_size=min_size, max_size=max_size))
     return sequence, alphabet
@@ -48,7 +49,6 @@ def string_sequences(draw, alphabet: str = None, min_size: int = 2) -> tuple:
 def test_init_hyp(sequence_and_alphabet: tuple):
     """Test initialization of SequenceLike objects from strings."""
     sequence, alphabet = sequence_and_alphabet
-    sequence = "".join(sequence)
     seq = SequenceLike(sequence, alphabet=alphabet)
     assert seq.alphabet == sorted(alphabet)
 
