@@ -624,6 +624,8 @@ class SeqLike(SequenceLike):
     def __add__(self, other):
         """Add sequence to another sequence.
 
+        Mimics behavior of SeqRecord.__add__.
+
         For magical behaviour, we assume that other is of the same _type as the self._type.
         Doing so allows us to do:
 
@@ -637,12 +639,13 @@ class SeqLike(SequenceLike):
         :param other: A SeqLike type object.
         :returns: The added SeqLike object.
         """
-        other = SeqLike(
-            other,
-            seq_type=deepcopy(self._type),
-            alphabet=deepcopy(self.alphabet),
-            codon_map=deepcopy(self.codon_map),
-        )
+        if not isinstance(other, SeqLike):
+            other = SeqLike(
+                other,
+                seq_type=deepcopy(self._type),
+                alphabet=deepcopy(self.alphabet),
+                codon_map=deepcopy(self.codon_map),
+            )
         assert self._type == other._type, f"Incompatible sequence types! self is {self._type}, other is {other._type}"
 
         return SeqLike(
@@ -656,15 +659,29 @@ class SeqLike(SequenceLike):
         )
 
     def __radd__(self, other: "SeqLike"):
-        """Support for sum()
+        """Add another sequence or string to this sequence from the left.
+
+        Mimics behavior of SeqRecord.__radd__.
 
         <!-- #noqa: DAR101 -->
         <!-- #noqa: DAR201 -->
         """
+        # for summation of SeqLike using sum()
         if other == 0:
             return self
-        else:
-            return self.__add__(other)
+        if isinstance(other, SeqLike):
+            raise RuntimeError("This should have happened via the __add__ of the other SeqLike being added!")
+        # Assume it is a string, Seq, or SeqRecord.
+        # Note can't transfer any per-letter-annotations
+        return SeqLike(
+            other + self.to_seqrecord(),
+            seq_type=self._type,
+            alphabet=self.alphabet,
+            codon_map=self.codon_map,
+            id=self._seqrecord.id,
+            name=self._seqrecord.name,
+            description=self._seqrecord.description,
+        )
 
     def __deepcopy__(self, memo):
         """Deepcopy implementation.
