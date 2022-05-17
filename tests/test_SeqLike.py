@@ -500,9 +500,9 @@ def test__add__():
     """Test for __add__ method."""
     for seqstr, seq_type in [("TCGCACACTGCA", "nt"), ("GEGDATYGKLTLKFICTT", "aa")]:
         annotations = {"a1": "test1"}
-        s1 = SeqLike(seqstr[:5], seq_type=seq_type, description="test", annotations=annotations)
-        s2 = SeqLike(seqstr[5:], seq_type=seq_type, annotations=annotations)
-        s3 = SeqLike(seqstr[5:], seq_type=seq_type)
+        s1 = SeqLike(seqstr[:5], seq_type=seq_type, id="s1", description="test", annotations=annotations)
+        s2 = SeqLike(seqstr[5:], seq_type=seq_type, id="s2", description="test2", annotations=annotations)
+        s3 = SeqLike(seqstr[5:], seq_type=seq_type, id="s3")
         assert (s1 + s2).to_str() == seqstr
         assert (s1 + s2).id == s1.id
         assert (s1 + s2).description == s1.description == "test"
@@ -511,21 +511,29 @@ def test__add__():
         # if not, the concatenated object does not (to match behavior of SeqRecord)
         assert (s1 + s3).annotations != s1.annotations
         assert (s1 + s2).dbxrefs == s1.dbxrefs
-        # for __radd__
-        assert sum([s1, s2]).to_str() == seqstr
-        assert sum([s1, s2]).id == s1.id
-        assert sum([s1, s2]).description == s1.description == "test"
+        # for sum()
+        sum_s12 = sum([s1, s2])
+        assert sum_s12.to_str() == seqstr
+        assert sum_s12.id == s1.id
+        assert sum_s12.description == s1.description == "test"
         assert sum([s1, s2, s1]).id == s1.id
         assert sum([s1]).to_str() == str(s1)
-        # for __iadd__
+
+        # for appending and prepending strings to SeqLike
         s12 = SeqLike(s1, seq_type=seq_type)
         s12 += s2
-        # adding a string
+        # appending a string
         s12s = SeqLike(s1, seq_type=seq_type)
         s12s += str(s2)
         assert s12.to_str() == s12s.to_str() == seqstr
         assert s12.id == s12s.id == s1.id
         assert s12.description == s12s.description == s1.description == "test"
+        # prepending a string
+        s1s2 = str(s1)
+        s1s2 += SeqLike(s2, seq_type=seq_type)
+        assert s12.to_str() == s12s.to_str() == seqstr
+        assert s1s2.id == s2.id
+        assert s1s2.description == s2.description == "test2"
 
 
 def test__deepcopy__():
