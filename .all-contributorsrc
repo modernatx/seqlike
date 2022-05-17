@@ -80,6 +80,15 @@
         "infra",
         "maintenance"
       ]
+    },
+    {
+      "login": "dmnfarrell",
+      "name": "Damien Farrell",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7859189?v=4",
+      "profile": "http://dmnfarrell.github.io/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

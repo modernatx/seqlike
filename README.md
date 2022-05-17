@@ -7,7 +7,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 <p align="center">
   <a href="#contributors-">
-    <img src="https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square">
+    <img src="https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square">
   </a>
   <a href="https://github.com/modernatx/seqlike/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-Apache%202-blue">
@@ -161,6 +161,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://www.linkedin.com/in/sugatoray/"><img src="https://avatars.githubusercontent.com/u/10201242?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sugato Ray</b></sub></a><br /><a href="#infra-sugatoray" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-sugatoray" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="http://dmnfarrell.github.io/"><img src="https://avatars.githubusercontent.com/u/7859189?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Damien Farrell</b></sub></a><br /><a href="https://github.com/modernatx/seqlike/commits?author=dmnfarrell" title="Code">💻</a></td>
   </tr>
 </table>
 
