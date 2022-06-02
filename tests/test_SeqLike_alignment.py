@@ -2,7 +2,7 @@ from types import *
 import pandas as pd
 from seqlike import SeqLike
 from seqlike.alignment_utils import align
-from seqlike.alignment_commands import mafft_alignment, pad_seq_records_for_alignment
+from seqlike.alignment_commands import mafft_alignment, muscle_alignment, pad_seq_records_for_alignment
 import pytest
 
 
@@ -60,13 +60,22 @@ def get_nt_seqrecs():
 
 
 @pytest.mark.xfail(reason="May fail if MAFFT is not installed.")
-def test_alignment_commands():
+def test_mafft_alignment():
     seqrecs = get_aa_seqrecs()
-    ## test mafft
-    aligned = mafft_alignment(seqrecs)
-    # print("\nmafft_alignment:", aligned)
-    aligned = mafft_alignment(seqrecs, dash=True)
-    # print("\nmafft_alignment (MAFFT-DASH):", aligned)
+    # test mafft (but not really testing anything except that the command works...)
+    aligned1 = mafft_alignment(seqrecs)
+    aligned2 = mafft_alignment(seqrecs, dash=True)
+
+
+@pytest.mark.xfail(reason="May fail if Muscle is not installed.")
+def test_muscle_alignment():
+    seqrecs = get_aa_seqrecs()
+    # test muscle
+    aligned1 = muscle_alignment(seqrecs)
+    aligned2 = muscle_alignment(seqrecs, group=False)
+    assert seqrecs[1].id == aligned2[1].id
+    assert seqrecs[1].seq != aligned2[1].seq
+    assert aligned1 != aligned2
 
 
 def test_pad_seq_records_for_alignment():
