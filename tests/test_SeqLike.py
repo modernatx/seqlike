@@ -4,6 +4,7 @@ from copy import deepcopy
 import numpy as np
 import pytest
 from Bio import SeqIO
+from Bio.Data.CodonTable import TranslationError
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from hypothesis import given
@@ -153,6 +154,17 @@ def test_SeqLike_interconversion():
     seqnums3 = [str(i + 1) for i in range(len(seq3))]
     assert seq3.letter_annotations == SeqLike(seq3, "nt").letter_annotations == {"seqnums": seqnums3}
     assert seq3[:2].letter_annotations["seqnums"] == seqnums3[:2]
+
+    # mimic SeqRecord.translate() behavior
+    assert SeqLike(seqstr, "nt").translate().to_str() == "SHTA"
+    assert SeqLike(seqstr + "TAGGC", "nt").translate().to_str() == "SHTA*"
+    assert SeqLike(seqstr + "GC", "nt").translate().to_str() == "SHTA"
+    # if cds is True, need valid start and stop codons, and multiples of 3
+    with pytest.raises(TranslationError):
+        SeqLike(seqstr + "GC", "nt").translate(cds=True)
+    with pytest.raises(TranslationError):
+        SeqLike(seqstr, "nt").translate(cds=True)
+    assert SeqLike("ATG" + seqstr + "TAG", "nt").translate().to_str() == "MSHTA*"
 
 
 CODON_TABLES = {"ecoli_k12": yeast_codon_table, "Kazusa_yeast": yeast_codon_table}

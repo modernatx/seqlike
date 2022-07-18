@@ -277,12 +277,6 @@ class SeqLike(SequenceLike):
                 "before calling on `.translate()`."
             )
 
-        if len(sc) % 3 != 0:
-            raise TypeError(
-                "Oh no! It looks like you're trying to translate a nucleotide sequence "
-                "whose length is not a multiple of 3. "
-                "As a safeguard, SeqLike objects do not allow this to happen. "
-            )
         sc._nt_record.annotations["molecule_type"] = "DNA"
         sc._aa_record = record_from(sc._nt_record.translate(gap=gap_letter, **kwargs))
         return sc.aa()

@@ -47,10 +47,6 @@ def test_slicing():
     assert str(s) == str(SeqLike("C", seq_type="aa"))
 
     s = SeqLike(seq, "dna").nt()[1:5]
-    # if we slice to a non-multiple of 3, we shouldn't be able to
-    # convert to aa and if we try, it should raise a type error
-    with pytest.raises(TypeError):
-        s.aa()
     assert isinstance(s, SeqLike)
     assert s._type == "NT"
     assert str(s) == str(SeqLike("TGCA", seq_type="dna"))
