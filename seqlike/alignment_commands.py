@@ -105,6 +105,15 @@ def mafft_alignment(seqrecs, preserve_order=True, **kwargs):
 def muscle_alignment(seqrecs, preserve_order=True, **kwargs):
     """Align sequences using Muscle 3.8.
 
+    Notes:
+
+    1. Muscle's latest version is version 5.1. However, the interface is different from version 3.8
+       BioPython's MuscleCommandline is only compatible with version 3.8.
+       See this comment for more information: https://github.com/modernatx/seqlike/pull/60#issue-1257542946
+    2. The preserve_order parameter (preserves original sequence order,
+       as aligner may try to group sequences by similarity) may still be buggy.
+       Also see this comment for more information: https://github.com/modernatx/seqlike/pull/60#issue-1257542946
+
     :param seqrecs: a list or dict of SeqRecord that will be aligned to ref
     :param preserve_order: if True, reorder aligned seqrecs to match input order.
     :param **kwargs: additional arguments for alignment command
