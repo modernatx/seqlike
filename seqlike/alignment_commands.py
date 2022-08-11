@@ -10,7 +10,7 @@ from Bio import AlignIO, SeqIO, Phylo
 from Bio.Align import MultipleSeqAlignment
 from Bio.Align.Applications import ClustalOmegaCommandline
 
-from .AlignCommandline import MafftCommandline
+from .AlignCommandline import MafftCommandline, MuscleCommandline
 from .SeqLike import SeqLikeType, SeqLike
 
 pd = lazy.load("pandas")
@@ -99,6 +99,34 @@ def mafft_alignment(seqrecs, preserve_order=True, **kwargs):
     # MAFFT does not reorder alignment by default (reorder=False), but don't overwrite 'reorder' if set
     if "reorder" not in kwargs:
         kwargs["reorder"] = not preserve_order
+    return _generic_alignment(commandline, seqrecs, preserve_order=preserve_order, **kwargs)
+
+
+def muscle_alignment(seqrecs, preserve_order=True, **kwargs):
+    """Align sequences using Muscle 3.8.
+
+    Notes:
+
+    1. Muscle's latest version is version 5.1. However, the interface is different from version 3.8
+       BioPython's MuscleCommandline is only compatible with version 3.8.
+       See this comment for more information: https://github.com/modernatx/seqlike/pull/60#issue-1257542946
+    2. The preserve_order parameter (preserves original sequence order,
+       as aligner may try to group sequences by similarity) may still be buggy.
+       Also see this comment for more information: https://github.com/modernatx/seqlike/pull/60#issue-1257542946
+
+    :param seqrecs: a list or dict of SeqRecord that will be aligned to ref
+    :param preserve_order: if True, reorder aligned seqrecs to match input order.
+    :param **kwargs: additional arguments for alignment command
+    :returns: a MultipleSeqAlignment object with aligned sequences
+    """
+
+    def commandline(file_obj, **kwargs):
+        cline = MuscleCommandline(input=file_obj.name, **kwargs)
+        return _generic_aligner_commandline_stdout(cline)
+
+    # Muscle reorders alignment by default, but don't overwrite 'group' if already set
+    if "group" not in kwargs:
+        kwargs["group"] = not preserve_order
     return _generic_alignment(commandline, seqrecs, preserve_order=preserve_order, **kwargs)
 
 
