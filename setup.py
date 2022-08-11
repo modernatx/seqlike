@@ -126,7 +126,7 @@ install_requires = [
 
 setup(
     name="seqlike",
-    version="1.3.0",
+    version="1.3.1",
     packages=find_packages(),  # https://stackoverflow.com/a/22442340
     cmdclass={"install": InstallWrapper},
     long_description=README,
