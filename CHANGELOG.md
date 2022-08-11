@@ -2,7 +2,9 @@
 
 ## [Unreleased]
 
-- Add alignment wrapper for Muscle by @ndousis.
+## [v1.3.1] - 2022-08-11
+
+-   Add alignment wrapper for Muscle by @ndousis.
 
 ## [v1.3.0] - 2022-05-17
 
@@ -34,7 +36,9 @@
 
 -   First public release of SeqLike h/t @andrewgiessel @maxasauruswall @MihirMetkar @ndousis @ericmjl @dtjohnson @JDFontenot
 
-[Unreleased]: https://github.com/modernatx/seqlike/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/modernatx/seqlike/compare/v1.3.1...HEAD
+
+[v1.3.1]: https://github.com/modernatx/seqlike/compare/v1.3.0...v1.3.1
 
 [v1.3.0]: https://github.com/modernatx/seqlike/compare/v1.2.0...v1.3.0
 
