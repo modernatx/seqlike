@@ -25,7 +25,6 @@ dependencies:
   - bokeh
   - ghostscript
   - python-codon-tables
-  - mkdocstrings
   - pyprojroot
   # Code quality
   - pre-commit
@@ -34,6 +33,7 @@ dependencies:
   - mkdocs
   - mkdocs-material=8.1.3
   - mkdocstrings
+  - mkdocstrings-python
   # Infrastructural
   - bump2version
   # Dependencies of mknotebooks
