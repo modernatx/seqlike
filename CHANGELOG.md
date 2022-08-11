@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Add alignment wrapper for Muscle by @ndousis.
+
 ## [v1.3.0] - 2022-05-17
 
 ## [v1.2.0] - 2022-04-12
