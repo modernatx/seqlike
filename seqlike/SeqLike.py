@@ -31,6 +31,8 @@ from .utils import (
     add_seqnums_to_letter_annotations,
     ungap,
 )
+from .Mutation import Mutation, Substitution, Deletion, Insertion
+from .MutationSet import MutationSet
 
 np = lazy.load("numpy")
 
@@ -639,27 +641,19 @@ class SeqLike(SequenceLike):
         :param other: A SeqLike type object.
         :returns: The added SeqLike object.
         """
-        if not isinstance(other, SeqLike):
-            other = SeqLike(
-                other,
-                seq_type=deepcopy(self._type),
-                alphabet=deepcopy(self.alphabet),
-                codon_map=deepcopy(self.codon_map),
-            )
-        assert self._type == other._type, f"Incompatible sequence types! self is {self._type}, other is {other._type}"
 
-        return SeqLike(
-            self.to_seqrecord() + other.to_seqrecord(),
-            seq_type=self._type,
-            alphabet=self.alphabet,
-            codon_map=self.codon_map,
-            id=self._seqrecord.id,
-            name=self._seqrecord.name,
-            description=self._seqrecord.description,
-        )
+        return _add(self, other)
 
     def __radd__(self, other: "SeqLike"):
         """Add another sequence or string to this sequence from the left.
+
+        Implementation for:
+
+        ```python
+        self = SeqLike(...)
+        other = SeqLike(...)
+        result = other + self
+        ```
 
         Mimics behavior of SeqRecord.__radd__.
 
@@ -671,6 +665,7 @@ class SeqLike(SequenceLike):
             return self
         if isinstance(other, SeqLike):
             raise RuntimeError("This should have happened via the __add__ of the other SeqLike being added!")
+
         # Assume it is a string, Seq, or SeqRecord.
         # Note can't transfer any per-letter-annotations
         return SeqLike(
@@ -1086,3 +1081,76 @@ def record_from(sequence, **kwargs) -> SeqRecord:
     :returns: A SeqRecord object.
     """
     return record_from(deepcopy(sequence._seqrecord), **kwargs)
+
+
+@dispatch(SeqLike, (str, Seq, SeqRecord, SeqLike))
+def _add(obj, other):
+    if not isinstance(other, SeqLike):
+        other = SeqLike(
+            other,
+            seq_type=deepcopy(obj._type),
+            alphabet=deepcopy(obj.alphabet),
+            codon_map=deepcopy(obj.codon_map),
+        )
+    if not obj._type == other._type:
+        raise ValueError(f"Incompatible sequence types! obj is {obj._type}, other is {other._type}")
+
+    return SeqLike(
+        obj.to_seqrecord() + other.to_seqrecord(),
+        seq_type=obj._type,
+        alphabet=obj.alphabet,
+        codon_map=obj.codon_map,
+        id=obj._seqrecord.id,
+        name=obj._seqrecord.name,
+        description=obj._seqrecord.description,
+    )
+
+
+@dispatch(SeqLike, (Substitution, Deletion))
+def _add(obj: SeqLike, other: Union[Substitution, Deletion]):
+    validate_mutation_position(obj, other)
+    new = "".join(l if i != other.position else other.mutant_letter for i, l in enumerate(obj.to_str()))
+    return SeqLike(
+        new,
+        seq_type=deepcopy(obj._type),
+        alphabet=deepcopy(obj.alphabet),
+        codon_map=deepcopy(obj.codon_map),
+        id=obj._seqrecord.id,
+        name=obj._seqrecord.name,
+        description=obj._seqrecord.description,
+    )
+
+
+@dispatch(SeqLike, Insertion)
+def _add(obj: SeqLike, other: Insertion):
+    validate_mutation_position(obj, other)
+    new = ""
+    for i, l in enumerate(obj.to_str()):
+        if i == other.position:
+            new += other.mutant_letter
+        new += l
+    return SeqLike(
+        new,
+        seq_type=deepcopy(obj._type),
+        alphabet=deepcopy(obj.alphabet),
+        codon_map=deepcopy(obj.codon_map),
+        id=obj._seqrecord.id,
+        name=obj._seqrecord.name,
+        description=obj._seqrecord.description,
+    )
+
+
+@dispatch(SeqLike, MutationSet)
+def _add(obj: SeqLike, other: MutationSet):
+    for mutation in other:
+        obj = obj + mutation
+        if isinstance(mutation, Insertion):
+            other = other + 1
+    return obj
+
+
+def validate_mutation_position(obj: SeqLike, other: Mutation):
+    if other.position > len(obj):
+        raise ValueError(
+            f"Mutation {other} cannot be applied to the SeqLike object because it is at a position greater than the length of the SeqLike object (length = {len(obj)})!"
+        )
