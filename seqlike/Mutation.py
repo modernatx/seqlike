@@ -83,6 +83,15 @@ def parse(mutation_string: str):
         ) from e
 
 
-class MutationSet:
-    def __init__(self, mutations: Iterable[Mutation]):
-        self.mutations = mutations
+def magical_parse(mutation_string: str):
+    """Magically parse a mutation string to return the correct type of mutation.
+
+    :param mutation_string: The mutation string to parse.
+    :returns: One of an Insertion, Deletion, or Substitution.
+    """
+    if mutation_string[0] == "^":
+        return Insertion(mutation_string)
+    elif mutation_string[-1] == "-":
+        return Deletion(mutation_string)
+    else:
+        return Substitution(mutation_string)

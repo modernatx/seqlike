@@ -13,6 +13,7 @@ import lazy_loader as lazy
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from multipledispatch import dispatch
+import pandas as pd
 
 from .alphabets import (
     AA,
@@ -694,6 +695,13 @@ class SeqLike(SequenceLike):
         seq_copy._aa_record = deepcopy(self._aa_record)
         return seq_copy
 
+    def scan(self, mutant_letter: str):
+        """Scan a substitution mutation over the sequence."""
+        mutants = []
+        for i in range(len(self)):
+            mutants.append(self + Substitution(f"{i}{mutant_letter}"))
+        return pd.Series(mutants)
+
 
 def ntSeqLike(
     sequence: SeqLikeType, alphabet: Optional[str] = None, codon_map: Optional[Callable] = None, **kwargs
@@ -1129,6 +1137,10 @@ def _add(obj: SeqLike, other: Insertion):
         if i == other.position:
             new += other.mutant_letter
         new += l
+    # Final check for mutations after the final letter.
+    if i + 1 == other.position:
+        new += other.mutant_letter
+
     return SeqLike(
         new,
         seq_type=deepcopy(obj._type),
