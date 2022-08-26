@@ -189,7 +189,7 @@ class SeqLikeAccessor:
 
         # remove gap and stop characters so that they are not included in weblogo
         ignore = [gap_letter, stop_letter]
-        alphabet = wl.seq.Alphabet([s for s in self.alphabet if s not in ignore])
+        alphabet = wl.seq.Alphabet("".join(s for s in self.alphabet if s not in ignore))
         counts = [count for s, count in self.as_counts_by_alphabet() if s not in ignore]
 
         # count position-specific frequencies
