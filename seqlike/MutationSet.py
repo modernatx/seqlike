@@ -1,5 +1,6 @@
 """MutationSet class definition."""
 
+from copy import deepcopy
 from multipledispatch import dispatch
 from typing import Iterable, Union
 from .Mutation import Mutation, magical_parse
@@ -18,7 +19,7 @@ class MutationSet(list):
                 raise ValueError(
                     f"Mutations must be an iterable of mutation strings or Mutations. Element {m} violates this assumption!"
                 )
-        self.mutations = parsed_mutations
+        self.mutations = sorted(parsed_mutations)
 
     def __add__(self, other):
         """Only defined for integers for now, should be defined for other mutation sets!"""
@@ -26,7 +27,7 @@ class MutationSet(list):
         return _add(self, other)
 
     def __str__(self):
-        return str(self.mutations)
+        return ";".join(str(i) for i in self.mutations)
 
     def __repr__(self):
         return str(self.mutations)
@@ -37,11 +38,14 @@ class MutationSet(list):
     def __next__(self):
         return next(self.mutations)
 
+    def to_str(self):
+        return self.__str__()
+
 
 @dispatch(MutationSet, int)
 def _add(obj: MutationSet, other: int):
-    obj.mutations = [m + other for m in obj.mutations]
-    return obj
+    mutations = [deepcopy(m) + other for m in obj.mutations]
+    return MutationSet(mutations=mutations)
 
 
 @dispatch(MutationSet, MutationSet)
