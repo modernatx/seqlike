@@ -41,6 +41,9 @@ dependencies:
   - jupyter
   - markdown
   - nbconvert
+  - mypy
+  - flake8
+  - pydocstyle
   - pip:
       - mknotebooks # for notebooks in docs
       - build
