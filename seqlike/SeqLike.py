@@ -1,3 +1,4 @@
+"""Core SeqLike implementation."""
 import itertools
 
 from warnings import warn
