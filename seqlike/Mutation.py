@@ -5,12 +5,14 @@ Placeholder for docstrings: Please see issue #57 on GitHub. https://github.com/m
 TODO: Flesh out this docstring better.
 """
 from typing import Optional, Iterable
+from copy import deepcopy
 
 
 class Mutation:
     def __init__(
         self,
         mutation_string: Optional[str] = None,
+        wt_letter: str = "",
         position: Optional[int] = None,
         mutant_letter: Optional[str] = None,
     ):
@@ -27,19 +29,54 @@ class Mutation:
         if position is None and mutant_letter is None and mutation_string is None:
             raise ValueError("At least (position, mutant_letter) or (mutation_string) must be provided!")
         if mutation_string:
-            position, mutant_letter = parse(mutation_string)
+            wt_letter, position, mutant_letter = parse(mutation_string)
+
+        self.wt_letter = wt_letter
+        if position is None:
+            raise ValueError("Mutations must have a position specified!")
         self.position = position
+
+        if mutant_letter is None:
+            raise ValueError("Mutations must have a mutant letter specified!")
         self.mutant_letter = mutant_letter
+        self._one_indexed = False  # internal flag, not to be modified.
 
     def __repr__(self):
         return self.__str__()
 
     def __str__(self):
-        return f"{self.position}{self.mutant_letter}"
+        wt_letter = self.wt_letter
+        if self.wt_letter is None:
+            wt_letter = ""
+        return f"{wt_letter}{self.position}{self.mutant_letter}"
 
     def __add__(self, other: int):
-        self.position += 1
-        return self
+        position = self.position + other
+        obj = deepcopy(self)
+        obj.position = position
+        return obj
+
+    def __sub__(self, other: int):
+        return self.__add__(other * -1)
+
+    def __gt__(self, other: "Mutation"):
+        if self.position != other.position:
+            return self.position > other.position
+        else:
+            return self.mutant_letter > other.mutant_letter
+
+    def __lt__(self, other: "Mutation"):
+        if self.position != other.position:
+            return self.position < other.position
+        else:
+            return self.mutant_letter < other.mutant_letter
+
+    def __eq__(self, other: "Mutation"):
+        return (
+            self.position == other.position
+            and self.mutant_letter == other.mutant_letter
+            and self.wt_letter == other.wt_letter
+        )
 
 
 class Substitution(Mutation):
@@ -48,7 +85,7 @@ class Substitution(Mutation):
 
 class Deletion(Mutation):
     def __init__(self, mutation_string=None, position=None, mutant_letter=None):
-        super().__init__(mutation_string, position, mutant_letter="-")
+        super().__init__(mutation_string=mutation_string, position=position, mutant_letter="-")
         # Simply override mutant_letter regardless of what users pass in.
         self.mutant_letter = "-"
 
@@ -67,14 +104,16 @@ def parse(mutation_string: str):
     """Parse mutation string."""
     # Case 1: Mutation string begins with ^.
     if mutation_string[0] == "^" or mutation_string[0] in STANDRAD_LETTERS:
+        wt = mutation_string[0]
         pos = mutation_string[1:-1]
         mut = mutation_string[-1]
 
     else:
+        wt = None
         pos = mutation_string[:-1]
         mut = mutation_string[-1]
     try:
-        return int(pos), mut
+        return wt, int(pos), mut
     except ValueError as e:
         raise ValueError(
             "It looks like you have passed in extraneous letters; "
@@ -90,8 +129,8 @@ def magical_parse(mutation_string: str):
     :returns: One of an Insertion, Deletion, or Substitution.
     """
     if mutation_string[0] == "^":
-        return Insertion(mutation_string)
+        return Insertion(mutation_string=mutation_string)
     elif mutation_string[-1] == "-":
-        return Deletion(mutation_string)
+        return Deletion(mutation_string=mutation_string)
     else:
-        return Substitution(mutation_string)
+        return Substitution(mutation_string=mutation_string)
