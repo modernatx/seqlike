@@ -465,7 +465,7 @@ def test__dir__():
             annotations=annotations,
         )
         assert isinstance(dir(seq), list)
-        assert len(dir(seq)) == 75
+        assert len(dir(seq)) == 77
         assert set(dir(SeqLike)).issubset(dir(seq))
         assert set(["annotations", "description", "name", "id", "letter_annotations"]).issubset(dir(seq))
 
@@ -544,6 +544,10 @@ def test__deepcopy__():
         assert deepcopy(s).description == s.description == "test"
         # deepcopy returns a new object, so it should not match the original
         assert deepcopy(s) != s
+
+
+def test__sub__():
+    """Test calculating the difference between two SeqLikes."""
 
 
 def split_seq(seq, split_location):
