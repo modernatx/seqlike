@@ -9,7 +9,9 @@ from Bio.SeqRecord import SeqRecord
 from hypothesis import given
 from hypothesis.strategies import composite, integers, sampled_from, text
 from seqlike.codon_tables import codon_table_to_codon_map, ecoli_codon_table, yeast_codon_table
-from seqlike.SeqLike import AA, NT, STANDARD_AA, STANDARD_NT, SeqLike
+from seqlike.SeqLike import AA, NT, STANDARD_AA, STANDARD_NT, SeqLike, aaSeqLike
+from seqlike.Mutation import Mutation
+from seqlike.MutationSet import MutationSet, magical_parse
 
 from . import test_path
 
@@ -534,6 +536,17 @@ def test__add__():
         assert s12.to_str() == s12s.to_str() == seqstr
         assert s1s2.id == s2.id
         assert s1s2.description == s2.description == "test2"
+
+
+def test__add__mutations():
+    """Execution test for adding mutations."""
+    mutations = [MutationSet(i.split(";")) for i in ["3A", "4K", "4-", "2D;3-", "3A;^3F"]]
+
+    s = aaSeqLike("MKAILV")
+    for mutation in mutations:
+        mutant = s + mutation
+        difference = s - mutant
+        assert (s + difference).ungap().to_str() == (s + mutation).ungap().to_str()
 
 
 def test__deepcopy__():
