@@ -2,7 +2,7 @@
 
 from copy import deepcopy
 from multipledispatch import dispatch
-from typing import Iterable, Union
+from typing import Iterable, Union, List
 from .Mutation import Mutation, magical_parse
 
 
@@ -20,6 +20,17 @@ class MutationSet(list):
                     f"Mutations must be an iterable of mutation strings or Mutations. Element {m} violates this assumption!"
                 )
         self.mutations = sorted(parsed_mutations)
+
+    @property
+    def positions(self) -> List[int]:
+        """Return the position of mutations in the MutationSet.
+
+        :returns: A list of integers.
+        """
+        positions = []
+        for mutation in self:
+            positions.append(mutation.position)
+        return positions
 
     def __add__(self, other):
         """Only defined for integers for now, should be defined for other mutation sets!"""
