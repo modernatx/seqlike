@@ -97,13 +97,13 @@ class Insertion(Mutation):
 
 from seqlike.alphabets import STANDARD_AA_SET, STANDARD_NT_SET
 
-STANDRAD_LETTERS = STANDARD_AA_SET.union(STANDARD_NT_SET)
+STANDARD_LETTERS = STANDARD_AA_SET.union(STANDARD_NT_SET)
 
 
 def parse(mutation_string: str):
     """Parse mutation string."""
     # Case 1: Mutation string begins with ^.
-    if mutation_string[0] == "^" or mutation_string[0] in STANDRAD_LETTERS:
+    if mutation_string[0] == "^" or mutation_string[0] in STANDARD_LETTERS:
         wt = mutation_string[0]
         pos = mutation_string[1:-1]
         mut = mutation_string[-1]
