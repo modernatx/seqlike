@@ -50,6 +50,7 @@ class MutationSet(list):
         return next(self.mutations)
 
     def to_str(self):
+        """Convenience method to convert the MutationSet object into a string representation."""
         return self.__str__()
 
 
