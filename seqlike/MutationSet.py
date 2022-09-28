@@ -55,11 +55,19 @@ class MutationSet(list):
 
 @dispatch(MutationSet, int)
 def _add(obj: MutationSet, other: int):
+    """Add an integer to a MutationSet."""
     mutations = [deepcopy(m) + other for m in obj.mutations]
     return MutationSet(mutations=mutations)
 
 
 @dispatch(MutationSet, MutationSet)
 def _add(obj: MutationSet, other: MutationSet):
-    obj.mutations = obj.mutations + other.mutations
-    return obj
+    """Add a MutationSet to another MutationSet."""
+    new_mutations = deepcopy(obj.mutations)
+    for mutation in other.mutations:
+        if mutation.position not in obj.positions:
+            new_mutations.append(mutation)
+
+    new_mutations = sorted(new_mutations)
+
+    return MutationSet(mutations=new_mutations)
