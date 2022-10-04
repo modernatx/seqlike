@@ -560,6 +560,20 @@ def test__deepcopy__():
 
 def test__sub__():
     """Test calculating the difference between two SeqLikes."""
+    s1 = aaSeqLike("GEGDATYGKLTLKFICTT")
+    ms1 = MutationSet(["3D", "5I", "9C"])
+
+    s2 = s1 + ms1
+
+    diff = s1 - s2
+    assert (s1 + diff).ungap().to_str() == (s1 + ms1).ungap().to_str()
+
+
+def test_scan():
+    """Test ability to do mutational scanning."""
+    s1 = aaSeqLike("GEGDATYGKLTLKFICTT")
+    scanned_seqs = s1.scan("A")
+    assert len(scanned_seqs) == len(s1)
 
 
 def split_seq(seq, split_location):
