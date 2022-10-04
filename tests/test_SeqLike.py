@@ -10,8 +10,7 @@ from hypothesis import given
 from hypothesis.strategies import composite, integers, sampled_from, text
 from seqlike.codon_tables import codon_table_to_codon_map, ecoli_codon_table, yeast_codon_table
 from seqlike.SeqLike import AA, NT, STANDARD_AA, STANDARD_NT, SeqLike, aaSeqLike
-from seqlike.Mutation import Mutation
-from seqlike.MutationSet import MutationSet, magical_parse
+from seqlike.MutationSet import MutationSet
 
 from . import test_path
 
