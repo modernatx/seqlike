@@ -41,6 +41,7 @@ dependencies:
   - jupyter
   - markdown
   - nbconvert
+  - nbformat=4.4.0
   - mypy
   - flake8
   - pydocstyle
