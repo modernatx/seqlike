@@ -34,7 +34,7 @@ from .utils import (
     ungap,
 )
 from .Mutation import Mutation, Substitution, Deletion, Insertion
-from .MutationSet import MutationSet, magical_parse
+from .MutationSet import MutationSet
 
 np = lazy.load("numpy")
 
@@ -1200,11 +1200,11 @@ def _sub(reference: SeqLike, other: SeqLike) -> MutationSet:
             i += 1
             continue
         if wt == "-":
-            mutation = magical_parse(f"^{i}{mut}")
+            mutation = Mutation(f"^{i}{mut}")
             mutations.append(mutation)
             continue
         else:
-            mutation = magical_parse(f"{i}{mut}")
+            mutation = Mutation(f"{i}{mut}")
             mutations.append(mutation)
             i += 1
             continue
