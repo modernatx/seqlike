@@ -2,7 +2,7 @@
 import pytest
 from hypothesis import given, strategies as st, assume
 from seqlike.alphabets import STANDARD_AA
-from seqlike.Mutation import Mutation
+from seqlike.Mutation import Mutation, Substitution, Deletion, Insertion
 
 
 @st.composite
@@ -43,3 +43,20 @@ def test_Mutation_constructor(wt_letter, position, mutant_letter):
     # Assert equality
     mutation2 = Mutation(f"{wt_letter}{position}{mutant_letter}")
     assert mutation == mutation2
+
+
+def test_Mutation_magical_constructor():
+    """Example-based tests for magical constructors.
+
+    In this test, we are checking that the Mutation constructor
+    returns the appropriate child class.
+    """
+
+    m1 = Mutation("3R")
+    assert isinstance(m1, Substitution)
+
+    m2 = Mutation("^5K")
+    assert isinstance(m2, Insertion)
+
+    m3 = Mutation("I4-")
+    assert isinstance(m3, Deletion)
