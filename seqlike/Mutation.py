@@ -4,40 +4,41 @@ Placeholder for docstrings: Please see issue #57 on GitHub. https://github.com/m
 
 TODO: Flesh out this docstring better.
 """
-from typing import Optional, Iterable
+from typing import Optional
 from copy import deepcopy
 
 
 class Mutation:
+    def __new__(
+        cls,
+        mutation_string: Optional[str] = None,
+    ):
+        """Magical constructor that dispatches to the individual classes."""
+
+        if mutation_string is not None and mutation_string[0] == "^":
+            return super().__new__(Insertion)
+        elif mutation_string is not None and mutation_string[-1] == "-":
+            return super().__new__(Deletion)
+        else:
+            return super().__new__(Substitution)
+
     def __init__(
         self,
         mutation_string: Optional[str] = None,
-        wt_letter: str = "",
-        position: Optional[int] = None,
-        mutant_letter: Optional[str] = None,
     ):
         """Initialize a Mutation object.
 
-        We initialize a mutation object using the following order of priority:
-
-        1. If a mutation_string in the form of "K15R" (wt-position-mutation)
-           or "15-" (position-mutation)
-           or "^15R" is provided,
-           we use the mutation_string itself to initialize the object.
-        2. Otherwise, both a position and a mutant letter must be provided.
+        If a mutation_string in the form of "K15R" (wt-position-mutation)
+        or "15-" (position-mutation)
+        or "^15R" is provided,
+        we use the mutation_string itself to initialize the object.
         """
-        if position is None and mutant_letter is None and mutation_string is None:
-            raise ValueError("At least (position, mutant_letter) or (mutation_string) must be provided!")
-        if mutation_string:
-            wt_letter, position, mutant_letter = parse(mutation_string)
+        if mutation_string is None:
+            raise ValueError("A mutation string must be provided!")
+        wt_letter, position, mutant_letter = parse(mutation_string)
 
         self.wt_letter = wt_letter
-        if position is None:
-            raise ValueError("Mutations must have a position specified!")
         self.position = position
-
-        if mutant_letter is None:
-            raise ValueError("Mutations must have a mutant letter specified!")
         self.mutant_letter = mutant_letter
         self._one_indexed = False  # internal flag, not to be modified.
 
@@ -51,27 +52,32 @@ class Mutation:
         return f"{wt_letter}{self.position}{self.mutant_letter}"
 
     def __add__(self, other: int):
+        """Add an integer to a mutation to offset the position."""
         position = self.position + other
         obj = deepcopy(self)
         obj.position = position
         return obj
 
     def __sub__(self, other: int):
+        """Subtract an integer from a mutation to offset the position."""
         return self.__add__(other * -1)
 
     def __gt__(self, other: "Mutation"):
+        """Greater than comparison between two mutations."""
         if self.position != other.position:
             return self.position > other.position
         else:
             return self.mutant_letter > other.mutant_letter
 
     def __lt__(self, other: "Mutation"):
+        """Less than comparison between two mutations."""
         if self.position != other.position:
             return self.position < other.position
         else:
             return self.mutant_letter < other.mutant_letter
 
     def __eq__(self, other: "Mutation"):
+        """Equality comparison between two mutations."""
         return (
             self.position == other.position
             and self.mutant_letter == other.mutant_letter
@@ -84,10 +90,11 @@ class Substitution(Mutation):
 
 
 class Deletion(Mutation):
-    def __init__(self, mutation_string=None, position=None, mutant_letter=None):
-        super().__init__(mutation_string=mutation_string, position=position, mutant_letter="-")
-        # Simply override mutant_letter regardless of what users pass in.
-        self.mutant_letter = "-"
+    # def __init__(self, mutation_string=None, position=None, mutant_letter=None):
+    #     super().__init__(mutation_string=mutation_string, position=position, mutant_letter="-")
+    #     # Simply override mutant_letter regardless of what users pass in.
+    #     self.mutant_letter = "-"
+    pass
 
 
 class Insertion(Mutation):
@@ -120,17 +127,3 @@ def parse(mutation_string: str):
             "please check that your mutation string conforms to the pattern "
             "<wt><pos><mut> (e.g. K15R) or <pos><mut> (e.g. 15R)!"
         ) from e
-
-
-def magical_parse(mutation_string: str):
-    """Magically parse a mutation string to return the correct type of mutation.
-
-    :param mutation_string: The mutation string to parse.
-    :returns: One of an Insertion, Deletion, or Substitution.
-    """
-    if mutation_string[0] == "^":
-        return Insertion(mutation_string=mutation_string)
-    elif mutation_string[-1] == "-":
-        return Deletion(mutation_string=mutation_string)
-    else:
-        return Substitution(mutation_string=mutation_string)

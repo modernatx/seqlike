@@ -1,6 +1,6 @@
 """Test Mutation class and its features."""
 import pytest
-from hypothesis import given, strategies as st
+from hypothesis import given, strategies as st, assume
 from seqlike.alphabets import STANDARD_AA
 from seqlike.Mutation import Mutation
 
@@ -25,14 +25,21 @@ def mutant_letters(draw):
 @given(wt_letter=wt_letters(), position=st.integers(), mutant_letter=mutant_letters())
 def test_Mutation_constructor(wt_letter, position, mutant_letter):
     """Test Mutation (and child class) constructors when passing in wt, pos, mut."""
-    mutation = Mutation(wt_letter=wt_letter, position=position, mutant_letter=mutant_letter)
-    assert mutation.wt_letter == wt_letter
+    assume(wt_letter != "-")
+    assume(position > 0)
+    position += 1
+    mutation = Mutation(f"{wt_letter}{position}{mutant_letter}")
+    if wt_letter == "":
+        assert mutation.wt_letter is None
     assert mutation.position == position
     assert mutation.mutant_letter == mutant_letter
 
     string_rep = str(mutation)
-    assert string_rep == f"{mutation.wt_letter}{mutation.position}{mutation.mutant_letter}"
+    if wt_letter == "":
+        assert string_rep == f"{mutation.position}{mutation.mutant_letter}"
+    else:
+        assert string_rep == f"{mutation.wt_letter}{mutation.position}{mutation.mutant_letter}"
 
     # Assert equality
-    mutation2 = Mutation(wt_letter=wt_letter, position=position, mutant_letter=mutant_letter)
+    mutation2 = Mutation(f"{wt_letter}{position}{mutant_letter}")
     assert mutation == mutation2
