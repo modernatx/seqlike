@@ -23,11 +23,10 @@ try:
     output_notebook()
 except NameError:
     pass
-# except ImportError:
-#     print(
-#         "Warning: cannot import Bokeh, so the interactive alignment viewer is disabled.",
-#         file=sys.stderr,
-#     )
+except ImportError:
+    raise ValueError(
+        "Bokeh is required for the interactive alignment viewer in notebooks. Install `seqlike[notebook]`",
+    )
 
 from .alphabets import gap_letter
 
