@@ -98,6 +98,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "JacobHayes",
+      "name": "Jacob Hayes",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2555532?v=4",
+      "profile": "https://github.com/JacobHayes",
+      "contributions": [
+        "infra"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -106,5 +115,6 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true,
-  "badgeTemplate": "<p align=\"center\">\n  <a href=\"#contributors-\">\n    <img src=\"https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square\">\n  </a>\n  <a href=\"https://github.com/modernatx/seqlike/blob/main/LICENSE\">\n    <img src=\"https://img.shields.io/badge/license-Apache%202-blue\">\n  </a>\n</p>"
+  "badgeTemplate": "<p align=\"center\">\n  <a href=\"#contributors-\">\n    <img src=\"https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square\">\n  </a>\n  <a href=\"https://github.com/modernatx/seqlike/blob/main/LICENSE\">\n    <img src=\"https://img.shields.io/badge/license-Apache%202-blue\">\n  </a>\n</p>",
+  "commitConvention": "angular"
 }
