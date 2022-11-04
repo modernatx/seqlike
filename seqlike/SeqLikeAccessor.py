@@ -62,7 +62,7 @@ class SeqLikeAccessor:
 
         # We assume that the 'seqs' column is all SeqLikes
         is_seqlikes = obj.apply(lambda x: isinstance(x, SeqLike))
-        types = obj.apply(lambda x: type(x))
+        types = obj.unique().apply(lambda x: type(x))
         if not all(is_seqlikes):
             raise ValueError(f"Series must contain all SeqLike objects, instead found {types}")
 
