@@ -1,8 +1,0 @@
-biopython
-numpy
-pandas
-scikit-learn
-pytest
-python-codon-tables
-weblogo
-lazy-loader
