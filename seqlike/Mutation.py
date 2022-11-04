@@ -84,6 +84,18 @@ class Mutation:
             and self.wt_letter == other.wt_letter
         )
 
+    def __deepcopy__(self, memo):
+        """Deepcopy implementation.
+
+        Necessary b/c of our use of __new__.
+
+        <!-- #noqa: DAR101 -->
+        <!-- #noqa: DAR201 -->
+        """
+        mutation_string = str(self)
+
+        return Mutation(mutation_string)
+
 
 class Substitution(Mutation):
     pass
