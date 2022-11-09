@@ -111,22 +111,24 @@ def download_mafft(kind="deb") -> Path:
 README = Path("README.md").read_text()
 
 install_requires = [
+    "Pillow",
     "biopython",
+    "lazy-loader",
+    "multipledispatch",
     "numpy",
     "pandas",
+    "python-codon-tables",
     "scikit-learn",
     "weblogo",
-    "Pillow",
-    # :note: pytest should be under tests_require, but this doesn't seem to work
-    "pytest-regtest",
+]
+test_requires = [
     "pytest",
-    "multipledispatch",
-    "python-codon-tables",
+    "pytest-regtest",
 ]
 
 setup(
     name="seqlike",
-    version="1.3.2",
+    version="1.3.3",
     packages=find_packages(),  # https://stackoverflow.com/a/22442340
     cmdclass={"install": InstallWrapper},
     long_description=README,
@@ -138,14 +140,14 @@ setup(
         "Issue Tracker": "https://github.com/modernatx/seqlike/issues",
     },
     install_requires=install_requires,
+    extra_requires={
+        "notebook": ["bokeh"], # Used in ipython/jupyter
+        "test": test_requires,
+    },
     package_data={"seqlike": ["*.ttf"]},
-    # tests_require=[
-    #    'pytest-regtest',
-    #    'pytest',
-    # ],
     classifiers=[
         "Intended Audience :: Science/Research",
-        'Operating System :: OS Independent',
+        "Operating System :: OS Independent",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
