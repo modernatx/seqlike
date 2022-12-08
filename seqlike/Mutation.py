@@ -4,8 +4,10 @@ Placeholder for docstrings: Please see issue #57 on GitHub. https://github.com/m
 
 TODO: Flesh out this docstring better.
 """
-from typing import Optional
 from copy import deepcopy
+from typing import Optional
+
+from seqlike.alphabets import STANDARD_AA_SET, STANDARD_NT_SET
 
 
 class Mutation:
@@ -119,8 +121,6 @@ class Insertion(Mutation):
     def __str__(self):
         return f"^{self.position}{self.mutant_letter}"
 
-
-from seqlike.alphabets import STANDARD_AA_SET, STANDARD_NT_SET
 
 STANDARD_LETTERS = STANDARD_AA_SET.union(STANDARD_NT_SET)
 
