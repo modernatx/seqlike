@@ -98,14 +98,20 @@ class Mutation:
 
 
 class Substitution(Mutation):
+    """Substitution class.
+
+    This is an empty class, exists mostly for providing a Type for dispatch.
+    """
+
     pass
 
 
 class Deletion(Mutation):
-    # def __init__(self, mutation_string=None, position=None, mutant_letter=None):
-    #     super().__init__(mutation_string=mutation_string, position=position, mutant_letter="-")
-    #     # Simply override mutant_letter regardless of what users pass in.
-    #     self.mutant_letter = "-"
+    """Deletion class.
+
+    This is an empty class, exists mostly for providing a Type for dispatch.
+    """
+
     pass
 
 
