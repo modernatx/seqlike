@@ -141,7 +141,7 @@ setup(
     },
     install_requires=install_requires,
     extra_requires={
-        "notebook": ["bokeh"], # Used in ipython/jupyter
+        "notebook": ["bokeh>=3.0.2"],  # Used in ipython/jupyter
         "test": test_requires,
     },
     package_data={"seqlike": ["*.ttf"]},
