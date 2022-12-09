@@ -46,9 +46,9 @@ jobs:
 
       - name: Build docs
         run: |
-          conda activate seqlike-dev
-          python -m pip install -e .
-          mkdocs build
+          conda activate seqlike-dev && \
+            python -m pip install -e . && \
+            mkdocs build
 
       # - name: Netlify PR preview
       #   uses: netlify/actions/cli@master

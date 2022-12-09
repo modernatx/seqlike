@@ -9,7 +9,8 @@ from Bio.SeqRecord import SeqRecord
 from hypothesis import given
 from hypothesis.strategies import composite, integers, sampled_from, text
 from seqlike.codon_tables import codon_table_to_codon_map, ecoli_codon_table, yeast_codon_table
-from seqlike.SeqLike import AA, NT, STANDARD_AA, STANDARD_NT, SeqLike
+from seqlike.SeqLike import AA, NT, STANDARD_AA, STANDARD_NT, SeqLike, aaSeqLike
+from seqlike.MutationSet import MutationSet
 
 from . import test_path
 
@@ -465,7 +466,7 @@ def test__dir__():
             annotations=annotations,
         )
         assert isinstance(dir(seq), list)
-        assert len(dir(seq)) == 75
+        assert len(dir(seq)) == 77
         assert set(dir(SeqLike)).issubset(dir(seq))
         assert set(["annotations", "description", "name", "id", "letter_annotations"]).issubset(dir(seq))
 
@@ -536,6 +537,17 @@ def test__add__():
         assert s1s2.description == s2.description == "test2"
 
 
+def test__add__mutations():
+    """Execution test for adding mutations."""
+    mutations = [MutationSet(i.split(";")) for i in ["3A", "4K", "4-", "2D;3-", "3A;^3F"]]
+
+    s = aaSeqLike("MKAILV")
+    for mutation in mutations:
+        mutant = s + mutation
+        difference = s - mutant
+        assert (s + difference).ungap().to_str() == (s + mutation).ungap().to_str()
+
+
 def test__deepcopy__():
     for seqstr, seq_type in [("TCGCACACTGCA", "nt"), ("GEGDATYGKLTLKFICTT", "aa")]:
         s = SeqLike(seqstr, seq_type=seq_type, description="test")
@@ -544,6 +556,24 @@ def test__deepcopy__():
         assert deepcopy(s).description == s.description == "test"
         # deepcopy returns a new object, so it should not match the original
         assert deepcopy(s) != s
+
+
+def test__sub__():
+    """Test calculating the difference between two SeqLikes."""
+    s1 = aaSeqLike("GEGDATYGKLTLKFICTT")
+    ms1 = MutationSet(["3D", "5I", "9C"])
+
+    s2 = s1 + ms1
+
+    diff = s1 - s2
+    assert (s1 + diff).ungap().to_str() == (s1 + ms1).ungap().to_str()
+
+
+def test_scan():
+    """Test ability to do mutational scanning."""
+    s1 = aaSeqLike("GEGDATYGKLTLKFICTT")
+    scanned_seqs = s1.scan("A")
+    assert len(scanned_seqs) == len(s1)
 
 
 def split_seq(seq, split_location):

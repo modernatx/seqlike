@@ -1,3 +1,4 @@
+"""Core SeqLike implementation."""
 import itertools
 
 from warnings import warn
@@ -13,6 +14,7 @@ import lazy_loader as lazy
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from multipledispatch import dispatch
+import pandas as pd
 
 from .alphabets import (
     AA,
@@ -31,6 +33,8 @@ from .utils import (
     add_seqnums_to_letter_annotations,
     ungap,
 )
+from .Mutation import Mutation, Substitution, Deletion, Insertion
+from .MutationSet import MutationSet
 
 np = lazy.load("numpy")
 
@@ -639,27 +643,19 @@ class SeqLike(SequenceLike):
         :param other: A SeqLike type object.
         :returns: The added SeqLike object.
         """
-        if not isinstance(other, SeqLike):
-            other = SeqLike(
-                other,
-                seq_type=deepcopy(self._type),
-                alphabet=deepcopy(self.alphabet),
-                codon_map=deepcopy(self.codon_map),
-            )
-        assert self._type == other._type, f"Incompatible sequence types! self is {self._type}, other is {other._type}"
 
-        return SeqLike(
-            self.to_seqrecord() + other.to_seqrecord(),
-            seq_type=self._type,
-            alphabet=self.alphabet,
-            codon_map=self.codon_map,
-            id=self._seqrecord.id,
-            name=self._seqrecord.name,
-            description=self._seqrecord.description,
-        )
+        return _add(self, other)
 
     def __radd__(self, other: "SeqLike"):
         """Add another sequence or string to this sequence from the left.
+
+        Implementation for:
+
+        ```python
+        self = SeqLike(...)
+        other = SeqLike(...)
+        result = other + self
+        ```
 
         Mimics behavior of SeqRecord.__radd__.
 
@@ -671,6 +667,7 @@ class SeqLike(SequenceLike):
             return self
         if isinstance(other, SeqLike):
             raise RuntimeError("This should have happened via the __add__ of the other SeqLike being added!")
+
         # Assume it is a string, Seq, or SeqRecord.
         # Note can't transfer any per-letter-annotations
         return SeqLike(
@@ -682,6 +679,9 @@ class SeqLike(SequenceLike):
             name=self._seqrecord.name,
             description=self._seqrecord.description,
         )
+
+    def __sub__(self, other):
+        return _sub(self, other)
 
     def __deepcopy__(self, memo):
         """Deepcopy implementation.
@@ -698,6 +698,13 @@ class SeqLike(SequenceLike):
         seq_copy._nt_record = deepcopy(self._nt_record)
         seq_copy._aa_record = deepcopy(self._aa_record)
         return seq_copy
+
+    def scan(self, mutant_letter: str):
+        """Scan a substitution mutation over the sequence."""
+        mutants = []
+        for i in range(1, len(self) + 1):
+            mutants.append(self + Substitution(f"{i}{mutant_letter}"))
+        return pd.Series(mutants)
 
 
 def ntSeqLike(
@@ -1086,3 +1093,131 @@ def record_from(sequence, **kwargs) -> SeqRecord:
     :returns: A SeqRecord object.
     """
     return record_from(deepcopy(sequence._seqrecord), **kwargs)
+
+
+@dispatch(SeqLike, (str, Seq, SeqRecord, SeqLike))
+def _add(obj: SeqLike, other) -> SeqLike:
+    """Add a SeqLike-ish object to a SeqLike object.
+
+    :param obj: The SeqLike object.
+    :param other: The SeqLike-ish object.
+    :returns: A SeqLike object.
+    """
+    if not isinstance(other, SeqLike):
+        other = SeqLike(
+            other,
+            seq_type=deepcopy(obj._type),
+            alphabet=deepcopy(obj.alphabet),
+            codon_map=deepcopy(obj.codon_map),
+        )
+    if not obj._type == other._type:
+        raise ValueError(f"Incompatible sequence types! obj is {obj._type}, other is {other._type}")
+
+    return SeqLike(
+        obj.to_seqrecord() + other.to_seqrecord(),
+        seq_type=obj._type,
+        alphabet=obj.alphabet,
+        codon_map=obj.codon_map,
+        id=obj._seqrecord.id,
+        name=obj._seqrecord.name,
+        description=obj._seqrecord.description,
+    )
+
+
+@dispatch(SeqLike, (Substitution, Deletion))
+def _add(obj: SeqLike, other: Union[Substitution, Deletion]):
+    """Add a Substitution or Deletion object to a SeqLike."""
+    other = deepcopy(other)
+    other._one_indexed = True
+    validate_mutation_position(obj, other)
+    new = ""
+    for i, l in enumerate(obj.to_str()):
+        if i != other.position - other._one_indexed:
+            new += l
+        elif i == other.position - other._one_indexed:
+            new += other.mutant_letter
+    return SeqLike(
+        new,
+        seq_type=deepcopy(obj._type),
+        alphabet=deepcopy(obj.alphabet),
+        codon_map=deepcopy(obj.codon_map),
+        id=deepcopy(obj._seqrecord.id),
+        name=deepcopy(obj._seqrecord.name),
+        description=deepcopy(obj._seqrecord.description),
+    )
+
+
+@dispatch(SeqLike, Insertion)
+def _add(obj: SeqLike, other: Insertion):
+    """Add an Insertion object to a SeqLike."""
+    other = deepcopy(other)
+    other._one_indexed = True
+    validate_mutation_position(obj, other)
+    new = ""
+    for i, l in enumerate(obj.to_str()):
+        if i == other.position - other._one_indexed:
+            new += other.mutant_letter
+        new += l
+    # Final check for mutations after the final letter.
+    if i + 1 == other.position - other._one_indexed:
+        new += other.mutant_letter
+
+    return SeqLike(
+        new,
+        seq_type=deepcopy(obj._type),
+        alphabet=deepcopy(obj.alphabet),
+        codon_map=deepcopy(obj.codon_map),
+        id=deepcopy(obj._seqrecord.id),
+        name=deepcopy(obj._seqrecord.name),
+        description=deepcopy(obj._seqrecord.description),
+    )
+
+
+@dispatch(SeqLike, MutationSet)
+def _add(obj: SeqLike, other: MutationSet):
+    """Add a MutationSet object to a SeqLike."""
+    mutations = deepcopy(other.mutations)
+    while mutations:
+        mutation = mutations.pop(0)
+        obj = obj + mutation
+        if isinstance(mutation, Insertion):
+            mutations = [m + 1 for m in mutations]
+    return obj
+
+
+@dispatch(SeqLike, SeqLike)
+def _sub(reference: SeqLike, other: SeqLike) -> MutationSet:
+    """Subtract a SeqLike from another SeqLike to obtain a MutationSet diff."""
+    reference = deepcopy(reference)
+    other = deepcopy(other)
+    mutations = []
+    seqrecs = pd.Series([reference, other]).seq.align()
+    reference = seqrecs.iloc[0]
+    other = seqrecs.iloc[1]
+    i = 1
+    for wt, mut in zip(str(reference), str(other)):
+        if wt == mut:
+            i += 1
+            continue
+        if wt == "-":
+            mutation = Mutation(f"^{i}{mut}")
+            mutations.append(mutation)
+            continue
+        else:
+            mutation = Mutation(f"{i}{mut}")
+            mutations.append(mutation)
+            i += 1
+            continue
+    return MutationSet(mutations)
+
+
+def validate_mutation_position(obj: SeqLike, other: Mutation):
+    if other.position > len(obj):
+        raise ValueError(
+            f"Mutation {other} cannot be applied to the SeqLike object because it is at a position greater than the length of the SeqLike object (length = {len(obj)})!"
+        )
+    actual_wt = str(obj[other.position - other._one_indexed])
+    if other.wt_letter and other.wt_letter != "^" and actual_wt != other.wt_letter:
+        raise ValueError(
+            f"Mutation {other} is expected to be applied to a SeqLike with WT letter {other.wt_letter} at position {other.position} but found actual letter {actual_wt}!"
+        )

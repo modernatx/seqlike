@@ -61,7 +61,10 @@ class SeqLikeAccessor:
         """
 
         # We assume that the 'seqs' column is all SeqLikes
-        assert all([isinstance(x, SeqLike) for x in obj]), "Seq column must contain all SeqLike objects."
+        is_seqlikes = obj.apply(lambda x: isinstance(x, SeqLike))
+        types = obj.drop_duplicates().apply(lambda x: type(x))
+        if not all(is_seqlikes):
+            raise ValueError(f"Series must contain all SeqLike objects, instead found {types}")
 
         # All SeqLikes must be of the same type
         if len(set(obj.apply(lambda s: s._type.upper()))) != 1:
