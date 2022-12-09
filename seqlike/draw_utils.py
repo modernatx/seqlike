@@ -353,8 +353,8 @@ def view_alignment(
 
     p = figure(
         title=None,
-        plot_width=plot_width,
-        plot_height=50,
+        width=plot_width,
+        height=50,
         x_range=x_range,
         y_range=(0, S),
         tools=tools,
@@ -377,8 +377,8 @@ def view_alignment(
     # sequence text view with ability to scroll along x axis
     p1 = figure(
         title=None,
-        plot_width=plot_width,
-        plot_height=plot_height,
+        width=plot_width,
+        height=plot_height,
         x_range=view_range,
         y_range=labels[::-1],
         tools="xpan,reset,save",

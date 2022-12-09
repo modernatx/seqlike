@@ -22,7 +22,7 @@ dependencies:
   - hypothesis
   - interrogate
   - matplotlib
-  - bokeh
+  - bokeh>=3.0.2
   - ghostscript
   - python-codon-tables
   - pyprojroot
