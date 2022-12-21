@@ -26,7 +26,7 @@ def onehot_encoder_from_alphabet(alphabet):
 
     categories = [[letter for letter in alphabet]]
     fit_list = [[letter] for letter in alphabet]
-    return OneHotEncoder(dtype=float, sparse=False, categories=categories).fit(fit_list)
+    return OneHotEncoder(dtype=float, sparse_output=False, categories=categories).fit(fit_list)
 
 
 def array_to_symbols(sequence: Union[list, np.ndarray], _index_encoder, _onehot_encoder) -> str:
