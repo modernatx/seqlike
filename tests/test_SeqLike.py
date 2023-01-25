@@ -8,7 +8,7 @@ from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from hypothesis import given
 from hypothesis.strategies import composite, integers, sampled_from, text
-from seqlike.codon_tables import codon_table_to_codon_map, ecoli_codon_table, yeast_codon_table
+from seqlike.codon_tables import codon_table_to_codon_map, ecoli_codon_table, yeast_codon_table, ecoli_codon_map
 from seqlike.SeqLike import AA, NT, STANDARD_AA, STANDARD_NT, SeqLike, aaSeqLike
 from seqlike.MutationSet import MutationSet
 
@@ -356,6 +356,22 @@ def test_slice(seqstr, seq_type):
     for seqnums in ["2", "3", "4", "5"], ["1", "10", "12"], ["10", "11", "12", "1"]:
         assert s.slice(seqnums).to_str() == "".join(seqstr[int(n) - 1] for n in seqnums)
         assert s.slice(seqnums).id == s.id
+
+
+@pytest.mark.parametrize(
+    "seqstr, seq_type",
+    [("TTCGACACTGCA", "nt"), ("TTC---GACACTGCA", "nt"), ("GEGDATYGKLTLKFICTT", "aa"), ("GE-DATYGKLTLKFICTT", "aa")],
+)
+def test_slice_with_back_translation(seqstr, seq_type):
+    s0 = SeqLike(seqstr, seq_type=seq_type)
+    if seq_type == "nt":
+        s = s0.aa().back_translate(codon_map=ecoli_codon_map)
+    else:
+        s = s0.back_translate(codon_map=ecoli_codon_map)
+    for i, n in [0, 3], [1, 1], [3, 3]:
+        sliced = s[i : i + n]
+        print(sliced)
+        assert str(sliced) == str(s)[i : i + n]
 
 
 def test_slice_with_insertion_codes():

@@ -176,7 +176,9 @@ class SeqLike(SequenceLike):
         """
         # Start with auto-back-translation
         if self._aa_record and self._nt_record is None and auto_backtranslate:
-            return self.back_translate(**kwargs)
+            nt_record = self.back_translate(**kwargs)
+            nt_record.annotations["molecule_type"] = "DNA"
+            return nt_record
 
         if self._type == "NT":
             return deepcopy(self)
@@ -606,7 +608,7 @@ class SeqLike(SequenceLike):
                 elif self._type == "NT":
                     _nt_record = deepcopy(self._nt_record)[idx]
                     try:
-                        _aa_record = _nt_record.translate()
+                        _aa_record = _nt_record.translate(gap=gap_letter)
                     except Exception as e:
                         warnings.warn(e)
                     sliced = SeqLike(_nt_record, **seqlike_kwargs)
