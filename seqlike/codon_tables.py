@@ -135,7 +135,7 @@ def codon_table_to_codon_map(codon_table: dict, deterministic: bool = True) -> C
 
         nt = ""
         for aa in seq_str:
-            codons, probs = zip(*codon_table[aa].items())
+            codons, probs = zip(*sorted(codon_table[aa].items(), key=lambda x: x[1], reverse=True))
 
             # we normalize the probabilities
             # most tables are near 1.0, but issues with precision exist
