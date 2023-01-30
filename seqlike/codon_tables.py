@@ -112,8 +112,23 @@ random_codon_table = {
 }
 
 
+def sort_codon_table_by_frequency(codon_table: dict) -> dict:
+    """This is a convenience function sorts the individual codons by frequency,
+    which is useful for obtaining a top codon codon map using the deterministic
+    flag in `codon_table_to_codon_map()`
+
+    :param codon_table: A nested dictionary that has keys being AAs
+        and values codon-probabilty pairs
+    :returns: a new nestted dictionary
+    """
+    new_codon_table = dict()
+    for letter, codon_frequencies in codon_table.items():
+        new_codon_table[letter] = dict(sorted(codon_frequencies.items(), key=lambda x: x[1], reverse=True))
+    return new_codon_table
+
+
 def codon_table_to_codon_map(codon_table: dict, deterministic: bool = True) -> Callable[[SeqLike], SeqLike]:
-    """This is a convenience function takes a codon map as defined by the
+    """This is a convenience function that takes a codon map as defined by the
     dictionaries above and returns a backtranslation callable that
     takes an AA SeqLike and returns a NT SeqLike.
 
@@ -168,6 +183,6 @@ for table in [human_codon_table, yeast_codon_table, ecoli_codon_table, random_co
     table["-"] = {"---": 1}
     table["X"] = {"NNN": 1}
 
-human_codon_map = codon_table_to_codon_map(human_codon_table)
-yeast_codon_map = codon_table_to_codon_map(yeast_codon_table)
-ecoli_codon_map = codon_table_to_codon_map(ecoli_codon_table)
+human_codon_map = codon_table_to_codon_map(sort_codon_table_by_frequency(human_codon_table))
+yeast_codon_map = codon_table_to_codon_map(sort_codon_table_by_frequency(yeast_codon_table))
+ecoli_codon_map = codon_table_to_codon_map(sort_codon_table_by_frequency(ecoli_codon_table))
