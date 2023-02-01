@@ -176,9 +176,7 @@ class SeqLike(SequenceLike):
         """
         # Start with auto-back-translation
         if self._aa_record and self._nt_record is None and auto_backtranslate:
-            nt_record = self.back_translate(**kwargs)
-            nt_record.annotations["molecule_type"] = "DNA"
-            return nt_record
+            return self.back_translate(**kwargs)
 
         if self._type == "NT":
             return deepcopy(self)
@@ -216,7 +214,11 @@ class SeqLike(SequenceLike):
         if self._nt_record and self._aa_record is None and auto_translate:
             translate_kwargs = dict(id=True, name=True, description=True, annotations=True, dbxrefs=True)
             translate_kwargs.update(kwargs)
-            return self.translate(**translate_kwargs)
+            translated = self.translate(**translate_kwargs)
+            # neutralize "protein" `molecule_type` annotation added by BioPython's `SeqRecord.translate()`
+            # translated._aa_record.annotations.pop("molecule_type")
+            translated._aa_record.annotations["molecule_type"] = None
+            return translated
 
         # Return based on _type.
         if self._type == "AA":
@@ -289,7 +291,6 @@ class SeqLike(SequenceLike):
                 "whose length is not a multiple of 3. "
                 "As a safeguard, SeqLike objects do not allow this to happen. "
             )
-        sc._nt_record.annotations["molecule_type"] = "DNA"
         sc._aa_record = record_from(sc._nt_record.translate(gap=gap_letter, **kwargs))
         return sc.aa()
 
