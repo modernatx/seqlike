@@ -214,11 +214,7 @@ class SeqLike(SequenceLike):
         if self._nt_record and self._aa_record is None and auto_translate:
             translate_kwargs = dict(id=True, name=True, description=True, annotations=True, dbxrefs=True)
             translate_kwargs.update(kwargs)
-            translated = self.translate(**translate_kwargs)
-            # neutralize "protein" `molecule_type` annotation added by BioPython's `SeqRecord.translate()`
-            # translated._aa_record.annotations.pop("molecule_type")
-            translated._aa_record.annotations["molecule_type"] = None
-            return translated
+            return self.translate(**translate_kwargs)
 
         # Return based on _type.
         if self._type == "AA":
@@ -292,6 +288,8 @@ class SeqLike(SequenceLike):
                 "As a safeguard, SeqLike objects do not allow this to happen. "
             )
         sc._aa_record = record_from(sc._nt_record.translate(gap=gap_letter, **kwargs))
+        # neutralize "protein" `molecule_type` annotation added by BioPython's `SeqRecord.translate()`
+        sc._aa_record.annotations.pop("molecule_type")
         return sc.aa()
 
     def back_translate(self, codon_map: Callable = None, **kwargs) -> "SeqLike":
