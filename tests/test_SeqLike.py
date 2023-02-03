@@ -202,10 +202,7 @@ def assert_matched_properties(s1, s2):
     assert s1.id == s2.id
     assert s1.name == s2.name
     assert s1.description == s2.description
-    # SeqRecord automatically sets the molecule_type annotation, so remove it
-    # s1.annotations.pop("molecule_type", None)
-    # s2.annotations.pop("molecule_type", None)
-    assert s1.annotations.keys() == s2.annotations.keys()
+    assert s1.annotations == s2.annotations
     assert s1.dbxrefs == s2.dbxrefs
 
 
