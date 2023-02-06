@@ -287,8 +287,9 @@ class SeqLike(SequenceLike):
                 "whose length is not a multiple of 3. "
                 "As a safeguard, SeqLike objects do not allow this to happen. "
             )
-        sc._nt_record.annotations["molecule_type"] = "DNA"
         sc._aa_record = record_from(sc._nt_record.translate(gap=gap_letter, **kwargs))
+        # neutralize "protein" `molecule_type` annotation added by BioPython's `SeqRecord.translate()`
+        sc._aa_record.annotations.pop("molecule_type")
         return sc.aa()
 
     def back_translate(self, codon_map: Callable = None, **kwargs) -> "SeqLike":
@@ -606,7 +607,7 @@ class SeqLike(SequenceLike):
                 elif self._type == "NT":
                     _nt_record = deepcopy(self._nt_record)[idx]
                     try:
-                        _aa_record = _nt_record.translate()
+                        _aa_record = _nt_record.translate(gap=gap_letter)
                     except Exception as e:
                         warnings.warn(e)
                     sliced = SeqLike(_nt_record, **seqlike_kwargs)
