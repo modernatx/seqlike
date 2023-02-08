@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [v1.5.0] - 2023-02-08
+
 ## [v1.4.0] - 2023-01-30
 
 ## [v1.3.4] - 2022-12-23
@@ -44,7 +46,9 @@
 
 -   First public release of SeqLike h/t @andrewgiessel @maxasauruswall @MihirMetkar @ndousis @ericmjl @dtjohnson @JDFontenot
 
-[Unreleased]: https://github.com/modernatx/seqlike/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/modernatx/seqlike/compare/v1.5.0...HEAD
+
+[v1.5.0]: https://github.com/modernatx/seqlike/compare/v1.4.0...v1.5.0
 
 [v1.4.0]: https://github.com/modernatx/seqlike/compare/v1.3.4...v1.4.0
 
