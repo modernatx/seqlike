@@ -172,7 +172,7 @@ def ungap(seqlike, gap=None):
             gap = seqlike.seq.alphabet.gap_char
         except AttributeError:
             gap = gap_letter
-    new_seq = seqlike.seq.ungap(gap)
+    new_seq = seqlike.seq.replace(gap, "")
 
     if str(new_seq) == str(seqlike.seq):
         # Unchanged, not even the alphabet - don't need to alter annotation
