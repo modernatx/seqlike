@@ -107,6 +107,12 @@ class MafftCommandline(AbstractCommandline):
                 ["--dash", "dash"],
                 "Use structural alignment information from DASH database.",
             ),
+            # To use unusual characters (e.g., U as selenocysteine in protein sequence; i as inosine in nuc sequence),
+            # use the --anysymbol option:
+            _Switch(
+                ["--anysymbol", "anysymbol"],
+                "Allow unusual characters in the alignment, not scored.",
+            ),
         ]
         # append the original set of parameters from MafftCommandline
         self.parameters += Applications.MafftCommandline().parameters
