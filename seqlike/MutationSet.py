@@ -42,6 +42,9 @@ class MutationSet(list):
             positions.append(mutation.position)
         return positions
 
+    def __len__(self):
+        return len(self.mutations)
+
     def __add__(self, other):
         """Add stuff to mutations."""
         # self.mutations = [m + other for m in self.mutations]
