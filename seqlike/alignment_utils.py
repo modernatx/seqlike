@@ -32,7 +32,7 @@ def copy_annotations_from_unaligned(aligned_seqrec: SeqRecord, unaligned_seqrec:
     # index to track position in original sequence
     i = 0
     for j, letter in enumerate(aligned_seqrec.seq):
-        if letter in [gap_letter, stop_letter]:
+        if letter in [gap_letter]:
             for key, values in letter_annotations.items():
                 # convert strings into lists of characters,
                 # then combine into string at end of loop
@@ -44,7 +44,7 @@ def copy_annotations_from_unaligned(aligned_seqrec: SeqRecord, unaligned_seqrec:
                     letter_annotation = None
                 newrec.letter_annotations.setdefault(key, list()).append(letter_annotation)
         else:
-            while seq[i] in [gap_letter, stop_letter]:
+            while seq[i] in [gap_letter]:
                 i += 1
             assert letter == seq[i], f"letter {letter} at {j} <> seq {seq[i]} at {i}"
             for key in letter_annotations.keys():
