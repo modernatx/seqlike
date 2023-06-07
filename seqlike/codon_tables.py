@@ -79,13 +79,13 @@ CODON_TABLE = {
 }
 
 # https://github.com/Edinburgh-Genome-Foundry/codon-usage-tables/blob/master/codon_usage_data/tables/h_sapiens_9606.csv
-human_codon_table = get_codons_table("h_sapiens_9606")
+human_codon_table = get_codons_table("h_sapiens_9606").copy()
 
 # https://github.com/Edinburgh-Genome-Foundry/codon-usage-tables/blob/master/codon_usage_data/tables/s_cerevisiae_4932.csv
-yeast_codon_table = get_codons_table("s_cerevisiae_4932")
+yeast_codon_table = get_codons_table("s_cerevisiae_4932").copy()
 
 # https://github.com/Edinburgh-Genome-Foundry/codon-usage-tables/blob/master/codon_usage_data/tables/e_coli_316407.csv
-ecoli_codon_table = get_codons_table("e_coli_316407")
+ecoli_codon_table = get_codons_table("e_coli_316407").copy()
 
 random_codon_table = {
     "*": {"TAA": 0.33, "TAG": 0.33, "TGA": 0.33},
