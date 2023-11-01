@@ -205,11 +205,11 @@ def draw_alignment(
         font = find_font(boxheight)
         offset = -1
         if show_names:
-            offset += font.getsize(max([m.name[None:label_width] for m in aligned], key=len))[0] + 1
+            offset += int(font.getlength(max([m.name[None:label_width] for m in aligned], key=len)) + 1)
         if show_ids:
-            offset += font.getsize(max([m.id[None:label_width] for m in aligned], key=len))[0] + 1
+            offset += int(font.getlength(max([m.id[None:label_width] for m in aligned], key=len)) + 1)
         if show_descriptions:
-            offset += font.getsize(max([m.description[None:label_width] for m in aligned], key=len))[0] + 1
+            offset += int(font.getlength(max([m.description[None:label_width] for m in aligned], key=len)) + 1)
     else:
         font, offset = None, 0
 
