@@ -113,6 +113,19 @@ class MafftCommandline(AbstractCommandline):
                 ["--anysymbol", "anysymbol"],
                 "Allow unusual characters in the alignment, not scored.",
             ),
+            # If the --keeplength option is given, then the alignment length is unchanged.  Insertions at the new
+            # sequences are deleted
+            _Switch(
+                ["--keeplength", "keeplength"],
+                "Alignment length is unchanged. Insertions at the new sequences are deleted.",
+            ),
+            # Adding unaligned full-length sequence(s) into an existing alignment
+            _Option(
+                ["--add", "add"],
+                "Unaligned full-length sequence(s) to be added into existing alignment",
+                filename=True,
+                equate=False,
+            ),
         ]
         # append the original set of parameters from MafftCommandline
         self.parameters += Applications.MafftCommandline().parameters

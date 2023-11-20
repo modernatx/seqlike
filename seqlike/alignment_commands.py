@@ -41,30 +41,46 @@ def _generic_aligner_commandline_stdout(cline, **kwargs):
     return AlignIO.read(stdout, "fasta", **kwargs)
 
 
-def _generic_aligner_commandline_file(cline, seqrecs, **kwargs):
+def _fasta_tempfile_of_padded_sequences(seqrecs):
+    """Build named temporary file of padded sequences (for alignment)
+    :param seqrecs: a list of SeqRecord
+    :returns: a NamedTemporaryFile
+    """
+    assert len(seqrecs) > 1, "Need more than 1 sequence for alignment."
+    # pad seqrecs to be equal length
+    padded = pad_seq_records_for_alignment(seqrecs)
+    # write padded sequences to fasta
+    tempf = tempfile.NamedTemporaryFile(delete=False, mode="w")
+    AlignIO.write(padded, tempf, "fasta")
+    # restore file pointer to beginning of file
+    tempf.flush()
+    return tempf
+
+
+def _generic_aligner_commandline_file(cline, seqrecs, additional_seqrecs=None, **kwargs):
     """Execute aligner commandline that requires file i/o and return an alignment. Helper function.
 
     :param cline: a subprocess object from Bio.Align.Applications.AbstractCommandline
     :param seqrecs: a list of SeqRecord that will be aligned
+    :param additional_seqrecs: an iterator of SeqRecord that will be added to an existing alignment (`seqrecs`)
     :param **kwargs: additional arguments for alignment command
     :returns: a MultipleSeqAlignment object
     """
-    assert len(seqrecs) > 1, "Need more than 1 sequence for alignment."
-    # build alignment object 'unaligned'; pad seqrecs to be equal length
-    unaligned = pad_seq_records_for_alignment(seqrecs)
     # execute alignment
-    with tempfile.NamedTemporaryFile(delete=False, mode="w") as tempf:
-        AlignIO.write(unaligned, tempf, "fasta")
-        tempf.flush()
-        return cline(tempf, **kwargs)
+    with _fasta_tempfile_of_padded_sequences(seqrecs) as tempf:
+        if additional_seqrecs is not None:
+            with _fasta_tempfile_of_padded_sequences(additional_seqrecs) as tempf_additional:
+                return cline(tempf.name, add=tempf_additional.name, **kwargs)
+        return cline(tempf.name, **kwargs)
 
 
-def _generic_alignment(cline, seqrecs, preserve_order=True, **kwargs):
+def _generic_alignment(cline, seqrecs, preserve_order=True, additional_seqrecs=None, **kwargs):
     """Align sequences using command line stored as cline. Helper function.
 
     :param cline: a subprocess object from Bio.Align.Applications.AbstractCommandline
     :param seqrecs: an iterator of SeqRecord that will be aligned
     :param preserve_order: if True, reorder aligned seqrecs to match input order.
+    :param additional_seqrecs: an iterator of SeqRecord that will be added to the alignment
     :param **kwargs: additional arguments for alignment command
     :returns: a MultipleSeqAlignment object with aligned sequences
     """
@@ -72,8 +88,14 @@ def _generic_alignment(cline, seqrecs, preserve_order=True, **kwargs):
     unaligned = list(seqrecs)
     # if alignment sequences from NCBI Blast, id will include spaces
     keys = [seqrec.id.split()[0] for seqrec in unaligned]
+    # this is to enable the --add flag in MAFFT
+    if additional_seqrecs is not None:
+        additional_unaligned = list(additional_seqrecs)
+        keys += [seqrec.id.split()[0] for seqrec in additional_unaligned]
+    else:
+        additional_unaligned = None
     # execute alignment
-    aligned = _generic_aligner_commandline_file(cline, unaligned, **kwargs)
+    aligned = _generic_aligner_commandline_file(cline, unaligned, additional_seqrecs=additional_unaligned, **kwargs)
     if preserve_order:
         aligned = SeqIO.to_dict(aligned)
         aligned = MultipleSeqAlignment(aligned[key] for key in keys)
@@ -81,25 +103,27 @@ def _generic_alignment(cline, seqrecs, preserve_order=True, **kwargs):
     return MultipleSeqAlignment([seqrec.upper() for seqrec in aligned])
 
 
-def mafft_alignment(seqrecs, preserve_order=True, **kwargs):
+def mafft_alignment(seqrecs, preserve_order=True, additional_seqrecs=None, **kwargs):
     """Align sequences using MAFFT.
 
-    :param seqrecs: a list or dict of SeqRecord that will be aligned to ref
+    :param seqrecs: a list or dict of SeqRecord that will be aligned
     :param preserve_order: if True, reorder aligned seqrecs to match input order.
+    :param additional_seqrecs: an iterator of SeqRecord that will be added to the alignment
     :param **kwargs: additional arguments for alignment command
     :returns: a MultipleSeqAlignment object with aligned sequences
 
     :sa: https://mafft.cbrc.jp/alignment/software/
     """
 
-    def commandline(file_obj, **kwargs):
-        cline = MafftCommandline(input=file_obj.name, **kwargs)
+    def commandline(filename, **kwargs):
+        cline = MafftCommandline(input=filename, **kwargs)
         return _generic_aligner_commandline_stdout(cline)
 
     # MAFFT does not reorder alignment by default (reorder=False), but don't overwrite 'reorder' if set
     if "reorder" not in kwargs:
         kwargs["reorder"] = not preserve_order
-    return _generic_alignment(commandline, seqrecs, preserve_order=preserve_order, **kwargs)
+    return _generic_alignment(commandline, seqrecs, preserve_order=preserve_order,
+                              additional_seqrecs=additional_seqrecs, **kwargs)
 
 
 def muscle_alignment(seqrecs, preserve_order=True, **kwargs):
@@ -120,8 +144,8 @@ def muscle_alignment(seqrecs, preserve_order=True, **kwargs):
     :returns: a MultipleSeqAlignment object with aligned sequences
     """
 
-    def commandline(file_obj, **kwargs):
-        cline = MuscleCommandline(input=file_obj.name, **kwargs)
+    def commandline(filename, **kwargs):
+        cline = MuscleCommandline(input=filename, **kwargs)
         return _generic_aligner_commandline_stdout(cline)
 
     # Muscle reorders alignment by default, but don't overwrite 'group' if already set
@@ -143,8 +167,8 @@ def clustal_omega_alignment(seqrecs, preserve_order=True, **kwargs):
     else:
         outputorder = "tree-order"
 
-    def commandline(file_obj, **kwargs):
-        cline = ClustalOmegaCommandline("clustalo", infile=file_obj.name, outputorder=outputorder, **kwargs)
+    def commandline(filename, **kwargs):
+        cline = ClustalOmegaCommandline("clustalo", infile=filename, outputorder=outputorder, **kwargs)
         return _generic_aligner_commandline_stdout(cline)
 
     return _generic_alignment(commandline, seqrecs, **kwargs)

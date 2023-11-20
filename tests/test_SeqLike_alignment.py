@@ -1,9 +1,12 @@
 from types import *
 import pandas as pd
+from Bio import SeqIO
 from seqlike import SeqLike
 from seqlike.alignment_utils import align
 from seqlike.alignment_commands import mafft_alignment, muscle_alignment, pad_seq_records_for_alignment
 import pytest
+
+from . import test_path
 
 
 def get_aa_seqrecs():
@@ -62,9 +65,23 @@ def get_nt_seqrecs():
 @pytest.mark.xfail(reason="May fail if MAFFT is not installed.")
 def test_mafft_alignment():
     seqrecs = get_aa_seqrecs()
-    # test mafft (but not really testing anything except that the command works...)
     aligned1 = mafft_alignment(seqrecs)
+    assert len(aligned1) > 0
+    assert aligned1[1].id == seqrecs[1].id
+    assert str(aligned1[1].seq) != str(seqrecs[1].seq)
+
     aligned2 = mafft_alignment(seqrecs, dash=True)
+    assert len(aligned2) == len(aligned1) > 0
+    assert aligned2[1].id == seqrecs[1].id
+    assert str(aligned2[1].seq) != str(seqrecs[1].seq)
+
+    additional_seqrecs_filename = test_path / "alignment_test.fasta"
+    additional_seqrecs = list(SeqIO.parse(additional_seqrecs_filename, "fasta"))
+    aligned3 = mafft_alignment(aligned2, additional_seqrecs=additional_seqrecs, keeplength=True)
+    print(aligned3)
+    assert len(aligned3) == len(aligned2) + len(additional_seqrecs) > 0
+    assert aligned3[1].id == aligned2[1].id == seqrecs[1].id
+    assert str(aligned3[1].seq) == str(aligned2[1].seq)
 
 
 @pytest.mark.xfail(reason="May fail if Muscle is not installed.")
