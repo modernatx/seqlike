@@ -9,7 +9,8 @@ from Bio.SeqRecord import SeqRecord
 from hypothesis import given
 from hypothesis.strategies import composite, integers, sampled_from, text
 from seqlike.codon_tables import codon_table_to_codon_map, ecoli_codon_table, yeast_codon_table, ecoli_codon_map
-from seqlike.SeqLike import AA, NT, STANDARD_AA, STANDARD_NT, SeqLike, aaSeqLike
+from seqlike.SeqLike import AA, NT, STANDARD_AA, STANDARD_NT, SeqLike, aaSeqLike, ntSeqLike
+from seqlike.Mutation import Mutation
 from seqlike.MutationSet import MutationSet
 
 from . import test_path
@@ -560,6 +561,18 @@ def test__add__mutations():
         mutant = s + mutation
         difference = s - mutant
         assert (s + difference).ungap().to_str() == (s + mutation).ungap().to_str()
+
+
+def test__add__features():
+    """Test persistence of .features when adding sequences and Mutation objects to SeqLike object"""
+    seq = ntSeqLike(SeqIO.read(test_path / "NC_005816.gb", "genbank"))
+    assert len(seq.features) > 0
+    for addition in ["TCGCACACTGCA", ntSeqLike("TCGCACACTGCA"), seq, Mutation("T121C")]:
+        new_seq = seq + addition
+        assert len(new_seq.features) > 0
+        assert new_seq.id == seq.id
+        assert new_seq.name == seq.name
+        assert new_seq.description == seq.description
 
 
 def test__deepcopy__():

@@ -1142,9 +1142,13 @@ def _add(obj: SeqLike, other: Union[Substitution, Deletion]):
         seq_type=deepcopy(obj._type),
         alphabet=deepcopy(obj.alphabet),
         codon_map=deepcopy(obj.codon_map),
-        id=deepcopy(obj._seqrecord.id),
-        name=deepcopy(obj._seqrecord.name),
-        description=deepcopy(obj._seqrecord.description),
+        # trying to match https://github.com/biopython/biopython/blob/master/Bio/SeqRecord.py#L956
+        id=obj._seqrecord.id,
+        name=obj._seqrecord.name,
+        description=obj._seqrecord.description,
+        features=obj._seqrecord.features[:],
+        annotations=obj._seqrecord.annotations.copy(),
+        dbxrefs=obj._seqrecord.dbxrefs[:],
     )
 
 
@@ -1168,9 +1172,13 @@ def _add(obj: SeqLike, other: Insertion):
         seq_type=deepcopy(obj._type),
         alphabet=deepcopy(obj.alphabet),
         codon_map=deepcopy(obj.codon_map),
-        id=deepcopy(obj._seqrecord.id),
-        name=deepcopy(obj._seqrecord.name),
-        description=deepcopy(obj._seqrecord.description),
+        # trying to match https://github.com/biopython/biopython/blob/master/Bio/SeqRecord.py#L956
+        id=obj._seqrecord.id,
+        name=obj._seqrecord.name,
+        description=obj._seqrecord.description,
+        features=obj._seqrecord.features[:],
+        annotations=obj._seqrecord.annotations.copy(),
+        dbxrefs=obj._seqrecord.dbxrefs[:],
     )
 
 
