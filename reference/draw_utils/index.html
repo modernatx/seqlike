@@ -1,0 +1,1372 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.1.3">
+    
+    
+      
+        <title>Drawing Utilities - SeqLike</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.edf004c2.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../css/apidocs.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#drawing-utilities" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SeqLike" class="md-header__button md-logo" aria-label="SeqLike" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 360V24c0-13.3-10.7-24-24-24H96C43 0 0 43 0 96v320c0 53 43 96 96 96h328c13.3 0 24-10.7 24-24v-16c0-7.5-3.5-14.3-8.9-18.7-4.2-15.4-4.2-59.3 0-74.7 5.4-4.3 8.9-11.1 8.9-18.6zM128 134c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm0 64c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm253.4 250H96c-17.7 0-32-14.3-32-32 0-17.6 14.4-32 32-32h285.4c-1.9 17.1-1.9 46.9 0 64z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SeqLike
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Drawing Utilities
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/modernatx/seqlike" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    modernatx/seqlike
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SeqLike" class="md-nav__button md-logo" aria-label="SeqLike" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 360V24c0-13.3-10.7-24-24-24H96C43 0 0 43 0 96v320c0 53 43 96 96 96h328c13.3 0 24-10.7 24-24v-16c0-7.5-3.5-14.3-8.9-18.7-4.2-15.4-4.2-59.3 0-74.7 5.4-4.3 8.9-11.1 8.9-18.6zM128 134c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm0 64c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm253.4 250H96c-17.7 0-32-14.3-32-32 0-17.6 14.4-32 32-32h285.4c-1.9 17.1-1.9 46.9 0 64z"/></svg>
+
+    </a>
+    SeqLike
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/modernatx/seqlike" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    modernatx/seqlike
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        SeqLike: Flexible Biological Sequence Objects in Python
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/devcontainer/" class="md-nav__link">
+        Development Containers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/development-environment/" class="md-nav__link">
+        Setting up your development environment manually
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/documentation/" class="md-nav__link">
+        Documentation Standards and Practices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/import-speed/" class="md-nav__link">
+        Optimizing for Import Speed
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/seqlike-object/" class="md-nav__link">
+        The SeqLike Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/versioning/" class="md-nav__link">
+        Versioning
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Notebooks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Notebooks" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Notebooks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/mutations/" class="md-nav__link">
+        Mutations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/sequence-like/" class="md-nav__link">
+        Sequence like
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/tutorial/" class="md-nav__link">
+        Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../align_commandline/" class="md-nav__link">
+        Alignment Command-Line Bridge
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alignment_commands/" class="md-nav__link">
+        Alignment Commands
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alignment_utils/" class="md-nav__link">
+        Alignment Utilities
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alphabets/" class="md-nav__link">
+        Alphabets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../codon_tables/" class="md-nav__link">
+        Codon Tables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Drawing Utilities
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Drawing Utilities
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils" class="md-nav__link">
+    seqlike.draw_utils
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils.apply_matching_colorscheme" class="md-nav__link">
+    apply_matching_colorscheme()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils.convert_colorscheme_to_color_map" class="md-nav__link">
+    convert_colorscheme_to_color_map()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils.convert_weblogo_color" class="md-nav__link">
+    convert_weblogo_color()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils.draw_alignment" class="md-nav__link">
+    draw_alignment()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils.find_font" class="md-nav__link">
+    find_font()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils.view_alignment" class="md-nav__link">
+    view_alignment()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../encoders/" class="md-nav__link">
+        Encoders
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seqlike/" class="md-nav__link">
+        SeqLike API Reference
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seqlike_accessor/" class="md-nav__link">
+        SeqLike Accessor API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils" class="md-nav__link">
+    seqlike.draw_utils
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils.apply_matching_colorscheme" class="md-nav__link">
+    apply_matching_colorscheme()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils.convert_colorscheme_to_color_map" class="md-nav__link">
+    convert_colorscheme_to_color_map()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils.convert_weblogo_color" class="md-nav__link">
+    convert_weblogo_color()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils.draw_alignment" class="md-nav__link">
+    draw_alignment()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils.find_font" class="md-nav__link">
+    find_font()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.draw_utils.view_alignment" class="md-nav__link">
+    view_alignment()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/modernatx/seqlike/edit/master/docs/reference/draw_utils.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+<h1 id="drawing-utilities">Drawing Utilities</h1>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="seqlike.draw_utils"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="seqlike.draw_utils.apply_matching_colorscheme" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">apply_matching_colorscheme</span><span class="p">(</span><span class="n">letter</span><span class="p">,</span> <span class="n">ref_letter</span><span class="p">,</span> <span class="n">color_format</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Apply a match/mismatch color scheme to sequence letters
+:param letter: letter from target sequence
+:param ref_letter: letter from reference sequence (for match/mismatch)
+:param color_format: 'hex' or 'rgb' for hex string or RGB tuple, respectively
+:returns: an RGB hex string (for Bokeh) or simple RGB tuple (for vizqes)</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/draw_utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">apply_matching_colorscheme</span><span class="p">(</span><span class="n">letter</span><span class="p">,</span> <span class="n">ref_letter</span><span class="p">,</span> <span class="n">color_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply a match/mismatch color scheme to sequence letters</span>
+<span class="sd">    :param letter: letter from target sequence</span>
+<span class="sd">    :param ref_letter: letter from reference sequence (for match/mismatch)</span>
+<span class="sd">    :param color_format: &#39;hex&#39; or &#39;rgb&#39; for hex string or RGB tuple, respectively</span>
+<span class="sd">    :returns: an RGB hex string (for Bokeh) or simple RGB tuple (for vizqes)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># gap match</span>
+    <span class="k">if</span> <span class="n">letter</span> <span class="o">==</span> <span class="n">gap_letter</span> <span class="ow">and</span> <span class="n">letter</span> <span class="o">==</span> <span class="n">ref_letter</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">convert_weblogo_color</span><span class="p">(</span><span class="n">wl</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">Color</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="s2">&quot;lightblue&quot;</span><span class="p">),</span> <span class="n">color_format</span><span class="p">)</span>
+    <span class="c1"># gap</span>
+    <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="n">gap_letter</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">convert_weblogo_color</span><span class="p">(</span><span class="n">wl</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">Color</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">),</span> <span class="n">color_format</span><span class="p">)</span>
+    <span class="c1"># match</span>
+    <span class="k">elif</span> <span class="n">letter</span> <span class="o">==</span> <span class="n">ref_letter</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">convert_weblogo_color</span><span class="p">(</span><span class="n">wl</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">Color</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="s2">&quot;limegreen&quot;</span><span class="p">),</span> <span class="n">color_format</span><span class="p">)</span>
+    <span class="c1"># mismatch</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">convert_weblogo_color</span><span class="p">(</span><span class="n">wl</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">Color</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="s2">&quot;darkred&quot;</span><span class="p">),</span> <span class="n">color_format</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="seqlike.draw_utils.convert_colorscheme_to_color_map" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">convert_colorscheme_to_color_map</span><span class="p">(</span><span class="n">color_scheme</span><span class="p">,</span> <span class="n">color_format</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Convert weblogo ColorScheme into bokeh color map
+:param color_scheme: a Callable that returns a weblogo ColorScheme object
+:param color_format: 'hex' or 'rgb' for hex string or RGB tuple, respectively
+:returns: a dict of bokeh colors indexed by letter</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/draw_utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">convert_colorscheme_to_color_map</span><span class="p">(</span><span class="n">color_scheme</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">color_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert weblogo ColorScheme into bokeh color map</span>
+<span class="sd">    :param color_scheme: a Callable that returns a weblogo ColorScheme object</span>
+<span class="sd">    :param color_format: &#39;hex&#39; or &#39;rgb&#39; for hex string or RGB tuple, respectively</span>
+<span class="sd">    :returns: a dict of bokeh colors indexed by letter</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># return a Bokeh color object or simple RGB tuple (for draw_alignment)</span>
+
+    <span class="c1"># convert SymbolColor to bokeh color object</span>
+    <span class="n">color_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">rule</span> <span class="ow">in</span> <span class="n">color_scheme</span><span class="p">()</span><span class="o">.</span><span class="n">rules</span><span class="p">:</span>
+        <span class="n">color_dict</span><span class="p">[</span><span class="n">rule</span><span class="o">.</span><span class="n">symbols</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_weblogo_color</span><span class="p">(</span><span class="n">rule</span><span class="o">.</span><span class="n">color</span><span class="p">,</span> <span class="n">color_format</span><span class="p">)</span>
+    <span class="c1"># default for spaces (white)</span>
+    <span class="n">color_dict</span><span class="p">[</span><span class="s2">&quot;-*&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_weblogo_color</span><span class="p">(</span><span class="n">wl</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">Color</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">),</span> <span class="n">color_format</span><span class="p">)</span>
+    <span class="c1"># expand letter strings so that dict maps to single letters</span>
+    <span class="n">expanded_color_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">letters</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">color_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">expanded_color_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">((</span><span class="n">l</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">letters</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">expanded_color_dict</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="seqlike.draw_utils.convert_weblogo_color" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">convert_weblogo_color</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">color_format</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Convert weblogo Color to Bokeh color object</p>
+<p>Note: Weblogo colors are RGB but fractional [0, 1],
+whereas Bokeh and draw_alignment are [0, 255]</p>
+<p>:sa: https://github.com/WebLogo/weblogo/blob/master/weblogo/color.py</p>
+<p>:param color: A weblogo Color object.
+:param color_format: Either "rgb" or "hex".
+:returns: Either an RGB tuple (for "rgb") or hexadecimal string (for "hex").</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/draw_utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">convert_weblogo_color</span><span class="p">(</span><span class="n">color</span><span class="p">:</span> <span class="s2">&quot;wl.color.Color&quot;</span><span class="p">,</span> <span class="n">color_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert weblogo Color to Bokeh color object</span>
+
+<span class="sd">    Note: Weblogo colors are RGB but fractional [0, 1],</span>
+<span class="sd">    whereas Bokeh and draw_alignment are [0, 255]</span>
+
+<span class="sd">    :sa: https://github.com/WebLogo/weblogo/blob/master/weblogo/color.py</span>
+
+<span class="sd">    :param color: A weblogo Color object.</span>
+<span class="sd">    :param color_format: Either &quot;rgb&quot; or &quot;hex&quot;.</span>
+<span class="sd">    :returns: Either an RGB tuple (for &quot;rgb&quot;) or hexadecimal string (for &quot;hex&quot;).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">color_format</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;rgb&quot;</span><span class="p">,</span> <span class="s2">&quot;hex&quot;</span><span class="p">]</span>
+
+    <span class="n">rgb_tuple</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">255</span> <span class="o">*</span> <span class="n">color</span><span class="o">.</span><span class="n">red</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="mi">255</span> <span class="o">*</span> <span class="n">color</span><span class="o">.</span><span class="n">green</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="mi">255</span> <span class="o">*</span> <span class="n">color</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+    <span class="n">hex_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;#</span><span class="si">{</span><span class="n">rgb_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">02X</span><span class="si">}{</span><span class="n">rgb_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">02X</span><span class="si">}{</span><span class="n">rgb_tuple</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">:</span><span class="s2">02X</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">if</span> <span class="n">color_format</span> <span class="o">==</span> <span class="s2">&quot;rgb&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">rgb_tuple</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">hex_str</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="seqlike.draw_utils.draw_alignment" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">draw_alignment</span><span class="p">(</span><span class="n">aligned</span><span class="p">,</span> <span class="n">colorscheme</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">aa_chemistry_simple</span> <span class="n">at</span> <span class="mh">0x7f6b134488b0</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">boxwidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">boxheight</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">label_width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">show_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_names</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_descriptions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_grouping</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Generate a colored figure from an alignment
+:param aligned: MultipleSeqAlignment object
+:param colorscheme: a Callable that returns a weblogo ColorScheme object
+:param boxwidth: column width of alignment
+:param boxheight: row height of alignment
+:param label_width: maximum length of row label; if None, extend to maximum label length
+:param show_ids: if True, show SeqRecord ID for each row
+:param show_names: if True, show SeqRecord name for each row
+:param show_descriptions: if True, show SeqRecord description for each row
+:param show_grouping: if True, highlight changes from reference in red against green background,
+    instead of using the residue colorscheme
+:returns: PIL Image object</p>
+<p>:note: based on vizqespkg.vizqes_main.draw
+:sa: vizqespkg.vizqes_main.draw
+:sa: http://www.bioinformatics.nl/~berndb/aacolour.html</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/draw_utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">draw_alignment</span><span class="p">(</span>
+    <span class="n">aligned</span><span class="p">,</span>
+    <span class="n">colorscheme</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">aa_chemistry_simple</span><span class="p">,</span>
+    <span class="n">boxwidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">boxheight</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="n">label_width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">show_ids</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">show_names</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">show_descriptions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">show_grouping</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a colored figure from an alignment</span>
+<span class="sd">    :param aligned: MultipleSeqAlignment object</span>
+<span class="sd">    :param colorscheme: a Callable that returns a weblogo ColorScheme object</span>
+<span class="sd">    :param boxwidth: column width of alignment</span>
+<span class="sd">    :param boxheight: row height of alignment</span>
+<span class="sd">    :param label_width: maximum length of row label; if None, extend to maximum label length</span>
+<span class="sd">    :param show_ids: if True, show SeqRecord ID for each row</span>
+<span class="sd">    :param show_names: if True, show SeqRecord name for each row</span>
+<span class="sd">    :param show_descriptions: if True, show SeqRecord description for each row</span>
+<span class="sd">    :param show_grouping: if True, highlight changes from reference in red against green background,</span>
+<span class="sd">        instead of using the residue colorscheme</span>
+<span class="sd">    :returns: PIL Image object</span>
+
+<span class="sd">    :note: based on vizqespkg.vizqes_main.draw</span>
+<span class="sd">    :sa: vizqespkg.vizqes_main.draw</span>
+<span class="sd">    :sa: http://www.bioinformatics.nl/~berndb/aacolour.html</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">show_names</span> <span class="ow">or</span> <span class="n">show_ids</span> <span class="ow">or</span> <span class="n">show_descriptions</span><span class="p">:</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="n">find_font</span><span class="p">(</span><span class="n">boxheight</span><span class="p">)</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">show_names</span><span class="p">:</span>
+            <span class="n">offset</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">font</span><span class="o">.</span><span class="n">getlength</span><span class="p">(</span><span class="nb">max</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="kc">None</span><span class="p">:</span><span class="n">label_width</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">aligned</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">show_ids</span><span class="p">:</span>
+            <span class="n">offset</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">font</span><span class="o">.</span><span class="n">getlength</span><span class="p">(</span><span class="nb">max</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="kc">None</span><span class="p">:</span><span class="n">label_width</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">aligned</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">show_descriptions</span><span class="p">:</span>
+            <span class="n">offset</span> <span class="o">+=</span> <span class="nb">int</span><span class="p">(</span><span class="n">font</span><span class="o">.</span><span class="n">getlength</span><span class="p">(</span><span class="nb">max</span><span class="p">([</span><span class="n">m</span><span class="o">.</span><span class="n">description</span><span class="p">[</span><span class="kc">None</span><span class="p">:</span><span class="n">label_width</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">aligned</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">font</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span>
+
+    <span class="n">height</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">aligned</span><span class="p">)</span> <span class="o">*</span> <span class="n">boxheight</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">aligned</span><span class="o">.</span><span class="n">get_alignment_length</span><span class="p">()</span> <span class="o">*</span> <span class="n">boxwidth</span> <span class="o">+</span> <span class="n">offset</span>
+
+    <span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">),</span> <span class="s2">&quot;white&quot;</span><span class="p">)</span>
+    <span class="n">draw</span> <span class="o">=</span> <span class="n">ImageDraw</span><span class="o">.</span><span class="n">Draw</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="n">yd</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">color_dict</span> <span class="o">=</span> <span class="n">convert_colorscheme_to_color_map</span><span class="p">(</span><span class="n">colorscheme</span><span class="p">,</span> <span class="n">color_format</span><span class="o">=</span><span class="s2">&quot;rgb&quot;</span><span class="p">)</span>
+    <span class="n">refseq</span> <span class="o">=</span> <span class="n">aligned</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">seq</span>
+    <span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">member</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">aligned</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">*=</span> <span class="n">boxheight</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">xs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">member</span><span class="o">.</span><span class="n">seq</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">show_grouping</span><span class="p">:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">apply_matching_colorscheme</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">refseq</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">color_format</span><span class="o">=</span><span class="s2">&quot;rgb&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">color_dict</span><span class="p">[</span><span class="n">xs</span><span class="p">]</span>
+            <span class="n">x</span> <span class="o">*=</span> <span class="n">boxwidth</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">boxwidth</span><span class="p">):</span>
+                <span class="n">xd</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="n">offset</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">boxheight</span><span class="p">):</span>
+                    <span class="n">yd</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">j</span>
+                    <span class="n">draw</span><span class="o">.</span><span class="n">point</span><span class="p">((</span><span class="n">xd</span><span class="p">,</span> <span class="n">yd</span><span class="p">),</span> <span class="n">fill</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">show_names</span> <span class="ow">or</span> <span class="n">show_ids</span> <span class="ow">or</span> <span class="n">show_descriptions</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="n">show_names</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">+=</span> <span class="n">member</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="kc">None</span><span class="p">:</span><span class="n">label_width</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
+            <span class="k">if</span> <span class="n">show_ids</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">+=</span> <span class="n">member</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="kc">None</span><span class="p">:</span><span class="n">label_width</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
+            <span class="k">if</span> <span class="n">show_descriptions</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">+=</span> <span class="n">member</span><span class="o">.</span><span class="n">description</span><span class="p">[</span><span class="kc">None</span><span class="p">:</span><span class="n">label_width</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
+            <span class="c1"># clip last &#39; &#39; from text</span>
+            <span class="n">draw</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">yd</span> <span class="o">-</span> <span class="n">boxheight</span><span class="p">),</span> <span class="n">text</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">font</span><span class="o">=</span><span class="n">font</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">img</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="seqlike.draw_utils.find_font" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">find_font</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">fontpath</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Find and scale font based on fontpath.</p>
+<p>Helper function for draw_alignment.</p>
+<p>:param size: desired font size
+:param fontpath: optional search path for font file (.ttf)
+:returns: PIL.ImageFont object</p>
+<p>:sa: vizqes (https://pypi.python.org/pypi/vizqes)</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/draw_utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">find_font</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">fontpath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find and scale font based on fontpath.</span>
+
+<span class="sd">    Helper function for draw_alignment.</span>
+
+<span class="sd">    :param size: desired font size</span>
+<span class="sd">    :param fontpath: optional search path for font file (.ttf)</span>
+<span class="sd">    :returns: PIL.ImageFont object</span>
+
+<span class="sd">    :sa: vizqes (https://pypi.python.org/pypi/vizqes)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">fontpath</span><span class="p">:</span>
+        <span class="n">font_searchpath</span> <span class="o">=</span> <span class="n">fontpath</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">font_searchpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;FreeMono.ttf&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">truetype</span><span class="p">(</span><span class="n">font_searchpath</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;Found font in </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">font_searchpath</span><span class="p">)))</span>
+    <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;could not find font in </span><span class="si">{}</span><span class="se">\n</span><span class="s2">Using default</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">font_searchpath</span><span class="p">)))</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="n">ImageFont</span><span class="o">.</span><span class="n">load_default</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">font</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="seqlike.draw_utils.view_alignment" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">view_alignment</span><span class="p">(</span><span class="n">aligned</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;9pt&#39;</span><span class="p">,</span> <span class="n">show_N</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">colorscheme</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">aa_chemistry_simple</span> <span class="n">at</span> <span class="mh">0x7f6b134488b0</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">boxwidth</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">boxheight</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">label_width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show_descriptions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_grouping</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Bokeh sequence alignment view for protein and nucleic acid sequences</p>
+<p>:sa: https://dmnfarrell.github.io/bioinformatics/bokeh-sequence-aligner</p>
+<p>:param aligned: MultipleSeqAlignment object
+:param fontsize: font size for text labels
+:param show_N: size of sequence window (in number of sequence letters)
+:param colorscheme: a Callable that returns a weblogo ColorScheme object
+:param boxwidth: column width of alignment
+:param boxheight: row height of alignment
+:param label_width: maximum length of row label; if None, extend to maximum label length
+:param show_descriptions: if True, show SeqRecord description for each row
+:param show_grouping: if True, highlight changes from reference in red against green background,
+    instead of using the residue colorscheme
+:returns: A Bokeh plot of the Multiple Sequence Alignment.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/draw_utils.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">view_alignment</span><span class="p">(</span>
+    <span class="n">aligned</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;9pt&quot;</span><span class="p">,</span>
+    <span class="n">show_N</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">colorscheme</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">aa_chemistry_simple</span><span class="p">,</span>
+    <span class="n">boxwidth</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+    <span class="n">boxheight</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">label_width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">show_descriptions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">show_grouping</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Bokeh sequence alignment view for protein and nucleic acid sequences</span>
+
+
+<span class="sd">    :sa: https://dmnfarrell.github.io/bioinformatics/bokeh-sequence-aligner</span>
+
+<span class="sd">    :param aligned: MultipleSeqAlignment object</span>
+<span class="sd">    :param fontsize: font size for text labels</span>
+<span class="sd">    :param show_N: size of sequence window (in number of sequence letters)</span>
+<span class="sd">    :param colorscheme: a Callable that returns a weblogo ColorScheme object</span>
+<span class="sd">    :param boxwidth: column width of alignment</span>
+<span class="sd">    :param boxheight: row height of alignment</span>
+<span class="sd">    :param label_width: maximum length of row label; if None, extend to maximum label length</span>
+<span class="sd">    :param show_descriptions: if True, show SeqRecord description for each row</span>
+<span class="sd">    :param show_grouping: if True, highlight changes from reference in red against green background,</span>
+<span class="sd">        instead of using the residue colorscheme</span>
+<span class="sd">    :returns: A Bokeh plot of the Multiple Sequence Alignment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span><span class="p">,</span> <span class="n">Range1d</span>
+    <span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span>
+    <span class="kn">from</span> <span class="nn">bokeh.models.glyphs</span> <span class="kn">import</span> <span class="n">Rect</span>
+
+    <span class="k">def</span> <span class="nf">get_colors</span><span class="p">(</span><span class="n">seqs</span><span class="p">,</span> <span class="n">color_scheme</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;make colors for letters in sequence</span>
+
+<span class="sd">        :param seqs: A string sequence.</span>
+<span class="sd">        :param color_scheme: A string.</span>
+<span class="sd">        :returns: a sequence of colors for each letter in seqs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># get colors</span>
+        <span class="n">color_dict</span> <span class="o">=</span> <span class="n">convert_colorscheme_to_color_map</span><span class="p">(</span><span class="n">color_scheme</span><span class="p">,</span> <span class="n">color_format</span><span class="o">=</span><span class="s2">&quot;hex&quot;</span><span class="p">)</span>
+        <span class="c1"># assign colors to sequences</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">color_dict</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">text</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get_colors_for_matching</span><span class="p">(</span><span class="n">seqs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;match/mismatch color scheme for show_grouping</span>
+
+<span class="sd">        :param seqs: Sequences for which colors need to be matched.</span>
+<span class="sd">        :returns: a list of colors (strings)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">refseq</span> <span class="o">=</span> <span class="n">seqs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">seqs</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ref_s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">refseq</span><span class="p">):</span>
+                <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">apply_matching_colorscheme</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ref_s</span><span class="p">,</span> <span class="n">color_format</span><span class="o">=</span><span class="s2">&quot;hex&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">colors</span>
+
+    <span class="c1"># make sequence and id lists from the aligned object</span>
+    <span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="n">rec</span><span class="o">.</span><span class="n">seq</span> <span class="k">for</span> <span class="n">rec</span> <span class="ow">in</span> <span class="p">(</span><span class="n">aligned</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">show_descriptions</span><span class="p">:</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">rec</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">rec</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">)&quot;</span> <span class="k">for</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">rec</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">aligned</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">rec</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">rec</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">aligned</span><span class="p">)]</span>
+
+    <span class="k">if</span> <span class="n">label_width</span><span class="p">:</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">label</span><span class="p">[:</span><span class="n">label_width</span><span class="p">]</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">label_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">)</span>
+
+    <span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">show_grouping</span><span class="p">:</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">get_colors_for_matching</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">get_colors</span><span class="p">(</span><span class="n">seqs</span><span class="p">,</span> <span class="n">colorscheme</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seqs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># need to reverse y so that sequences are plotted top-to-bottom</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">S</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># creates a 2D grid of coords from the 1D arrays</span>
+    <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="c1"># flattens the arrays</span>
+    <span class="n">gx</span> <span class="o">=</span> <span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">gy</span> <span class="o">=</span> <span class="n">yy</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="c1"># use recty for rect coords with an offset</span>
+    <span class="n">recty</span> <span class="o">=</span> <span class="n">gy</span> <span class="o">+</span> <span class="mf">0.5</span>
+    <span class="c1"># now we can create the ColumnDataSource with all the arrays</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">gx</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">gy</span><span class="p">,</span> <span class="n">recty</span><span class="o">=</span><span class="n">recty</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">))</span>
+    <span class="n">plot_height</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span> <span class="o">*</span> <span class="n">boxheight</span> <span class="o">+</span> <span class="mi">50</span>
+    <span class="n">x_range</span> <span class="o">=</span> <span class="n">Range1d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+    <span class="n">viewlen</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">show_N</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="c1"># view_range is for the close up view</span>
+    <span class="n">view_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">viewlen</span><span class="p">)</span>
+    <span class="n">tools</span> <span class="o">=</span> <span class="s2">&quot;xpan,xwheel_zoom,reset,save&quot;</span>
+
+    <span class="c1"># plot_width combines length of text labels and number of letters in sequence view window</span>
+    <span class="c1"># note: this part requires additional tuning; 5 pixel average width of y-axis labels is a guess</span>
+    <span class="n">plot_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">label_width</span><span class="p">)</span> <span class="o">+</span> <span class="n">boxwidth</span> <span class="o">*</span> <span class="n">viewlen</span> <span class="o">+</span> <span class="mi">40</span>
+
+    <span class="c1"># entire sequence view (no text, with zoom)</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">plot_width</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">x_range</span><span class="o">=</span><span class="n">x_range</span><span class="p">,</span>
+        <span class="n">y_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">S</span><span class="p">),</span>
+        <span class="n">tools</span><span class="o">=</span><span class="n">tools</span><span class="p">,</span>
+        <span class="n">min_border</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">toolbar_location</span><span class="o">=</span><span class="s2">&quot;below&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">rects</span> <span class="o">=</span> <span class="n">Rect</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s2">&quot;recty&quot;</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">fill_color</span><span class="o">=</span><span class="s2">&quot;colors&quot;</span><span class="p">,</span>
+        <span class="n">line_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fill_alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">rects</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># sequence text view with ability to scroll along x axis</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">plot_width</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">plot_height</span><span class="p">,</span>
+        <span class="n">x_range</span><span class="o">=</span><span class="n">view_range</span><span class="p">,</span>
+        <span class="n">y_range</span><span class="o">=</span><span class="n">labels</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">tools</span><span class="o">=</span><span class="s2">&quot;xpan,reset,save&quot;</span><span class="p">,</span>
+        <span class="n">min_border</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">toolbar_location</span><span class="o">=</span><span class="s2">&quot;below&quot;</span><span class="p">,</span>
+    <span class="p">)</span>  <span class="c1"># , lod_factor=1)</span>
+    <span class="n">glyph</span> <span class="o">=</span> <span class="n">bk</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">glyphs</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span>
+        <span class="n">text</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
+        <span class="n">text_align</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+        <span class="n">text_color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+        <span class="n">text_font</span><span class="o">=</span><span class="n">bk</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="s2">&quot;monospace&quot;</span><span class="p">),</span>
+        <span class="n">text_font_size</span><span class="o">=</span><span class="n">fontsize</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">rects</span> <span class="o">=</span> <span class="n">Rect</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s2">&quot;recty&quot;</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">fill_color</span><span class="o">=</span><span class="s2">&quot;colors&quot;</span><span class="p">,</span>
+        <span class="n">line_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fill_alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">p1</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">glyph</span><span class="p">)</span>
+    <span class="n">p1</span><span class="o">.</span><span class="n">add_glyph</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">rects</span><span class="p">)</span>
+
+    <span class="n">p1</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">p1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">major_label_text_font_style</span> <span class="o">=</span> <span class="s2">&quot;bold&quot;</span>
+    <span class="n">p1</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">minor_tick_line_width</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">p1</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">major_tick_line_width</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="n">bk</span><span class="o">.</span><span class="n">layouts</span><span class="o">.</span><span class="n">gridplot</span><span class="p">([[</span><span class="n">p</span><span class="p">],</span> <span class="p">[</span><span class="n">p1</span><span class="p">]],</span> <span class="n">toolbar_location</span><span class="o">=</span><span class="s2">&quot;below&quot;</span><span class="p">)</span>
+    <span class="n">bk</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">p</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../codon_tables/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Codon Tables" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Codon Tables
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../encoders/" class="md-footer__link md-footer__link--next" aria-label="Next: Encoders" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Encoders
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["instant", "tabs"], "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      
+    
+  </body>
+</html>

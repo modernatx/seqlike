@@ -1,0 +1,1677 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.1.3">
+    
+    
+      
+        <title>Alignment Command-Line Bridge - SeqLike</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.edf004c2.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../css/apidocs.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#alignment-command-line-bridge" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SeqLike" class="md-header__button md-logo" aria-label="SeqLike" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 360V24c0-13.3-10.7-24-24-24H96C43 0 0 43 0 96v320c0 53 43 96 96 96h328c13.3 0 24-10.7 24-24v-16c0-7.5-3.5-14.3-8.9-18.7-4.2-15.4-4.2-59.3 0-74.7 5.4-4.3 8.9-11.1 8.9-18.6zM128 134c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm0 64c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm253.4 250H96c-17.7 0-32-14.3-32-32 0-17.6 14.4-32 32-32h285.4c-1.9 17.1-1.9 46.9 0 64z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SeqLike
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Alignment Command-Line Bridge
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/modernatx/seqlike" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    modernatx/seqlike
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SeqLike" class="md-nav__button md-logo" aria-label="SeqLike" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 360V24c0-13.3-10.7-24-24-24H96C43 0 0 43 0 96v320c0 53 43 96 96 96h328c13.3 0 24-10.7 24-24v-16c0-7.5-3.5-14.3-8.9-18.7-4.2-15.4-4.2-59.3 0-74.7 5.4-4.3 8.9-11.1 8.9-18.6zM128 134c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm0 64c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm253.4 250H96c-17.7 0-32-14.3-32-32 0-17.6 14.4-32 32-32h285.4c-1.9 17.1-1.9 46.9 0 64z"/></svg>
+
+    </a>
+    SeqLike
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/modernatx/seqlike" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    modernatx/seqlike
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        SeqLike: Flexible Biological Sequence Objects in Python
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/devcontainer/" class="md-nav__link">
+        Development Containers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/development-environment/" class="md-nav__link">
+        Setting up your development environment manually
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/documentation/" class="md-nav__link">
+        Documentation Standards and Practices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/import-speed/" class="md-nav__link">
+        Optimizing for Import Speed
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/seqlike-object/" class="md-nav__link">
+        The SeqLike Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/versioning/" class="md-nav__link">
+        Versioning
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Notebooks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Notebooks" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Notebooks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/mutations/" class="md-nav__link">
+        Mutations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/sequence-like/" class="md-nav__link">
+        Sequence like
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/tutorial/" class="md-nav__link">
+        Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Alignment Command-Line Bridge
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Alignment Command-Line Bridge
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.AlignCommandline" class="md-nav__link">
+    seqlike.AlignCommandline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.AlignCommandline.BowtieBuildCommandline" class="md-nav__link">
+    BowtieBuildCommandline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.AlignCommandline.BowtieCommandline" class="md-nav__link">
+    BowtieCommandline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.AlignCommandline.FlashCommandline" class="md-nav__link">
+    FlashCommandline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.AlignCommandline.MuscleCommandline" class="md-nav__link">
+    MuscleCommandline
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alignment_commands/" class="md-nav__link">
+        Alignment Commands
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alignment_utils/" class="md-nav__link">
+        Alignment Utilities
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alphabets/" class="md-nav__link">
+        Alphabets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../codon_tables/" class="md-nav__link">
+        Codon Tables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../draw_utils/" class="md-nav__link">
+        Drawing Utilities
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../encoders/" class="md-nav__link">
+        Encoders
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seqlike/" class="md-nav__link">
+        SeqLike API Reference
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seqlike_accessor/" class="md-nav__link">
+        SeqLike Accessor API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.AlignCommandline" class="md-nav__link">
+    seqlike.AlignCommandline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.AlignCommandline.BowtieBuildCommandline" class="md-nav__link">
+    BowtieBuildCommandline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.AlignCommandline.BowtieCommandline" class="md-nav__link">
+    BowtieCommandline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.AlignCommandline.FlashCommandline" class="md-nav__link">
+    FlashCommandline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.AlignCommandline.MuscleCommandline" class="md-nav__link">
+    MuscleCommandline
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/modernatx/seqlike/edit/master/docs/reference/align_commandline.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+<h1 id="alignment-command-line-bridge">Alignment Command-Line Bridge</h1>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="seqlike.AlignCommandline"></a>
+    <div class="doc doc-contents first">
+
+      <p>This extends Bio.Align</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="seqlike.AlignCommandline.BowtieBuildCommandline" class="doc doc-heading">
+        <code>
+BowtieBuildCommandline            (<span title="Bio.Application.AbstractCommandline">AbstractCommandline</span>)
+        </code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Interface to Bowtie2-build indexing software</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/AlignCommandline.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">BowtieBuildCommandline</span><span class="p">(</span><span class="n">AbstractCommandline</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Interface to Bowtie2-build indexing software</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="s2">&quot;bowtie2-build&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">program_name</span> <span class="o">=</span> <span class="n">cmd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">_Argument</span><span class="p">([</span><span class="s2">&quot;infile&quot;</span><span class="p">],</span> <span class="s2">&quot;input filename&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">_Argument</span><span class="p">([</span><span class="s2">&quot;bt2_base&quot;</span><span class="p">],</span> <span class="s2">&quot;bt2 output basename&quot;</span><span class="p">),</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-q&quot;</span><span class="p">,</span> <span class="s2">&quot;--quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;quiet&quot;</span><span class="p">],</span> <span class="s2">&quot;print only error messages&quot;</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BowtieBuildCommandline</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="seqlike.AlignCommandline.BowtieCommandline" class="doc doc-heading">
+        <code>
+BowtieCommandline            (<span title="Bio.Application.AbstractCommandline">AbstractCommandline</span>)
+        </code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Interface to Bowtie2 alignment.</p>
+<p>The following example:</p>
+<pre><code class="language-python">cline = BowtieCommandline(
+    local=True,
+    threads=4,
+    extends=20,
+    reseeds=3,
+    mismatches=1,
+    length=15,
+    interval='S,1,0.5',
+    index='ref',
+    read1='read1.fastq',
+    read2='read2.fastq',
+    sam='test.sam'
+)
+stdout,stderr = cline()
+</code></pre>
+<p>is equivalent to the command line:</p>
+<pre><code class="language-bash">bowtie2 --local -p 4 -D 20 -R 3 -N 1 -L 15 -i S,1,0.5 -x ref -1 read1.fastq -2 read2.fastq -S test.sam
+</code></pre>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/AlignCommandline.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">BowtieCommandline</span><span class="p">(</span><span class="n">AbstractCommandline</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Interface to Bowtie2 alignment.</span>
+
+<span class="sd">    The following example:</span>
+
+<span class="sd">    ```python</span>
+<span class="sd">    cline = BowtieCommandline(</span>
+<span class="sd">        local=True,</span>
+<span class="sd">        threads=4,</span>
+<span class="sd">        extends=20,</span>
+<span class="sd">        reseeds=3,</span>
+<span class="sd">        mismatches=1,</span>
+<span class="sd">        length=15,</span>
+<span class="sd">        interval=&#39;S,1,0.5&#39;,</span>
+<span class="sd">        index=&#39;ref&#39;,</span>
+<span class="sd">        read1=&#39;read1.fastq&#39;,</span>
+<span class="sd">        read2=&#39;read2.fastq&#39;,</span>
+<span class="sd">        sam=&#39;test.sam&#39;</span>
+<span class="sd">    )</span>
+<span class="sd">    stdout,stderr = cline()</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    is equivalent to the command line:</span>
+
+<span class="sd">    ```bash</span>
+<span class="sd">    bowtie2 --local -p 4 -D 20 -R 3 -N 1 -L 15 -i S,1,0.5 -x ref -1 read1.fastq -2 read2.fastq -S test.sam</span>
+<span class="sd">    ```</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="s2">&quot;bowtie2&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">program_name</span> <span class="o">=</span> <span class="n">cmd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;--local&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">],</span> <span class="s2">&quot;perform local read alignment&quot;</span><span class="p">),</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-r&quot;</span><span class="p">,</span> <span class="s2">&quot;raw&quot;</span><span class="p">],</span> <span class="s2">&quot;query input files are raw one-sequence-per-line&quot;</span><span class="p">),</span>
+            <span class="c1">## performance</span>
+            <span class="n">_Option</span><span class="p">([</span><span class="s2">&quot;-p&quot;</span><span class="p">,</span> <span class="s2">&quot;threads&quot;</span><span class="p">],</span> <span class="s2">&quot;number of alignment threads to launch&quot;</span><span class="p">,</span> <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="c1">## effort</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-D&quot;</span><span class="p">,</span> <span class="s2">&quot;extends&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;give up after this many failed extends in a row&quot;</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-R&quot;</span><span class="p">,</span> <span class="s2">&quot;reseeds&quot;</span><span class="p">],</span>
+                <span class="s1">&#39;max # &quot;re-seed&quot; reads with repetitive seeds&#39;</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1">## alignment</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;mismatches&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;max # mismatches in seed alignment&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-L&quot;</span><span class="p">,</span> <span class="s2">&quot;length&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;length of seed substring&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-i&quot;</span><span class="p">,</span> <span class="s2">&quot;interval&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;function for interval between seed substrings w/r/t read len&quot;</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1">## main arguments</span>
+            <span class="n">_Option</span><span class="p">([</span><span class="s2">&quot;-x&quot;</span><span class="p">,</span> <span class="s2">&quot;index&quot;</span><span class="p">],</span> <span class="s2">&quot;index filename prefix&quot;</span><span class="p">,</span> <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">_Option</span><span class="p">([</span><span class="s2">&quot;-1&quot;</span><span class="p">,</span> <span class="s2">&quot;read1&quot;</span><span class="p">],</span> <span class="s2">&quot;files with #1 mates&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">_Option</span><span class="p">([</span><span class="s2">&quot;-2&quot;</span><span class="p">,</span> <span class="s2">&quot;read2&quot;</span><span class="p">],</span> <span class="s2">&quot;files with #2 mates&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">_Option</span><span class="p">([</span><span class="s2">&quot;-S&quot;</span><span class="p">,</span> <span class="s2">&quot;sam&quot;</span><span class="p">],</span> <span class="s2">&quot;file for SAM output&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BowtieCommandline</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="seqlike.AlignCommandline.FlashCommandline" class="doc doc-heading">
+        <code>
+FlashCommandline            (<span title="Bio.Application.AbstractCommandline">AbstractCommandline</span>)
+        </code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Interface to FLASH alignment.</p>
+<p>The following example:</p>
+<p>cline = FlashCommandline(max_overlap=200,
+            read1='read1.fastq',read2='read2.fastq')
+stdout,stderr = cline()</p>
+<p>is equivalent to the command line:</p>
+<p>$ flash read1.fastq read2.fastq -M 200</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/AlignCommandline.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">FlashCommandline</span><span class="p">(</span><span class="n">AbstractCommandline</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Interface to FLASH alignment.</span>
+
+<span class="sd">    The following example:</span>
+
+<span class="sd">    cline = FlashCommandline(max_overlap=200,</span>
+<span class="sd">                read1=&#39;read1.fastq&#39;,read2=&#39;read2.fastq&#39;)</span>
+<span class="sd">    stdout,stderr = cline()</span>
+
+<span class="sd">    is equivalent to the command line:</span>
+
+<span class="sd">    $ flash read1.fastq read2.fastq -M 200</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="s2">&quot;flash&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">program_name</span> <span class="o">=</span> <span class="n">cmd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">_Argument</span><span class="p">([</span><span class="s2">&quot;read1&quot;</span><span class="p">],</span> <span class="s2">&quot;read1 input filename&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">_Argument</span><span class="p">([</span><span class="s2">&quot;read2&quot;</span><span class="p">],</span> <span class="s2">&quot;read2 input filename&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">_Switch</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-O&quot;</span><span class="p">,</span> <span class="s2">&quot;allow_outies&quot;</span><span class="p">],</span>
+                <span class="s1">&#39;also try combining read pairs in the &quot;outie&quot; orientation&#39;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1">## alignment</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-M&quot;</span><span class="p">,</span> <span class="s2">&quot;max_overlap&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;max overlap length expected in 90</span><span class="si">% o</span><span class="s2">f read pairs&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1">## I/O, processing</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-o&quot;</span><span class="p">,</span> <span class="s2">&quot;output_prefix&quot;</span><span class="p">],</span>
+                <span class="s1">&#39;Prefix of output files. Default: &quot;out&quot;.&#39;</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-d&quot;</span><span class="p">,</span> <span class="s2">&quot;output_directory&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Path to directory for output files. Default: current working directory.&quot;</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-t&quot;</span><span class="p">,</span> <span class="s2">&quot;threads&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Set the number of worker threads. This is in addition to the I/O threads.&quot;</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FlashCommandline</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="seqlike.AlignCommandline.MuscleCommandline" class="doc doc-heading">
+        <code>
+MuscleCommandline            (<span title="Bio.Application.AbstractCommandline">AbstractCommandline</span>)
+        </code>
+
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Extend Biopython's MuscleCommandline to include two additional options</p>
+<p>\sa Bio.Align.Applications.MuscleCommandline</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/AlignCommandline.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MuscleCommandline</span><span class="p">(</span><span class="n">AbstractCommandline</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extend Biopython&#39;s MuscleCommandline to include two additional options</span>
+
+<span class="sd">    \sa Bio.Align.Applications.MuscleCommandline</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="s2">&quot;muscle&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1">## This is taken from Applications.MuscleCommandline with some amendments</span>
+        <span class="n">CLUSTERING_ALGORITHMS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;upgma&quot;</span><span class="p">,</span> <span class="s2">&quot;upgmb&quot;</span><span class="p">,</span> <span class="s2">&quot;neighborjoining&quot;</span><span class="p">]</span>
+        <span class="n">DISTANCE_MEASURES_ITER1</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;kmer6_6&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;kmer20_3&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;kmer20_4&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;kbit20_3&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;kmer4_6&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">DISTANCE_MEASURES_ITER2</span> <span class="o">=</span> <span class="n">DISTANCE_MEASURES_ITER1</span> <span class="o">+</span> <span class="p">[</span>
+            <span class="s2">&quot;pctid_kimura&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;pctid_log&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="n">OBJECTIVE_SCORES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sp&quot;</span><span class="p">,</span> <span class="s2">&quot;ps&quot;</span><span class="p">,</span> <span class="s2">&quot;dp&quot;</span><span class="p">,</span> <span class="s2">&quot;xp&quot;</span><span class="p">,</span> <span class="s2">&quot;spf&quot;</span><span class="p">,</span> <span class="s2">&quot;spm&quot;</span><span class="p">]</span>
+        <span class="n">TREE_ROOT_METHODS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;pseudo&quot;</span><span class="p">,</span> <span class="s2">&quot;midlongestspan&quot;</span><span class="p">,</span> <span class="s2">&quot;minavgleafdist&quot;</span><span class="p">]</span>
+        <span class="n">SEQUENCE_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;protein&quot;</span><span class="p">,</span> <span class="s2">&quot;nucleo&quot;</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">]</span>
+        <span class="n">WEIGHTING_SCHEMES</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;none&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;clustalw&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;henikoff&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;henikoffpb&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;gsc&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;threeway&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="c1"># Can&#39;t use &quot;in&quot; as the final alias as this is a reserved word in python:</span>
+            <span class="n">_Option</span><span class="p">([</span><span class="s2">&quot;-in&quot;</span><span class="p">,</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span> <span class="s2">&quot;input&quot;</span><span class="p">],</span> <span class="s2">&quot;Input filename&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">_Option</span><span class="p">([</span><span class="s2">&quot;-out&quot;</span><span class="p">,</span> <span class="s2">&quot;out&quot;</span><span class="p">],</span> <span class="s2">&quot;Output filename&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-diags&quot;</span><span class="p">,</span> <span class="s2">&quot;diags&quot;</span><span class="p">],</span> <span class="s2">&quot;Find diagonals (faster for similar sequences)&quot;</span><span class="p">),</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-profile&quot;</span><span class="p">,</span> <span class="s2">&quot;profile&quot;</span><span class="p">],</span> <span class="s2">&quot;Perform a profile alignment&quot;</span><span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-in1&quot;</span><span class="p">,</span> <span class="s2">&quot;in1&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;First input filename for profile alignment&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-in2&quot;</span><span class="p">,</span> <span class="s2">&quot;in2&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Second input filename for a profile alignment&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># anchorspacing   Integer              32                 Minimum spacing between</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-anchorspacing&quot;</span><span class="p">,</span> <span class="s2">&quot;anchorspacing&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Minimum spacing between anchor columns&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># center          Floating point       [1]                Center parameter.</span>
+            <span class="c1">#                                                        Should be negative.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-center&quot;</span><span class="p">,</span> <span class="s2">&quot;center&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Center parameter - should be negative&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># cluster1        upgma                upgmb              Clustering method.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-cluster1&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster1&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Clustering method used in iteration 1&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">CLUSTERING_ALGORITHMS</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># cluster2        upgmb                                   cluster1 is used in</span>
+            <span class="c1">#                neighborjoining                         iteration 1 and 2,</span>
+            <span class="c1">#                                                        cluster2 in later</span>
+            <span class="c1">#                                                        iterations.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-cluster2&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster2&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Clustering method used in iteration 2&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">CLUSTERING_ALGORITHMS</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># diaglength      Integer              24                 Minimum length of</span>
+            <span class="c1">#                                                        diagonal.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-diaglength&quot;</span><span class="p">,</span> <span class="s2">&quot;diaglength&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Minimum length of diagonal&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># diagmargin      Integer              5                  Discard this many</span>
+            <span class="c1">#                                                        positions at ends of</span>
+            <span class="c1">#                                                        diagonal.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-diagmargin&quot;</span><span class="p">,</span> <span class="s2">&quot;diagmargin&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Discard this many positions at ends of diagonal&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># distance1       kmer6_6              Kmer6_6 (amino) or Distance measure for</span>
+            <span class="c1">#                kmer20_3             Kmer4_6 (nucleo)   iteration 1.</span>
+            <span class="c1">#                kmer20_4</span>
+            <span class="c1">#                kbit20_3</span>
+            <span class="c1">#                kmer4_6</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-distance1&quot;</span><span class="p">,</span> <span class="s2">&quot;distance1&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Distance measure for iteration 1&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">DISTANCE_MEASURES_ITER1</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># distance2       kmer6_6              pctid_kimura       Distance measure for</span>
+            <span class="c1">#                kmer20_3                                iterations 2, 3 ...</span>
+            <span class="c1">#                kmer20_4</span>
+            <span class="c1">#                kbit20_3</span>
+            <span class="c1">#                pctid_kimura</span>
+            <span class="c1">#                pctid_log</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-distance2&quot;</span><span class="p">,</span> <span class="s2">&quot;distance2&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Distance measure for iteration 2&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">DISTANCE_MEASURES_ITER2</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># gapopen         Floating point       [1]                The gap open score.</span>
+            <span class="c1">#                                                        Must be negative.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-gapopen&quot;</span><span class="p">,</span> <span class="s2">&quot;gapopen&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Gap open score - negative number&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># hydro           Integer              5                  Window size for</span>
+            <span class="c1">#                                                        determining whether a</span>
+            <span class="c1">#                                                        region is hydrophobic.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-hydro&quot;</span><span class="p">,</span> <span class="s2">&quot;hydro&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Window size for hydrophobic region&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># hydrofactor     Floating point       1.2                Multiplier for gap</span>
+            <span class="c1">#                                                        open/close penalties in</span>
+            <span class="c1">#                                                        hydrophobic regions.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-hydrofactor&quot;</span><span class="p">,</span> <span class="s2">&quot;hydrofactor&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Multiplier for gap penalties in hydrophobic regions&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># log             File name            None.              Log file name (delete</span>
+            <span class="c1">#                                                        existing file).</span>
+            <span class="n">_Option</span><span class="p">([</span><span class="s2">&quot;-log&quot;</span><span class="p">,</span> <span class="s2">&quot;log&quot;</span><span class="p">],</span> <span class="s2">&quot;Log file name&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="c1"># loga            File name            None.              Log file name (append</span>
+            <span class="c1">#                                                        to existing file).</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-loga&quot;</span><span class="p">,</span> <span class="s2">&quot;loga&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Log file name (append to existing file)&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># maxdiagbreak    Integer              1                  Maximum distance</span>
+            <span class="c1">#                                                        between two diagonals</span>
+            <span class="c1">#                                                        that allows them to</span>
+            <span class="c1">#                                                        merge into one</span>
+            <span class="c1">#                                                        diagonal.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-maxdiagbreak&quot;</span><span class="p">,</span> <span class="s2">&quot;maxdiagbreak&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Maximum distance between two diagonals that allows &quot;</span> <span class="s2">&quot;them to merge into one diagonal&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># maxhours        Floating point       None.              Maximum time to run in</span>
+            <span class="c1">#                                                        hours. The actual time</span>
+            <span class="c1">#                                                        may exceed the</span>
+            <span class="c1">#                                                        requested limit by a</span>
+            <span class="c1">#                                                        few minutes. Decimals</span>
+            <span class="c1">#                                                        are allowed, so 1.5</span>
+            <span class="c1">#                                                        means one hour and 30</span>
+            <span class="c1">#                                                        minutes.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-maxhours&quot;</span><span class="p">,</span> <span class="s2">&quot;maxhours&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Maximum time to run in hours&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># maxiters        Integer 1, 2 ...     16                 Maximum number of</span>
+            <span class="c1">#                                                        iterations.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-maxiters&quot;</span><span class="p">,</span> <span class="s2">&quot;maxiters&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Maximum number of iterations&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># maxtrees        Integer              1                  Maximum number of new</span>
+            <span class="c1">#                                                        trees to build in</span>
+            <span class="c1">#                                                        iteration 2.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-maxtrees&quot;</span><span class="p">,</span> <span class="s2">&quot;maxtrees&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Maximum number of trees to build in iteration 2&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># minbestcolscore Floating point       [1]                Minimum score a column</span>
+            <span class="c1">#                                                        must have to be an</span>
+            <span class="c1">#                                                        anchor.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-minbestcolscore&quot;</span><span class="p">,</span> <span class="s2">&quot;minbestcolscore&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Minimum score a column must have to be an anchor&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># minsmoothscore  Floating point       [1]                Minimum smoothed score</span>
+            <span class="c1">#                                                        a column must have to</span>
+            <span class="c1">#                                                        be an anchor.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-minsmoothscore&quot;</span><span class="p">,</span> <span class="s2">&quot;minsmoothscore&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Minimum smoothed score a column must have to &quot;</span> <span class="s2">&quot;be an anchor&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># objscore        sp                   spm                Objective score used by</span>
+            <span class="c1">#                ps                                      tree dependent</span>
+            <span class="c1">#                dp                                      refinement.</span>
+            <span class="c1">#                xp                                      sp=sum-of-pairs score.</span>
+            <span class="c1">#                spf                                     spf=sum-of-pairs score</span>
+            <span class="c1">#                spm                                     (dimer approximation)</span>
+            <span class="c1">#                                                        spm=sp for &lt; 100 seqs,</span>
+            <span class="c1">#                                                        otherwise spf</span>
+            <span class="c1">#                                                        dp=dynamic programming</span>
+            <span class="c1">#                                                        score.</span>
+            <span class="c1">#                                                        ps=average profile-</span>
+            <span class="c1">#                                                        sequence score.</span>
+            <span class="c1">#                                                        xp=cross profile score.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-objscore&quot;</span><span class="p">,</span> <span class="s2">&quot;objscore&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Objective score used by tree dependent refinement&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">OBJECTIVE_SCORES</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># root1           pseudo               pseudo             Method used to root</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-root1&quot;</span><span class="p">,</span> <span class="s2">&quot;root1&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Method used to root tree in iteration 1&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">TREE_ROOT_METHODS</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># root2           midlongestspan                          tree; root1 is used in</span>
+            <span class="c1">#                minavgleafdist                          iteration 1 and 2,</span>
+            <span class="c1">#                                                        root2 in later</span>
+            <span class="c1">#                                                        iterations.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-root2&quot;</span><span class="p">,</span> <span class="s2">&quot;root2&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Method used to root tree in iteration 2&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">TREE_ROOT_METHODS</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># seqtype         protein              auto               Sequence type.</span>
+            <span class="c1">#                nucleo</span>
+            <span class="c1">#                auto</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-seqtype&quot;</span><span class="p">,</span> <span class="s2">&quot;seqtype&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Sequence type&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">SEQUENCE_TYPES</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># smoothscoreceil Floating point       [1]                Maximum value of column</span>
+            <span class="c1">#                                                        score for smoothing</span>
+            <span class="c1">#                                                        purposes.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-smoothscoreceil&quot;</span><span class="p">,</span> <span class="s2">&quot;smoothscoreceil&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Maximum value of column score for smoothing&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># smoothwindow    Integer              7                  Window used for anchor</span>
+            <span class="c1">#                                                        column smoothing.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-smoothwindow&quot;</span><span class="p">,</span> <span class="s2">&quot;smoothwindow&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Window used for anchor column smoothing&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># SUEFF           Floating point value 0.1                Constant used in UPGMB</span>
+            <span class="c1">#                between 0 and 1.                        clustering. Determines</span>
+            <span class="c1">#                                                        the relative fraction</span>
+            <span class="c1">#                                                        of average linkage</span>
+            <span class="c1">#                                                        (SUEFF) vs. nearest-</span>
+            <span class="c1">#                                                        neighbor linkage (1</span>
+            <span class="c1">#                                                        SUEFF).</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-sueff&quot;</span><span class="p">,</span> <span class="s2">&quot;sueff&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Constant used in UPGMB clustering&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">float</span><span class="p">),</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># tree1           File name            None               Save tree produced in</span>
+            <span class="n">_Option</span><span class="p">([</span><span class="s2">&quot;-tree1&quot;</span><span class="p">,</span> <span class="s2">&quot;tree1&quot;</span><span class="p">],</span> <span class="s2">&quot;Save Newick tree from iteration 1&quot;</span><span class="p">,</span> <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="c1"># tree2                                                   first or second</span>
+            <span class="c1">#                                                        iteration to given file</span>
+            <span class="c1">#                                                        in Newick (Phylip-</span>
+            <span class="c1">#                                                        compatible) format.</span>
+            <span class="n">_Option</span><span class="p">([</span><span class="s2">&quot;-tree2&quot;</span><span class="p">,</span> <span class="s2">&quot;tree2&quot;</span><span class="p">],</span> <span class="s2">&quot;Save Newick tree from iteration 2&quot;</span><span class="p">,</span> <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="c1"># weight1         none                 clustalw           Sequence weighting</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-weight1&quot;</span><span class="p">,</span> <span class="s2">&quot;weight1&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Weighting scheme used in iteration 1&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">WEIGHTING_SCHEMES</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># weight2         henikoff                                scheme.</span>
+            <span class="c1">#                henikoffpb                              weight1 is used in</span>
+            <span class="c1">#                gsc                                     iterations 1 and 2.</span>
+            <span class="c1">#                clustalw                                weight2 is used for</span>
+            <span class="c1">#                threeway                                tree-dependent</span>
+            <span class="c1">#                                                        refinement.</span>
+            <span class="c1">#                                                        none=all sequences have</span>
+            <span class="c1">#                                                        equal weight.</span>
+            <span class="c1">#                                                        henikoff=Henikoff &amp;</span>
+            <span class="c1">#                                                        Henikoff weighting</span>
+            <span class="c1">#                                                        scheme.</span>
+            <span class="c1">#                                                        henikoffpb=Modified</span>
+            <span class="c1">#                                                        Henikoff scheme as used</span>
+            <span class="c1">#                                                        in PSI-BLAST.</span>
+            <span class="c1">#                                                        clustalw=CLUSTALW</span>
+            <span class="c1">#                                                        method.</span>
+            <span class="c1">#                                                        threeway=Gotoh three-</span>
+            <span class="c1">#                                                        way method.</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-weight2&quot;</span><span class="p">,</span> <span class="s2">&quot;weight2&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Weighting scheme used in iteration 2&quot;</span><span class="p">,</span>
+                <span class="n">checker_function</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">WEIGHTING_SCHEMES</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># ################### FORMATS #######################################</span>
+            <span class="c1"># Multiple formats can be specified on the command line</span>
+            <span class="c1"># If -msf appears it will be used regardless of other formats</span>
+            <span class="c1"># specified. If -clw appears (and not -msf), clustalw format will be</span>
+            <span class="c1"># used regardless of other formats specified. If both -clw and</span>
+            <span class="c1"># -clwstrict are specified -clwstrict will be used regardless of</span>
+            <span class="c1"># other formats specified. If -fasta is specified and not -msf,</span>
+            <span class="c1"># -clw, or clwstrict, fasta will be used. If -fasta and -html are</span>
+            <span class="c1"># specified -fasta will be used. Only if -html is specified alone</span>
+            <span class="c1"># will html be used. I kid ye not.</span>
+            <span class="c1"># clw                no              Write output in CLUSTALW format (default is</span>
+            <span class="c1">#                                   FASTA).</span>
+            <span class="n">_Switch</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-clw&quot;</span><span class="p">,</span> <span class="s2">&quot;clw&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Write output in CLUSTALW format (with a MUSCLE header)&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># clwstrict          no              Write output in CLUSTALW format with the</span>
+            <span class="c1">#                                   &quot;CLUSTAL W (1.81)&quot; header rather than the</span>
+            <span class="c1">#                                   MUSCLE version. This is useful when a post-</span>
+            <span class="c1">#                                   processing step is picky about the file</span>
+            <span class="c1">#                                   header.</span>
+            <span class="n">_Switch</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-clwstrict&quot;</span><span class="p">,</span> <span class="s2">&quot;clwstrict&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Write output in CLUSTALW format with version 1.81 header&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># fasta              yes             Write output in FASTA format. Alternatives</span>
+            <span class="c1">#                                   include clw,</span>
+            <span class="c1">#                                   clwstrict, msf and html.</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-fasta&quot;</span><span class="p">,</span> <span class="s2">&quot;fasta&quot;</span><span class="p">],</span> <span class="s2">&quot;Write output in FASTA format&quot;</span><span class="p">),</span>
+            <span class="c1"># html               no              Write output in HTML format (default is</span>
+            <span class="c1">#                                   FASTA).</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-html&quot;</span><span class="p">,</span> <span class="s2">&quot;html&quot;</span><span class="p">],</span> <span class="s2">&quot;Write output in HTML format&quot;</span><span class="p">),</span>
+            <span class="c1"># msf                no              Write output in MSF format (default is</span>
+            <span class="c1">#                                   FASTA).</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-msf&quot;</span><span class="p">,</span> <span class="s2">&quot;msf&quot;</span><span class="p">],</span> <span class="s2">&quot;Write output in MSF format&quot;</span><span class="p">),</span>
+            <span class="c1"># Phylip interleaved - undocumented as of 3.7</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-phyi&quot;</span><span class="p">,</span> <span class="s2">&quot;phyi&quot;</span><span class="p">],</span> <span class="s2">&quot;Write output in PHYLIP interleaved format&quot;</span><span class="p">),</span>
+            <span class="c1"># Phylip sequential - undocumented as of 3.7</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-phys&quot;</span><span class="p">,</span> <span class="s2">&quot;phys&quot;</span><span class="p">],</span> <span class="s2">&quot;Write output in PHYLIP sequential format&quot;</span><span class="p">),</span>
+            <span class="c1"># ################# Additional specified output files #########</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-phyiout&quot;</span><span class="p">,</span> <span class="s2">&quot;phyiout&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Write PHYLIP interleaved output to specified filename&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-physout&quot;</span><span class="p">,</span> <span class="s2">&quot;physout&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Write PHYLIP sequential format to specified filename&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-htmlout&quot;</span><span class="p">,</span> <span class="s2">&quot;htmlout&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Write HTML output to specified filename&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-clwout&quot;</span><span class="p">,</span> <span class="s2">&quot;clwout&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Write CLUSTALW output (with MUSCLE header) to specified &quot;</span> <span class="s2">&quot;filename&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-clwstrictout&quot;</span><span class="p">,</span> <span class="s2">&quot;clwstrictout&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Write CLUSTALW output (with version 1.81 header) to &quot;</span> <span class="s2">&quot;specified filename&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-msfout&quot;</span><span class="p">,</span> <span class="s2">&quot;msfout&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Write MSF format output to specified filename&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-fastaout&quot;</span><span class="p">,</span> <span class="s2">&quot;fastaout&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Write FASTA format output to specified filename&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># ############# END FORMATS ###################################</span>
+            <span class="c1"># anchors            yes             Use anchor optimization in tree dependent</span>
+            <span class="c1">#                                   refinement iterations.</span>
+            <span class="n">_Switch</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-anchors&quot;</span><span class="p">,</span> <span class="s2">&quot;anchors&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Use anchor optimisation in tree dependent &quot;</span> <span class="s2">&quot;refinement iterations&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># noanchors          no              Disable anchor optimization. Default is</span>
+            <span class="c1">#                                   anchors.</span>
+            <span class="n">_Switch</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-noanchors&quot;</span><span class="p">,</span> <span class="s2">&quot;noanchors&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Do not use anchor optimisation in tree dependent &quot;</span> <span class="s2">&quot;refinement iterations&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># group              yes             Group similar sequences together in the</span>
+            <span class="c1">#                                   output. This is the default. See also</span>
+            <span class="c1">#                                   stable.</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-group&quot;</span><span class="p">,</span> <span class="s2">&quot;group&quot;</span><span class="p">],</span> <span class="s2">&quot;Group similar sequences in output&quot;</span><span class="p">),</span>
+            <span class="c1"># stable             no              Preserve input order of sequences in output</span>
+            <span class="c1">#                                   file. Default is to group sequences by</span>
+            <span class="c1">#                                   similarity (group).</span>
+            <span class="n">_Switch</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-stable&quot;</span><span class="p">,</span> <span class="s2">&quot;stable&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Do not group similar sequences in output (not supported in v3.8)&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="c1"># ############# log-expectation profile score ######################</span>
+            <span class="c1"># One of either -le, -sp, or -sv</span>
+            <span class="c1">#</span>
+            <span class="c1"># According to the doc, spn is default and the only option for</span>
+            <span class="c1"># nucleotides: this doesnt appear to be true. -le, -sp, and -sv can</span>
+            <span class="c1"># be used and produce numerically different logs (what is going on?)</span>
+            <span class="c1">#</span>
+            <span class="c1"># spn fails on proteins</span>
+            <span class="c1"># le                 maybe           Use log-expectation profile score (VTML240).</span>
+            <span class="c1">#                                    Alternatives are to use sp or sv. This is</span>
+            <span class="c1">#                                    the default for amino acid sequences.</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-le&quot;</span><span class="p">,</span> <span class="s2">&quot;le&quot;</span><span class="p">],</span> <span class="s2">&quot;Use log-expectation profile score (VTML240)&quot;</span><span class="p">),</span>
+            <span class="c1"># sv                 no              Use sum-of-pairs profile score (VTML240).</span>
+            <span class="c1">#                                   Default is le.</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-sv&quot;</span><span class="p">,</span> <span class="s2">&quot;sv&quot;</span><span class="p">],</span> <span class="s2">&quot;Use sum-of-pairs profile score (VTML240)&quot;</span><span class="p">),</span>
+            <span class="c1"># sp                 no              Use sum-of-pairs protein profile score</span>
+            <span class="c1">#                                   (PAM200). Default is le.</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-sp&quot;</span><span class="p">,</span> <span class="s2">&quot;sp&quot;</span><span class="p">],</span> <span class="s2">&quot;Use sum-of-pairs protein profile score (PAM200)&quot;</span><span class="p">),</span>
+            <span class="c1"># spn                maybe           Use sum-of-pairs nucleotide profile score</span>
+            <span class="c1">#                                   (BLASTZ parameters). This is the only option</span>
+            <span class="c1">#                                   for nucleotides, and is therefore the</span>
+            <span class="c1">#                                   default.</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-spn&quot;</span><span class="p">,</span> <span class="s2">&quot;spn&quot;</span><span class="p">],</span> <span class="s2">&quot;Use sum-of-pairs protein nucleotide profile score&quot;</span><span class="p">),</span>
+            <span class="c1"># ############# END log-expectation profile score ######################</span>
+            <span class="c1"># quiet              no              Do not display progress messages.</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-quiet&quot;</span><span class="p">,</span> <span class="s2">&quot;quiet&quot;</span><span class="p">],</span> <span class="s2">&quot;Use sum-of-pairs protein nucleotide profile score&quot;</span><span class="p">),</span>
+            <span class="c1"># refine             no              Input file is already aligned, skip first</span>
+            <span class="c1">#                                   two iterations and begin tree dependent</span>
+            <span class="c1">#                                   refinement.</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-refine&quot;</span><span class="p">,</span> <span class="s2">&quot;refine&quot;</span><span class="p">],</span> <span class="s2">&quot;Only do tree dependent refinement&quot;</span><span class="p">),</span>
+            <span class="c1"># core               yes in muscle,  Do not catch exceptions.</span>
+            <span class="c1">#                   no in muscled.</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-core&quot;</span><span class="p">,</span> <span class="s2">&quot;core&quot;</span><span class="p">],</span> <span class="s2">&quot;Catch exceptions&quot;</span><span class="p">),</span>
+            <span class="c1"># nocore             no in muscle,   Catch exceptions and give an error message</span>
+            <span class="c1">#                   yes in muscled. if possible.</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-nocore&quot;</span><span class="p">,</span> <span class="s2">&quot;nocore&quot;</span><span class="p">],</span> <span class="s2">&quot;Do not catch exceptions&quot;</span><span class="p">),</span>
+            <span class="c1"># termgapsfull       no              Terminal gaps penalized with full penalty.</span>
+            <span class="c1">#                                   [1] Not fully supported in this version.</span>
+            <span class="c1">#</span>
+            <span class="c1"># termgapshalf       yes             Terminal gaps penalized with half penalty.</span>
+            <span class="c1">#                                   [1] Not fully supported in this version.</span>
+            <span class="c1">#</span>
+            <span class="c1"># termgapshalflonger no              Terminal gaps penalized with half penalty if</span>
+            <span class="c1">#                                   gap relative to</span>
+            <span class="c1">#                                   longer sequence, otherwise with full</span>
+            <span class="c1">#                                   penalty.</span>
+            <span class="c1">#                                   [1] Not fully supported in this version.</span>
+            <span class="c1"># verbose            no              Write parameter settings and progress</span>
+            <span class="c1">#                                   messages to log file.</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-verbose&quot;</span><span class="p">,</span> <span class="s2">&quot;verbose&quot;</span><span class="p">],</span> <span class="s2">&quot;Write parameter settings and progress&quot;</span><span class="p">),</span>
+            <span class="c1"># version            no              Write version string to stdout and exit.</span>
+            <span class="n">_Switch</span><span class="p">([</span><span class="s2">&quot;-version&quot;</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">],</span> <span class="s2">&quot;Write version string to stdout and exit&quot;</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">+=</span> <span class="p">[</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-spscore&quot;</span><span class="p">,</span> <span class="s2">&quot;spscore&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Filename of multiple alignment for which to compute SP score&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">_Option</span><span class="p">(</span>
+                <span class="p">[</span><span class="s2">&quot;-scorefile&quot;</span><span class="p">,</span> <span class="s2">&quot;scorefile&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;Write alignment scores to specified filename&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">equate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MuscleCommandline</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../notebooks/tutorial/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Tutorial" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Tutorial
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../alignment_commands/" class="md-footer__link md-footer__link--next" aria-label="Next: Alignment Commands" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Alignment Commands
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["instant", "tabs"], "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      
+    
+  </body>
+</html>

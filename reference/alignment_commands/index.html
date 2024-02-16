@@ -1,0 +1,1228 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-8.1.3">
+    
+    
+      
+        <title>Alignment Commands - SeqLike</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.edf004c2.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../css/apidocs.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#alignment-commands" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="SeqLike" class="md-header__button md-logo" aria-label="SeqLike" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 360V24c0-13.3-10.7-24-24-24H96C43 0 0 43 0 96v320c0 53 43 96 96 96h328c13.3 0 24-10.7 24-24v-16c0-7.5-3.5-14.3-8.9-18.7-4.2-15.4-4.2-59.3 0-74.7 5.4-4.3 8.9-11.1 8.9-18.6zM128 134c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm0 64c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm253.4 250H96c-17.7 0-32-14.3-32-32 0-17.6 14.4-32 32-32h285.4c-1.9 17.1-1.9 46.9 0 64z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SeqLike
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Alignment Commands
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/modernatx/seqlike" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    modernatx/seqlike
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="SeqLike" class="md-nav__button md-logo" aria-label="SeqLike" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 360V24c0-13.3-10.7-24-24-24H96C43 0 0 43 0 96v320c0 53 43 96 96 96h328c13.3 0 24-10.7 24-24v-16c0-7.5-3.5-14.3-8.9-18.7-4.2-15.4-4.2-59.3 0-74.7 5.4-4.3 8.9-11.1 8.9-18.6zM128 134c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm0 64c0-3.3 2.7-6 6-6h212c3.3 0 6 2.7 6 6v20c0 3.3-2.7 6-6 6H134c-3.3 0-6-2.7-6-6v-20zm253.4 250H96c-17.7 0-32-14.3-32-32 0-17.6 14.4-32 32-32h285.4c-1.9 17.1-1.9 46.9 0 64z"/></svg>
+
+    </a>
+    SeqLike
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/modernatx/seqlike" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    modernatx/seqlike
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        SeqLike: Flexible Biological Sequence Objects in Python
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Development" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/devcontainer/" class="md-nav__link">
+        Development Containers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/development-environment/" class="md-nav__link">
+        Setting up your development environment manually
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/documentation/" class="md-nav__link">
+        Documentation Standards and Practices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/import-speed/" class="md-nav__link">
+        Optimizing for Import Speed
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/seqlike-object/" class="md-nav__link">
+        The SeqLike Object
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/versioning/" class="md-nav__link">
+        Versioning
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Notebooks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Notebooks" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Notebooks
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/mutations/" class="md-nav__link">
+        Mutations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/sequence-like/" class="md-nav__link">
+        Sequence like
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../notebooks/tutorial/" class="md-nav__link">
+        Tutorial
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../align_commandline/" class="md-nav__link">
+        Alignment Command-Line Bridge
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Alignment Commands
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Alignment Commands
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands" class="md-nav__link">
+    seqlike.alignment_commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.clustal_omega_alignment" class="md-nav__link">
+    clustal_omega_alignment()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.clustal_omega_alignment_tree" class="md-nav__link">
+    clustal_omega_alignment_tree()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.clustal_omega_distance_matrix" class="md-nav__link">
+    clustal_omega_distance_matrix()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.clustalw_alignment_tree" class="md-nav__link">
+    clustalw_alignment_tree()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.mafft_alignment" class="md-nav__link">
+    mafft_alignment()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.muscle_alignment" class="md-nav__link">
+    muscle_alignment()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.pad_seq_records_for_alignment" class="md-nav__link">
+    pad_seq_records_for_alignment()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alignment_utils/" class="md-nav__link">
+        Alignment Utilities
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../alphabets/" class="md-nav__link">
+        Alphabets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../codon_tables/" class="md-nav__link">
+        Codon Tables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../draw_utils/" class="md-nav__link">
+        Drawing Utilities
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../encoders/" class="md-nav__link">
+        Encoders
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seqlike/" class="md-nav__link">
+        SeqLike API Reference
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../seqlike_accessor/" class="md-nav__link">
+        SeqLike Accessor API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands" class="md-nav__link">
+    seqlike.alignment_commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.clustal_omega_alignment" class="md-nav__link">
+    clustal_omega_alignment()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.clustal_omega_alignment_tree" class="md-nav__link">
+    clustal_omega_alignment_tree()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.clustal_omega_distance_matrix" class="md-nav__link">
+    clustal_omega_distance_matrix()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.clustalw_alignment_tree" class="md-nav__link">
+    clustalw_alignment_tree()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.mafft_alignment" class="md-nav__link">
+    mafft_alignment()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.muscle_alignment" class="md-nav__link">
+    muscle_alignment()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seqlike.alignment_commands.pad_seq_records_for_alignment" class="md-nav__link">
+    pad_seq_records_for_alignment()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/modernatx/seqlike/edit/master/docs/reference/alignment_commands.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+<h1 id="alignment-commands">Alignment Commands</h1>
+
+
+  <div class="doc doc-object doc-module">
+
+<a id="seqlike.alignment_commands"></a>
+    <div class="doc doc-contents first">
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="seqlike.alignment_commands.clustal_omega_alignment" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">clustal_omega_alignment</span><span class="p">(</span><span class="n">seqrecs</span><span class="p">,</span> <span class="n">preserve_order</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Align sequences using Clustal Omega</p>
+<p>:param seqrecs: a list or dict of SeqRecord that will be aligned to ref
+:param preserve_order: if True, reorder aligned seqrecs to match input order.
+:param **kwargs: additional arguments for alignment command
+:returns: a MultipleSeqAlignment object with aligned sequences</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/alignment_commands.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">clustal_omega_alignment</span><span class="p">(</span><span class="n">seqrecs</span><span class="p">,</span> <span class="n">preserve_order</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Align sequences using Clustal Omega</span>
+
+<span class="sd">    :param seqrecs: a list or dict of SeqRecord that will be aligned to ref</span>
+<span class="sd">    :param preserve_order: if True, reorder aligned seqrecs to match input order.</span>
+<span class="sd">    :param **kwargs: additional arguments for alignment command</span>
+<span class="sd">    :returns: a MultipleSeqAlignment object with aligned sequences</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">preserve_order</span><span class="p">:</span>
+        <span class="n">outputorder</span> <span class="o">=</span> <span class="s2">&quot;input-order&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">outputorder</span> <span class="o">=</span> <span class="s2">&quot;tree-order&quot;</span>
+
+    <span class="k">def</span> <span class="nf">commandline</span><span class="p">(</span><span class="n">file_obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">cline</span> <span class="o">=</span> <span class="n">ClustalOmegaCommandline</span><span class="p">(</span><span class="s2">&quot;clustalo&quot;</span><span class="p">,</span> <span class="n">infile</span><span class="o">=</span><span class="n">file_obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">outputorder</span><span class="o">=</span><span class="n">outputorder</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_generic_aligner_commandline_stdout</span><span class="p">(</span><span class="n">cline</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_generic_alignment</span><span class="p">(</span><span class="n">commandline</span><span class="p">,</span> <span class="n">seqrecs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="seqlike.alignment_commands.clustal_omega_alignment_tree" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">clustal_omega_alignment_tree</span><span class="p">(</span><span class="n">seqrecs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Generate phylogenetic tree using Clustal Omega and scikit-bio Neighbor Joining</p>
+<p>This function computes a distance matrix using Clustal Omega, which skbio.tree.nj
+uses to generate a newick file. Bio.Phylo can read this newick file.</p>
+<p>Note: this function requires scikit-bio.</p>
+<p>:param seqrecs: a list or dict of SeqRecord that will be aligned to ref
+:param **kwargs: additional arguments for alignment command
+:returns: a Bio.Phylo phylogenetic tree object</p>
+<p>:sa: https://biopython.org/wiki/Phylo
+:sa: http://scikit-bio.org/docs/0.2.1/generated/skbio.tree.nj.html</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/alignment_commands.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">clustal_omega_alignment_tree</span><span class="p">(</span><span class="n">seqrecs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate phylogenetic tree using Clustal Omega and scikit-bio Neighbor Joining</span>
+
+<span class="sd">    This function computes a distance matrix using Clustal Omega, which skbio.tree.nj</span>
+<span class="sd">    uses to generate a newick file. Bio.Phylo can read this newick file.</span>
+
+<span class="sd">    Note: this function requires scikit-bio.</span>
+
+<span class="sd">    :param seqrecs: a list or dict of SeqRecord that will be aligned to ref</span>
+<span class="sd">    :param **kwargs: additional arguments for alignment command</span>
+<span class="sd">    :returns: a Bio.Phylo phylogenetic tree object</span>
+
+<span class="sd">    :sa: https://biopython.org/wiki/Phylo</span>
+<span class="sd">    :sa: http://scikit-bio.org/docs/0.2.1/generated/skbio.tree.nj.html</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">skbio</span>
+
+    <span class="k">def</span> <span class="nf">skbio2phylo</span><span class="p">(</span><span class="n">treenode</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;newick&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert skbio.tree.TreeNode object to Bio.Phylo.Newick.Tree object</span>
+
+<span class="sd">        :param treenode: an skbio.tree.TreeNode object</span>
+<span class="sd">        :param format: kind of tree, AKA New Hampshire Format</span>
+<span class="sd">        :returns: an equivalent Bio.Phylo.Newick.Tree object</span>
+
+<span class="sd">        :sa: https://biopython.org/docs/1.74/api/Bio.Phylo.Newick.html</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">delete</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tempf</span><span class="p">:</span>
+            <span class="n">treenode</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tempf</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span>
+            <span class="n">tempf</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">tempf</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span>
+
+    <span class="n">distance_matrix</span> <span class="o">=</span> <span class="n">clustal_omega_distance_matrix</span><span class="p">(</span><span class="n">seqrecs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">seqrecs</span><span class="p">]</span>
+    <span class="n">skbio_tree</span> <span class="o">=</span> <span class="n">skbio</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">nj</span><span class="p">(</span><span class="n">skbio</span><span class="o">.</span><span class="n">DistanceMatrix</span><span class="p">(</span><span class="n">distance_matrix</span><span class="p">,</span> <span class="n">ids</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">skbio2phylo</span><span class="p">(</span><span class="n">skbio_tree</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="seqlike.alignment_commands.clustal_omega_distance_matrix" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">clustal_omega_distance_matrix</span><span class="p">(</span><span class="n">seqrecs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Generate a distance matrix using Clustal Omega</p>
+<p>:param seqrecs: a list or dict of SeqRecord that will be aligned to ref
+:param **kwargs: additional arguments for command line alignment
+:returns: the pairwise distance matrix</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/alignment_commands.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">clustal_omega_distance_matrix</span><span class="p">(</span><span class="n">seqrecs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a distance matrix using Clustal Omega</span>
+
+<span class="sd">    :param seqrecs: a list or dict of SeqRecord that will be aligned to ref</span>
+<span class="sd">    :param **kwargs: additional arguments for command line alignment</span>
+<span class="sd">    :returns: the pairwise distance matrix</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">commandline</span><span class="p">(</span><span class="n">ft</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ft_out</span><span class="p">:</span>
+            <span class="n">cline</span> <span class="o">=</span> <span class="n">ClustalOmegaCommandline</span><span class="p">(</span>
+                <span class="s2">&quot;clustalo&quot;</span><span class="p">,</span>
+                <span class="n">infile</span><span class="o">=</span><span class="n">ft</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">distmat_out</span><span class="o">=</span><span class="n">ft_out</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">distmat_full</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">distmat_full_iter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">cline</span><span class="p">()</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ft_out</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">delim_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;seqid&quot;</span>
+        <span class="k">return</span> <span class="n">df</span>
+
+    <span class="k">return</span> <span class="n">_generic_aligner_commandline_file</span><span class="p">(</span><span class="n">commandline</span><span class="p">,</span> <span class="n">seqrecs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="seqlike.alignment_commands.clustalw_alignment_tree" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">clustalw_alignment_tree</span><span class="p">(</span><span class="n">seqrecs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Generate phylogenetic tree using ClustalW. Note that ClustalW is an older
+generation of Clustal aligner compared to Clustal Omega. It is considered to
+be slower and less robust for aligning large sequence sets, but it is included here
+because it does not require scikit-bio.</p>
+<p>:param seqrecs: a list or dict of SeqRecord that will be aligned to ref
+:param **kwargs: additional arguments for alignment command
+:returns: the phylogenetic tree instead of the alignment object</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/alignment_commands.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">clustalw_alignment_tree</span><span class="p">(</span><span class="n">seqrecs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate phylogenetic tree using ClustalW. Note that ClustalW is an older</span>
+<span class="sd">    generation of Clustal aligner compared to Clustal Omega. It is considered to</span>
+<span class="sd">    be slower and less robust for aligning large sequence sets, but it is included here</span>
+<span class="sd">    because it does not require scikit-bio.</span>
+
+<span class="sd">    :param seqrecs: a list or dict of SeqRecord that will be aligned to ref</span>
+<span class="sd">    :param **kwargs: additional arguments for alignment command</span>
+<span class="sd">    :returns: the phylogenetic tree instead of the alignment object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">commandline</span><span class="p">(</span><span class="n">ft</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">delete</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ft_out</span><span class="p">:</span>
+            <span class="n">cline</span> <span class="o">=</span> <span class="n">ClustalwCommandline</span><span class="p">(</span><span class="n">infile</span><span class="o">=</span><span class="n">ft</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;fasta&quot;</span><span class="p">,</span> <span class="n">newtree</span><span class="o">=</span><span class="n">ft_out</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">cline</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">Phylo</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">ft_out</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;newick&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_generic_alignment</span><span class="p">(</span><span class="n">commandline</span><span class="p">,</span> <span class="n">seqrecs</span><span class="p">,</span> <span class="n">preserve_order</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="seqlike.alignment_commands.mafft_alignment" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">mafft_alignment</span><span class="p">(</span><span class="n">seqrecs</span><span class="p">,</span> <span class="n">preserve_order</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Align sequences using MAFFT.</p>
+<p>:param seqrecs: a list or dict of SeqRecord that will be aligned to ref
+:param preserve_order: if True, reorder aligned seqrecs to match input order.
+:param **kwargs: additional arguments for alignment command
+:returns: a MultipleSeqAlignment object with aligned sequences</p>
+<p>:sa: https://mafft.cbrc.jp/alignment/software/</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/alignment_commands.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">mafft_alignment</span><span class="p">(</span><span class="n">seqrecs</span><span class="p">,</span> <span class="n">preserve_order</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Align sequences using MAFFT.</span>
+
+<span class="sd">    :param seqrecs: a list or dict of SeqRecord that will be aligned to ref</span>
+<span class="sd">    :param preserve_order: if True, reorder aligned seqrecs to match input order.</span>
+<span class="sd">    :param **kwargs: additional arguments for alignment command</span>
+<span class="sd">    :returns: a MultipleSeqAlignment object with aligned sequences</span>
+
+<span class="sd">    :sa: https://mafft.cbrc.jp/alignment/software/</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">commandline</span><span class="p">(</span><span class="n">file_obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">cline</span> <span class="o">=</span> <span class="n">MafftCommandline</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">file_obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_generic_aligner_commandline_stdout</span><span class="p">(</span><span class="n">cline</span><span class="p">)</span>
+
+    <span class="c1"># MAFFT does not reorder alignment by default (reorder=False), but don&#39;t overwrite &#39;reorder&#39; if set</span>
+    <span class="k">if</span> <span class="s2">&quot;reorder&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;reorder&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">preserve_order</span>
+    <span class="k">return</span> <span class="n">_generic_alignment</span><span class="p">(</span><span class="n">commandline</span><span class="p">,</span> <span class="n">seqrecs</span><span class="p">,</span> <span class="n">preserve_order</span><span class="o">=</span><span class="n">preserve_order</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="seqlike.alignment_commands.muscle_alignment" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">muscle_alignment</span><span class="p">(</span><span class="n">seqrecs</span><span class="p">,</span> <span class="n">preserve_order</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Align sequences using Muscle 3.8.</p>
+<p>Notes:</p>
+<ol>
+<li>Muscle's latest version is version 5.1. However, the interface is different from version 3.8
+   BioPython's MuscleCommandline is only compatible with version 3.8.
+   See this comment for more information: https://github.com/modernatx/seqlike/pull/60#issue-1257542946</li>
+<li>The preserve_order parameter (preserves original sequence order,
+   as aligner may try to group sequences by similarity) may still be buggy.
+   Also see this comment for more information: https://github.com/modernatx/seqlike/pull/60#issue-1257542946</li>
+</ol>
+<p>:param seqrecs: a list or dict of SeqRecord that will be aligned to ref
+:param preserve_order: if True, reorder aligned seqrecs to match input order.
+:param **kwargs: additional arguments for alignment command
+:returns: a MultipleSeqAlignment object with aligned sequences</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/alignment_commands.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">muscle_alignment</span><span class="p">(</span><span class="n">seqrecs</span><span class="p">,</span> <span class="n">preserve_order</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Align sequences using Muscle 3.8.</span>
+
+<span class="sd">    Notes:</span>
+
+<span class="sd">    1. Muscle&#39;s latest version is version 5.1. However, the interface is different from version 3.8</span>
+<span class="sd">       BioPython&#39;s MuscleCommandline is only compatible with version 3.8.</span>
+<span class="sd">       See this comment for more information: https://github.com/modernatx/seqlike/pull/60#issue-1257542946</span>
+<span class="sd">    2. The preserve_order parameter (preserves original sequence order,</span>
+<span class="sd">       as aligner may try to group sequences by similarity) may still be buggy.</span>
+<span class="sd">       Also see this comment for more information: https://github.com/modernatx/seqlike/pull/60#issue-1257542946</span>
+
+<span class="sd">    :param seqrecs: a list or dict of SeqRecord that will be aligned to ref</span>
+<span class="sd">    :param preserve_order: if True, reorder aligned seqrecs to match input order.</span>
+<span class="sd">    :param **kwargs: additional arguments for alignment command</span>
+<span class="sd">    :returns: a MultipleSeqAlignment object with aligned sequences</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">commandline</span><span class="p">(</span><span class="n">file_obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">cline</span> <span class="o">=</span> <span class="n">MuscleCommandline</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">file_obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_generic_aligner_commandline_stdout</span><span class="p">(</span><span class="n">cline</span><span class="p">)</span>
+
+    <span class="c1"># Muscle reorders alignment by default, but don&#39;t overwrite &#39;group&#39; if already set</span>
+    <span class="k">if</span> <span class="s2">&quot;group&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;group&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">preserve_order</span>
+    <span class="k">return</span> <span class="n">_generic_alignment</span><span class="p">(</span><span class="n">commandline</span><span class="p">,</span> <span class="n">seqrecs</span><span class="p">,</span> <span class="n">preserve_order</span><span class="o">=</span><span class="n">preserve_order</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="seqlike.alignment_commands.pad_seq_records_for_alignment" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">pad_seq_records_for_alignment</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span></code>
+
+
+</h2>
+
+    <div class="doc doc-contents ">
+
+      <p>Pad sequences so that lengths match for multiple sequence alignment.</p>
+<p>:param seqs: a list of SeqLikeType
+:returns: a MultipleSeqAlignment object</p>
+
+        <details class="quote">
+          <summary>Source code in <code>seqlike/alignment_commands.py</code></summary>
+          <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">pad_seq_records_for_alignment</span><span class="p">(</span><span class="n">seqs</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">SeqLikeType</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Pad sequences so that lengths match for multiple sequence alignment.</span>
+
+<span class="sd">    :param seqs: a list of SeqLikeType</span>
+<span class="sd">    :returns: a MultipleSeqAlignment object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;seqs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">SeqLike</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">seq_type</span><span class="o">=</span><span class="s2">&quot;aa&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">seqs</span><span class="p">]})</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">seqs</span><span class="o">.</span><span class="n">seq</span><span class="o">.</span><span class="n">as_alignment</span><span class="p">()</span>
+</code></pre></div>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../align_commandline/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Alignment Command-Line Bridge" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Alignment Command-Line Bridge
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../alignment_utils/" class="md-footer__link md-footer__link--next" aria-label="Next: Alignment Utilities" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Alignment Utilities
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["instant", "tabs"], "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      
+    
+  </body>
+</html>
